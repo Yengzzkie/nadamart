@@ -1,4 +1,6 @@
+"use client"
 import * as React from 'react';
+import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,7 +15,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Fashion', 'Electronics', 'Hobbies', 'Toys', 'Appliances'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navigation() {
@@ -51,11 +53,11 @@ function Navigation() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.05rem',
-              color: 'inherit',
+              color: '#1976d2',
               textDecoration: 'none',
             }}
           >
-            NadaMart
+            <Link href={"/"}>NadaMart</Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -65,7 +67,7 @@ function Navigation() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="#1976d2"
             >
               <MenuIcon />
             </IconButton>
@@ -109,7 +111,7 @@ function Navigation() {
               textDecoration: 'none',
             }}
           >
-            NadaMart
+            <Link href={"/"}>NadaMart</Link>
           </Typography>
           <Box className='px-6' sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (

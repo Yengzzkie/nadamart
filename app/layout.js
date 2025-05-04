@@ -1,5 +1,6 @@
-// import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navigation from "@/components/Navigation";
+import SearchBar from "@/components/SearchBar";
 
 export const metadata = {
   title: "NadaMart",
@@ -9,7 +10,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={``}>
+      <body className={`lg:px-40`}>
+        <Navigation />
+        <SearchBar />
         {children}
       </body>
     </html>
