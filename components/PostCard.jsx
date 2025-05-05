@@ -46,7 +46,7 @@ export default function PostCard({ data }) {
         subheader="September 14, 2016"
       />
       <CardMedia
-        sx={{ maxHeight: "200px", objectFit: "cover" }}
+        sx={{ height: { xs: '150px', md: '300px' }, objectFit: "cover" }}
         component="img"
         // height="190"
         image={data.images?.[0]?.url || ""}
