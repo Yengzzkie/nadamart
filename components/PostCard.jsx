@@ -18,8 +18,6 @@ export default function PostCard({ data }) {
     return null;
   }
 
-  console.log(data);
-
   return (
     <Card
       sx={{
@@ -34,7 +32,7 @@ export default function PostCard({ data }) {
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-            R
+            {data.user[0].toUpperCase()}
           </Avatar>
         }
         action={
@@ -53,7 +51,7 @@ export default function PostCard({ data }) {
         alt="Paella dish"
       />
       <CardContent className="hidden lg:block">
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
+        <Typography variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2">
           {data.description}
         </Typography>
 

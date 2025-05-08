@@ -1,41 +1,73 @@
 [
   {
     "id": 1,
-    "name": "Item 1",
-    "description": "This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
-    "category": "Category A",
-    "tags": ["tag1", "tag2"],
+    "name": "Digital Camera",
+    "description": "Giving away a gently used Canon EOS Rebel T6 DSLR Camera (with 18-55mm kit lens). Still in great working condition – ideal for someone getting into photography or looking for a backup camera.",
+    "category": "Hobby",
+    "tags": ["camera", "dslr", "photography"],
     "images": [
       {
-        "url": "https://images.unsplash.com/photo-1744190070186-ceeba324c2d6?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "url": "https://images.unsplash.com/photo-1536632087471-3cf3f2986328?q=80&w=3552&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "alt": "Image 1"
       },
       {
-        "url": "https://images.unsplash.com/photo-1745179178656-5d2795ec5d31?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "url": "https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1495707902641-75cac588d2e9?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1616088886430-ccd86fef0713?q=80&w=3749&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "alt": "Image 2"
       }
     ],
     "date_posted": "2023-10-01",
-    "user": "User 1"
+    "user": "iamtheoneandonly"
   },
   {
     "id": 2,
-    "name": "Item 2",
-    "description": "A delicious handmade pasta dish made with love and fresh ingredients. Great for family dinners.",
-    "category": "Category B",
-    "tags": ["pasta", "homemade"],
+    "name": "Laptop",
+    "description": "Giving away a fully functional Apple Macbook laptop. It’s been lightly used and still runs well — ideal for basic tasks like browsing, streaming, schoolwork, or light office use.",
+    "category": "Electronics",
+    "tags": ["laptop", "computer", "electronics"],
     "images": [
       {
-        "url": "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3",
-        "alt": "Pasta Dish"
+        "url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=3544&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 1"
       },
       {
-        "url": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3",
-        "alt": "Fresh Ingredients"
+        "url": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://plus.unsplash.com/premium_photo-1681160405580-a68e9c4707f9?q=80&w=3465&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1542744095-291d1f67b221?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1504707748692-419802cf939d?q=80&w=3494&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?q=80&w=3546&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Image 2"
       }
     ],
     "date_posted": "2023-10-03",
-    "user": "User 2"
+    "user": "freemacbookforyou619"
   },
   {
     "id": 3,
@@ -54,7 +86,7 @@
       }
     ],
     "date_posted": "2023-10-05",
-    "user": "User 3"
+    "user": "PixelPineapple42"
   },
   {
     "id": 4,
@@ -73,45 +105,73 @@
       }
     ],
     "date_posted": "2023-10-07",
-    "user": "User 4"
+    "user": "SleepyOtterXD"
   },
   {
     "id": 5,
-    "name": "Item 5",
-    "description": "This minimalist desk lamp brings elegance and function together for your modern workspace.",
-    "category": "Category D",
-    "tags": ["lamp", "desk", "lighting"],
+    "name": "Free tools",
+    "description": "Giving away a set of free tools in good working condition. Perfect for DIY projects, home repairs, or anyone just getting started with their toolkit. Tools may include basic hand tools like screwdrivers, wrenches, pliers, or utility items. No strings attached — just hoping they go to someone who’ll put them to good use!",
+    "category": "Tools",
+    "tags": ["tools", "diy", "hammer"],
     "images": [
       {
         "url": "https://images.unsplash.com/reserve/oIpwxeeSPy1cnwYpqJ1w_Dufer%20Collateral%20test.jpg?q=80&w=3715&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "alt": "Desk Lamp"
       },
       {
-        "url": "https://images.unsplash.com/photo-1532952398087-279d34a48a04?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3",
+        "url": "https://images.unsplash.com/photo-1606676539940-12768ce0e762?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Workspace"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1581166397057-235af2b3c6dd?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Desk Lamp"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1599256631012-9c2b32bfa8bc?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Workspace"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1554825959-e9a6670d4f18?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "alt": "Workspace"
       }
     ],
     "date_posted": "2023-10-09",
-    "user": "User 5"
+    "user": "QuantumSoup99"
   },
   {
     "id": 6,
-    "name": "Item 6",
-    "description": "Eco-friendly reusable water bottles that keep your drink cold or hot for hours.",
+    "name": "Reusable Water Bottle",
+    "description": "Eco-friendly reusable water bottles that keep your drink cold or hot for hours. Free for those who need it! First come, first served.",
     "category": "Category B",
     "tags": ["eco", "bottle", "hydration"],
     "images": [
       {
-        "url": "https://images.unsplash.com/photo-1516690962695-bd573a42a487?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "url": "https://plus.unsplash.com/premium_photo-1664527305901-db3d4e724d15?q=80&w=3539&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "alt": "Reusable Bottle"
       },
       {
-        "url": "https://images.unsplash.com/photo-1588776814546-318f56a6c3db?q=80&w=3687&auto=format&fit=crop&ixlib=rb-4.0.3",
+        "url": "https://images.unsplash.com/photo-1625708458528-802ec79b1ed8?q=80&w=3164&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         "alt": "Outdoor Bottle"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1598443043897-4c07cdcf442b?q=80&w=3560&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Desk Lamp"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1605714312496-01e90cb509cc?q=80&w=3328&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Workspace"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1556814086-bd749c2ceabd?q=80&w=3024&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Workspace"
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1618354691249-18772bbac3a5?q=80&w=2122&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        "alt": "Workspace"
       }
     ],
     "date_posted": "2023-10-11",
-    "user": "User 6"
+    "user": "RustyWaffleBot"
   },
   {
     "id": 7,
@@ -130,7 +190,7 @@
       }
     ],
     "date_posted": "2023-10-13",
-    "user": "User 7"
+    "user": "EchoChamberLlama"
   },
   {
     "id": 8,
@@ -149,6 +209,6 @@
       }
     ],
     "date_posted": "2023-10-15",
-    "user": "User 8"
+    "user": "BananaFirewall7"
   }
 ]
