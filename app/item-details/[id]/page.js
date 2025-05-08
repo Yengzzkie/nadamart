@@ -2,6 +2,7 @@
 import { useParams } from "next/navigation";
 import Carousel from "@/components/Carousel";
 import items from "@/items.json";
+import ExampleWrapper from "@/components/ImageModal";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
