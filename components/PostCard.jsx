@@ -27,11 +27,12 @@ export default function PostCard({ data }) {
         boxShadow: "none",
         ":hover": { boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" },
         cursor: "pointer",
+        padding: "1px",
       }}
     >
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: red[500], width: {xs: "25px", sm: "50px"}, height: {xs: "25px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"} }} aria-label="recipe">
             {data.user[0].toUpperCase()}
           </Avatar>
         }
@@ -41,10 +42,11 @@ export default function PostCard({ data }) {
           </IconButton>
         }
         title={data.user}
-        subheader="September 14, 2016"
+        subheader="3 days ago"
+        className="truncate"
       />
       <CardMedia
-        sx={{ height: { xs: '150px', md: '300px' }, objectFit: "cover" }}
+        sx={{ height: { xs: '150px', md: '300px' }, padding: "5px", borderRadius: "15px", objectFit: "cover" }}
         component="img"
         // height="190"
         image={data.images?.[0]?.url || ""}
