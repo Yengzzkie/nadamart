@@ -60,8 +60,13 @@ body {
 }
 
 .keen-slider__slide {
-  max-height: 500px;
+  max-height: 70vh;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    max-height: 400px;
+    
+  }
 
   img {
     object-fit: cover;
@@ -73,7 +78,15 @@ body {
 .thumbnail .keen-slider__slide {
   font-size: 30px;
   margin-top: 10px;
-  height: 100px;
+  height: 130px;
+
+  @media screen and (max-width: 768px) {
+    height: 100px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    height: 130px;
+  }
 }
 .thumbnail .keen-slider__slide {
   cursor: pointer;

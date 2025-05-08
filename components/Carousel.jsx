@@ -74,12 +74,6 @@ export default function Carousel({ itemData }) {
         {itemData.images?.map((item, index) => ( // replace the index with item.id later on
           <div key={index} className="keen-slider__slide "><img src={item.url} alt="" /></div>
         ))}
-        {/* <div className="keen-slider__slide "><img src="https://images.unsplash.com/photo-1536632087471-3cf3f2986328?q=80&w=3552&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></div>
-        <div className="keen-slider__slide "><img src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></div>
-        <div className="keen-slider__slide "><img src="https://images.unsplash.com/photo-1495707902641-75cac588d2e9?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></div>
-        <div className="keen-slider__slide "><img src="https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?q=80&w=3540&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></div>
-        <div className="keen-slider__slide "><img src="https://images.unsplash.com/photo-1452587925148-ce544e77e70d?q=80&w=3474&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></div>
-        <div className="keen-slider__slide "><img src="https://images.unsplash.com/photo-1616088886430-ccd86fef0713?q=80&w=3749&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" /></div> */}
       </div>
 
       <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} image={selectedImage} />
