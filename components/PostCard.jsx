@@ -47,7 +47,7 @@ export default function PostCard({ data }) {
         className="truncate"
       />
       <CardMedia
-        sx={{ height: { xs: '250px', md: '300px' }, padding: "5px", borderRadius: "15px", objectFit: "cover" }}
+        sx={{ height: { xs: '200px', md: '300px' }, padding: "5px", borderRadius: "15px", objectFit: "cover" }}
         component="img"
         // height="190"
         image={data.images?.[0]?.url || ""}

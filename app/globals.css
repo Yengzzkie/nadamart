@@ -81,7 +81,7 @@ body {
   height: 130px;
 
   @media screen and (max-width: 768px) {
-    height: 100px;
+    height: 70px;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
@@ -92,5 +92,5 @@ body {
   cursor: pointer;
 }
 .thumbnail .keen-slider__slide.active {
-  border: 2px dashed black;
+  border: 2px solid blue;
 }
