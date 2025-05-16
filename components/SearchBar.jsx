@@ -24,7 +24,7 @@ const SearchBar = () => {
           onClick={() => setSearchValue("")}
         />
       </div>
-      <Button variant="contained">Search</Button>
+      <Button variant="contained" sx={{ bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>Search</Button>
     </div>
   );
 };

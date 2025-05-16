@@ -11,9 +11,7 @@ const PostsGrid = () => {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 lg:gap-4">
         {items.map((item) => (
           <div key={item.id}>
-            <Link href={`/item-details/${item.id}`}>
-              <PostCard data={item} />
-            </Link>
+            <PostCard data={item} />
           </div>
         ))}
       </div>

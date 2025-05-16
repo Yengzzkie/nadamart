@@ -32,7 +32,12 @@
       }
     ],
     "date_posted": "2023-10-01",
-    "user": "iamtheoneandonly"
+    "user": "iamtheoneandonly",
+    "location": {
+      "city": "Toronto",
+      "province": "Ontario",
+      "address": "100 Queen St W, Toronto, ON M5H 2N2"
+    }
   },
   {
     "id": 2,
@@ -67,7 +72,13 @@
       }
     ],
     "date_posted": "2023-10-03",
-    "user": "freemacbookforyou619"
+    "user": "freemacbookforyou619",
+    "location": {
+      "city": "Vancouver",
+      "province": "British Columbia",
+      "address": "800 Robson St, Vancouver, BC V6Z 2H7"
+    }
+
   },
   {
     "id": 3,
@@ -86,7 +97,12 @@
       }
     ],
     "date_posted": "2023-10-05",
-    "user": "PixelPineapple42"
+    "user": "PixelPineapple42",
+    "location": {
+      "city": "Calgary",
+      "province": "Alberta",
+      "address": "1221 2 St SW, Calgary, AB T2R 0W5"
+    }
   },
   {
     "id": 4,
@@ -105,7 +121,13 @@
       }
     ],
     "date_posted": "2023-10-07",
-    "user": "SleepyOtterXD"
+    "user": "SleepyOtterXD",
+    "location": {
+      "city": "Halifax",
+      "province": "Nova Scotia",
+      "address": "1800 Argyle St, Halifax, NS B3J 3N8"
+    }
+
   },
   {
     "id": 5,
@@ -136,7 +158,12 @@
       }
     ],
     "date_posted": "2023-10-09",
-    "user": "QuantumSoup99"
+    "user": "QuantumSoup99",
+    "location": {
+      "city": "Edmonton",
+      "province": "Alberta",
+      "address": "1 Sir Winston Churchill Square, Edmonton, AB T5J 2R7"
+    }
   },
   {
     "id": 6,
@@ -171,7 +198,13 @@
       }
     ],
     "date_posted": "2023-10-11",
-    "user": "RustyWaffleBot"
+    "user": "RustyWaffleBot",
+    "location": {
+      "city": "Ottawa",
+      "province": "Ontario",
+      "address": "111 Wellington St, Ottawa, ON K1A 0A9"
+    }
+
   },
   {
     "id": 7,
@@ -190,7 +223,13 @@
       }
     ],
     "date_posted": "2023-10-13",
-    "user": "EchoChamberLlama"
+    "user": "EchoChamberLlama",
+    "location": {
+      "city": "Ottawa",
+      "province": "Ontario",
+      "address": "111 Wellington St, Ottawa, ON K1A 0A9"
+    }
+
   },
   {
     "id": 8,
@@ -209,6 +248,12 @@
       }
     ],
     "date_posted": "2023-10-15",
-    "user": "BananaFirewall7"
+    "user": "BananaFirewall7",
+    "location": {
+      "city": "Ottawa",
+      "province": "Ontario",
+      "address": "111 Wellington St, Ottawa, ON K1A 0A9"
+    }
+
   }
 ]

@@ -72,7 +72,7 @@ export default function Carousel({ itemData }) {
 
       <div ref={thumbnailRef} className="keen-slider thumbnail">
         {itemData.images?.map((item, index) => ( // replace the index with item.id later on
-          <div key={index} className="keen-slider__slide "><img src={item.url} alt="" /></div>
+          <div key={index} className="keen-slider__slide "><div className="overlay"></div><img src={item.url} alt="" /></div>
         ))}
       </div>
 

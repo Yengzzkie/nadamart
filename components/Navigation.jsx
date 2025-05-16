@@ -15,12 +15,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
-const pages = ['Fashion', 'Electronics', 'Hobbies', 'Toys', 'Appliances'];
+const pages = [{ text: 'Home', link: "/" }, { text: 'Fashion', link: '/fashion' }, { text: 'Electronics', link: '/electronics' }, { text: 'Hobbies', link: '/hobbies' }, { text: 'Toys', link: '/toys' }, { text: 'Appliances', link: '/appliances' }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function Navigation() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -38,7 +39,7 @@ function Navigation() {
   };
 
   return (
-    <AppBar position="static" className='!bg-[#fff] !text-zinc-500 !shadow-none'>
+    <AppBar position="static" className='!bg-[#fff] !text-[var(--color-base-content)] !shadow-none'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <ShoppingBagIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -53,7 +54,7 @@ function Navigation() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.05rem',
-              color: '#1976d2',
+              color: 'var(--color-primary-content)',
               textDecoration: 'none',
             }}
           >
@@ -88,9 +89,11 @@ function Navigation() {
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
-                </MenuItem>
+                <Link href={page.link} >
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography sx={{ textAlign: 'center' }}>{page.text}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
@@ -107,7 +110,7 @@ function Navigation() {
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.05rem',
-              color: 'inherit',
+              color: 'var(--color-primary-content)',
               textDecoration: 'none',
             }}
           >
@@ -115,21 +118,36 @@ function Navigation() {
           </Typography>
           <Box className='px-6' sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Button
-                className='!font-normal hover:!underline !text-zinc-500'
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page}
-              </Button>
+              <Link key={page.text} href={page.link} >
+                <Button
+                  className='!font-normal hover:!underline !text-[var(--color-base-content)]'
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                >
+                  {page.text}
+                </Button>
+              </Link>
             ))}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              {isLoggedIn ? (
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              ) : (
+                <div className='flex gap-8 items-baseline'>
+                  <Link href={"/register"}>
+                    <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>Register</Typography>
+                  </Link>
+                  <Link href={"/login"}>
+                    <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>Login</Typography>
+                  </Link>
+                  <Button variant='contained' href={"/post"} sx={{ fontWeight: "bold", bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>
+                    Post
+                  </Button>
+                </div>
+              )}
             </Tooltip>
             <Menu
               sx={{ mt: '45px' }}
