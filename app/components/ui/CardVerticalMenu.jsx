@@ -86,20 +86,20 @@ export default function CardVerticalMenu() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
-          <EditIcon />
+          <EditIcon className='!text-[var(--color-primary-content)]' />
           Edit
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
-          <ChatBubble />
-          Message Giver
+          <ChatBubble className='!text-[var(--color-primary-content)]' />
+          Message Owner
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple>
-          <FavoriteIcon />
+          <FavoriteIcon className='!text-[var(--color-primary-content)]' />
           Save to Favorites
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
-          <MoreHorizIcon />
+          <MoreHorizIcon className='!text-[var(--color-primary-content)]' />
           More
         </MenuItem>
       </StyledMenu>

@@ -1,8 +1,8 @@
 import "./globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Navigation from "@/components/Navigation";
-import SearchBar from "@/components/SearchBar";
+import Navigation from "@/app/components/Navigation";
+import SearchBar from "@/app/components/SearchBar";
 
 export const metadata = {
   title: "NadaMart",
@@ -10,6 +10,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <body className={`lg:px-40`}>

@@ -2,8 +2,8 @@
 import React, { useState } from "react"
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
-import "../app/globals.css"
-import SpringModal from "@/components/ImageModal"
+import "@/app/globals.css"
+import SpringModal from "./ImageModal"
 
 function ThumbnailPlugin(mainRef) {
   return (slider) => {

@@ -1,6 +1,6 @@
 "use client";
-import PostsGrid from "@/components/PostsGrid";
-import Footer from "@/components/Footer";
+import PostsGrid from "@/app/components/PostsGrid";
+import Footer from "@/app/components/Footer";
 
 export default function Home() {
   return (

@@ -1,5 +1,6 @@
 "use client"
 import * as React from 'react';
+import { useIsLoggedInStore } from '@/stores/store';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -21,7 +22,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 function Navigation() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const { isLoggedIn } = useIsLoggedInStore();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -88,13 +90,24 @@ function Navigation() {
               onClose={handleCloseNavMenu}
               sx={{ display: { xs: 'block', md: 'none' } }}
             >
-              {pages.map((page) => (
-                <Link href={page.link} >
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography sx={{ textAlign: 'center' }}>{page.text}</Typography>
+              {isLoggedIn ? (
+                pages.map((page) => (
+                  <MenuItem key={page.text} onClick={handleCloseNavMenu}>
+                    <Link href={page.link} >
+                      <Typography textAlign="center" className='!font-normal hover:!underline !text-[var(--color-base-content)]'>{page.text}</Typography>
+                    </Link>
                   </MenuItem>
-                </Link>
-              ))}
+                ))
+              ) : (
+                <div className='flex flex-col gap-4 p-4'>
+                  <Link href={"/register"}>
+                    <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>Register</Typography>
+                  </Link>
+                  <Link href={"/login"}>
+                    <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>Login</Typography>
+                  </Link>
+                </div>
+              )}
             </Menu>
           </Box>
           <ShoppingBagIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -117,17 +130,18 @@ function Navigation() {
             <Link href={"/"}>NadaMart</Link>
           </Typography>
           <Box className='px-6' sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link key={page.text} href={page.link} >
-                <Button
-                  className='!font-normal hover:!underline !text-[var(--color-base-content)]'
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'white', display: 'block' }}
-                >
-                  {page.text}
-                </Button>
-              </Link>
-            ))}
+            {isLoggedIn && (
+              pages.map((page) => (
+                <Link key={page.text} href={page.link} >
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: 'var(--color-base-content)', display: 'block', fontWeight: "bold", "&:hover": { textDecoration: "underline" } }}
+                  >
+                    {page.text}
+                  </Button>
+                </Link>
+              ))
+            )}
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -143,9 +157,9 @@ function Navigation() {
                   <Link href={"/login"}>
                     <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>Login</Typography>
                   </Link>
-                  <Button variant='contained' href={"/post"} sx={{ fontWeight: "bold", bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>
+                  {/* <Button variant='contained' href={"/post"} sx={{ fontWeight: "bold", bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>
                     Post
-                  </Button>
+                  </Button> */}
                 </div>
               )}
             </Tooltip>

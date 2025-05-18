@@ -1,5 +1,4 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { FiAlertCircle } from "react-icons/fi";
 import { useState } from "react";
 
 const ExampleWrapper = () => {
