@@ -32,7 +32,7 @@ export default function CountrySelect({ formData, setFormData }) {
             {countryCallingCode}
           </Button>
         </MenuHandler>
-        <MenuList className="max-h-[20rem] max-w-[18rem]">
+        <MenuList className="max-h-[20rem] max-w-[18rem] overflow-scroll">
           {countries
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(({ name, flags, countryCallingCode }, index) => {
