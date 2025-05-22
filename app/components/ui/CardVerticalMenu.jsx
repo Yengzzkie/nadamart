@@ -1,13 +1,14 @@
+"use client";
+
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import { ChatBubble } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
-import { ChatBubble } from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 

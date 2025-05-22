@@ -1,6 +1,8 @@
 import { createClient } from '@/lib/supabase/client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
+import { useFileUploadStore } from '@/stores/store'
+import { v4 as uuidv4 } from "uuid";
 
 const supabase = createClient()
 
@@ -19,6 +21,7 @@ const useSupabaseUpload = (options) => {
   const [loading, setLoading] = useState(false)
   const [errors, setErrors] = useState([])
   const [successes, setSuccesses] = useState([])
+  const { setImgFiles } = useFileUploadStore()
 
   const isSuccess = useMemo(() => {
     if (errors.length === 0 && successes.length === 0) {
@@ -47,6 +50,7 @@ const useSupabaseUpload = (options) => {
 
     const newFiles = [...files, ...validFiles, ...invalidFiles]
 
+    setImgFiles(newFiles)
     setFiles(newFiles)
   }, [files, setFiles])
 

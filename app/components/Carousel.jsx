@@ -60,19 +60,19 @@ export default function Carousel({ itemData }) {
   return (
     <>
       <div ref={sliderRef} className="keen-slider">
-        {itemData.images?.map((item, index) => ( // replace the index with item.id later on
+        {itemData.map((image, index) => ( // replace the index with item.id later on
           <div key={index} className="keen-slider__slide ">
             <img onClick={() => {
               setIsOpen(true);
-              setSelectedImage(item.url);
-            }} src={item.url} alt="" />
+              setSelectedImage(image);
+            }} src={image} alt="" />
           </div>
         ))}
       </div>
 
       <div ref={thumbnailRef} className="keen-slider thumbnail">
-        {itemData.images?.map((item, index) => ( // replace the index with item.id later on
-          <div key={index} className="keen-slider__slide "><div className="overlay"></div><img src={item.url} alt="" /></div>
+        {itemData.map((image, index) => ( // replace the index with item.id later on
+          <div key={index} className="keen-slider__slide "><div className="overlay"></div><img src={image} alt="" /></div>
         ))}
       </div>
 

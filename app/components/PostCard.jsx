@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import { red } from "@mui/material/colors";
 import Link from "next/link";
@@ -34,7 +36,7 @@ export default function PostCard({ data }) {
         sx={{ padding: { xs: "10px", lg: "16px" } }}
         avatar={
           <Avatar sx={{ bgcolor: red[500], width: {xs: "25px", sm: "50px"}, height: {xs: "25px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"} }} aria-label="avatar">
-            {data.user[0].toUpperCase()}
+            {data.author.name[0].toUpperCase()}
           </Avatar>
         }
         action={
@@ -42,16 +44,16 @@ export default function PostCard({ data }) {
             <CardVerticalMenu />
           </IconButton>
         }
-        title={data.user}
+        title={data.author.name}
         subheader="3 days ago"
         className="truncate"
       />
       <Link href={`/item-details/${data.id}`}>
         <CardMedia
-          sx={{ height: { xs: '200px', md: '300px' }, padding: "5px", borderRadius: "15px", objectFit: "cover" }}
+          sx={{ height: { xs: '250px', md: '300px' }, padding: "5px", borderRadius: "15px", objectFit: "cover" }}
           component="img"
-          image={data.images?.[0]?.url || ""}
-          alt="Paella dish"
+          image={data.image[0] || ""}
+          alt={data.title}
         />
       </Link>
 
@@ -60,23 +62,23 @@ export default function PostCard({ data }) {
 
       <CardContent className="lg:block">
         <Typography variant="h6" sx={{ fontWeight: "bold", color: "text.primary" }} className="line-clamp-1">
-          {data.name}
+          {data.title}
         </Typography>
 
         <div className="flex items-start gap-.5 my-1 lg:my-2 ml-[-5px]">
           <LocationOnIcon sx={{ fontSize: "18px", color: "var(--color-primary-content)" }} />
-          <Typography variant="body2" sx={{ fontSize: "12px", fontWeight: "bold", color: "var(--color-base-content) !important" }}>{data.location.address}</Typography>
+          <Typography variant="body2" sx={{ fontSize: "12px", fontWeight: "bold", color: "var(--color-base-content) !important" }}>{data.location.city}, {data.location.country}</Typography>
         </div>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2">
-          {data.description}
+          {data.content}
         </Typography>
 
         <div className="hidden lg:flex items-start mt-4 gap-2">
           <Typography sx={{ color: "text.secondary", fontSize: "14px" }}>
             Tags:
           </Typography>
-          <Tag data={data.tags} />
+          {/* <Tag data={data.tags} /> */}
         </div>
       </CardContent>
 

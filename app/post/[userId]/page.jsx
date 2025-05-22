@@ -1,0 +1,92 @@
+"use client";
+import { useRef, useState } from "react";
+import { useFileUploadStore } from "@/stores/store";
+import { useParams } from "next/navigation";
+import axios from "axios";
+import ImageUploader from "@/app/components/ImageUploader";
+import QuillEditor from "@/app/components/QuillEditor";
+
+const Page = () => {
+  const { userId } = useParams();
+  const { imgFiles } = useFileUploadStore();
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const uploaderRef = useRef(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const baseUrl = "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
+      const fullUrls = imgFiles.map((file) => {
+        const fileName = typeof file === "string" ? file : file.name;
+        return `${baseUrl}/${userId}/${fileName}`;
+      });
+
+      const formData = {
+        authorId: userId,
+        title,
+        content,
+        location: { city: "Oshawa", country: "Canada" },
+        image: fullUrls,
+      };
+
+      const response = await axios.post("/api/posts", formData);
+      await uploaderRef.current?.onUpload();
+
+      console.log(response);
+    } catch (error) {
+      console.error("Error uploading post:", error);
+    } finally {
+      setTitle("");
+      setContent("");
+    }
+
+  };
+
+  const toolbar = [
+    [{ size: ["small", false, "large", "huge"] }],
+    [{ font: [] }],
+    ["bold", "italic", "underline", "strike"],
+    [{ color: [] }, { background: [] }],
+    ["link"],
+    [{ list: "bullet" }],
+    [{ align: [] }],
+    [{ indent: "-1" }, { indent: "+1" }],
+  ];
+
+  return (
+    <div className="p-2">
+      <ImageUploader ref={uploaderRef} />
+
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Your title here..."
+          className="w-full px-4 py-2 border-[1px] text-zinc-600 bg-transparent rounded-lg"
+          required
+        />
+
+        <div className="mt-4 text-zinc-600 w-full">
+          <QuillEditor
+            value={content}
+            onChange={setContent}
+            toolbar={toolbar}
+            placeholder="Type your description here..."
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="mt-3 px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--primary-dark)] text-[var(--color-primary-content)] rounded-sm"
+        >
+          Publish
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Page;

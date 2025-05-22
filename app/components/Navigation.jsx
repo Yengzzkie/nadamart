@@ -1,4 +1,5 @@
 "use client";
+
 import * as React from "react";
 import { useIsLoggedInStore } from "@/stores/store";
 import Link from "next/link";
@@ -183,7 +184,7 @@ function Navigation() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               {isLoggedIn ? (
-                <>
+                <div>
                   <Button
                     variant="contained"
                     href={"/post"}
@@ -202,7 +203,7 @@ function Navigation() {
                       src="/static/images/avatar/2.jpg"
                     />
                   </IconButton>
-                </>
+                </div>
               ) : (
                 <div className="flex gap-8 items-baseline">
                   <Link href={"/register"}>

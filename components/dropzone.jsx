@@ -67,8 +67,9 @@ const DropzoneContent = ({
     isSuccess,
   } = useDropzoneContext()
 
-  const exceedMaxFiles = files.length > maxFiles
 
+  const exceedMaxFiles = files.length > maxFiles
+  
   const handleRemoveFile = useCallback((fileName) => {
     setFiles(files.filter((file) => file.name !== fileName))
   }, [files, setFiles])
@@ -189,7 +190,7 @@ const DropzoneEmptyState = ({
           Drag and drop or{' '}
           <a
             onClick={() => inputRef.current?.click()}
-            className="underline cursor-pointer transition hover:text-foreground">
+            className="font-bold underline cursor-pointer transition hover:text-foreground">
             select {maxFiles === 1 ? `file` : 'files'}
           </a>{' '}
           to upload
