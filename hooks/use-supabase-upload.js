@@ -2,7 +2,6 @@ import { createClient } from '@/lib/supabase/client'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
 import { useFileUploadStore } from '@/stores/store'
-import { v4 as uuidv4 } from "uuid";
 
 const supabase = createClient()
 

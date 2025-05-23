@@ -169,12 +169,12 @@ body {
   max-height: 100vh;
 
   img {
-    object-fit: cover;
+    object-fit: contain;
   }
 }
 
 .keen-slider__slide {
-  max-height: 55vh;
+  max-height: 65vh;
   width: 100%;
   border-radius: 10px;
 

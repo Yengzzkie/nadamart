@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
 import Carousel from "@/app/components/Carousel";
+import DOMPurify from "dompurify";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
   const [itemData, setItemData] = useState(null);
+  const sanitizedContent = DOMPurify.sanitize(itemData?.content);
 
   async function fetchPostDetails() {
     try {
@@ -35,10 +37,10 @@ export default function ItemDetailsPage() {
 
       <Carousel itemData={itemData.image} />
 
-      <div className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start pt-8">
+      <div className="flex flex-col gap-[32px] row-start-2 pt-8">
         <div className="flex flex-col gap-3">
           <h4 className="text-xl font-semibold">Description</h4>
-          <p className="text-gray-600">{itemData.content}</p>
+          <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
       </div>
     </div>

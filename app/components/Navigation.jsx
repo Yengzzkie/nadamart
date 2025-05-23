@@ -1,7 +1,8 @@
 "use client";
 
-import * as React from "react";
-import { useIsLoggedInStore } from "@/stores/store";
+import { useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
+import axios from "axios";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,6 +17,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import Loader from "./ui/Loader";
 
 const pages = [
   { text: "Home", link: "/" },
@@ -25,13 +27,22 @@ const pages = [
   { text: "Toys", link: "/toys" },
   { text: "Appliances", link: "/appliances" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 
 function Navigation() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const { isLoggedIn } = useIsLoggedInStore();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [userData, setUserData] = useState(null);
+  const { data: session, status } = useSession();
+  const isLoggedIn = !!session?.user;
+
+  const settings = [
+    { text: "Profile", link: "/profile" },
+    { text: "Account", link: "/account" },
+    { text: "Post", link: `/post/${session?.user?.id}` },
+    { text: "Logout" },
+  ];
+
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -47,6 +58,24 @@ function Navigation() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  async function fetchUserData() {
+    console.log(session)
+    const id = session?.user?.id;
+
+    try {
+      const response = await axios.get(`/api/users/user?userId=${id}`);
+      setUserData(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    if (session?.user?.id) {
+      fetchUserData();
+    }
+  }, [isLoggedIn]);
 
   return (
     <AppBar
@@ -107,7 +136,7 @@ function Navigation() {
                     <Link href={page.link}>
                       <Typography
                         textAlign="center"
-                        className="!font-normal hover:!underline !text-[var(--color-base-content)]"
+                        className="hover:!underline !text-[var(--color-base-content)]"
                       >
                         {page.text}
                       </Typography>
@@ -183,24 +212,13 @@ function Navigation() {
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              {isLoggedIn ? (
-                <div>
-                  <Button
-                    variant="contained"
-                    href={"/post"}
-                    sx={{
-                      fontWeight: "bold",
-                      bgcolor: "var(--color-primary)",
-                      color: "var(--color-primary-content)",
-                      mr: 2,
-                    }}
-                  >
-                    Post
-                  </Button>
+              {status === "loading" ? (
+                <Loader />) : isLoggedIn ? 
+                (<div>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar
                       alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
+                      src={userData?.avatar || null}
                     />
                   </IconButton>
                 </div>
@@ -246,10 +264,20 @@ function Navigation() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: "center" }}>
-                    {setting}
-                  </Typography>
+                <MenuItem key={setting.text} onClick={handleCloseUserMenu}>
+                  {setting.text === "Logout" ? (
+                    <button onClick={() => signOut()}>
+                      <Typography sx={{ textAlign: "center" }}>
+                        {setting.text}
+                      </Typography>
+                    </button>
+                  ) : (
+                    <Link href={setting.link}>
+                      <Typography sx={{ textAlign: "center" }}>
+                        {setting.text}
+                      </Typography>
+                    </Link>
+                  )}
                 </MenuItem>
               ))}
             </Menu>

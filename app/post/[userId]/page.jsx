@@ -1,10 +1,19 @@
 "use client";
 import { useRef, useState } from "react";
 import { useFileUploadStore } from "@/stores/store";
-import { useParams } from "next/navigation";
+import { redirect, useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 import ImageUploader from "@/app/components/ImageUploader";
 import QuillEditor from "@/app/components/QuillEditor";
+
+const toolbar = [
+  [{ size: ["small", false, "large", "huge"] }],
+  ["bold", "italic", "underline", "strike"],
+  [{ color: [] }, { background: [] }],
+  ["link"],
+  [{ list: "bullet" }],
+];
 
 const Page = () => {
   const { userId } = useParams();
@@ -12,6 +21,11 @@ const Page = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const uploaderRef = useRef(null);
+  const session = useSession();
+
+  if (session.status === "unauthenticated") {
+    redirect("/login")
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,26 +48,13 @@ const Page = () => {
       const response = await axios.post("/api/posts", formData);
       await uploaderRef.current?.onUpload();
 
-      console.log(response);
     } catch (error) {
       console.error("Error uploading post:", error);
     } finally {
       setTitle("");
       setContent("");
     }
-
   };
-
-  const toolbar = [
-    [{ size: ["small", false, "large", "huge"] }],
-    [{ font: [] }],
-    ["bold", "italic", "underline", "strike"],
-    [{ color: [] }, { background: [] }],
-    ["link"],
-    [{ list: "bullet" }],
-    [{ align: [] }],
-    [{ indent: "-1" }, { indent: "+1" }],
-  ];
 
   return (
     <div className="p-2">

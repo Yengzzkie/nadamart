@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
+import { createClient } from '@/lib/supabase/client'
 import { cn } from "../utils/utils";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
@@ -10,6 +11,8 @@ import { Check, Eye, EyeOff, X } from "lucide-react";
 import Loader from "./ui/Loader";
 import axios from "axios";
 import CountrySelect from "./ui/CountrySelect";
+
+const supabase = createClient()
 
 const PASSWORD_REQUIREMENTS = [
   { regex: /.{8,}/, text: "At least 8 characters" },
@@ -50,6 +53,7 @@ const RegistrationForm = () => {
   const [error, setError] = useState(null);
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [avatarFile, setAvatarFile] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -57,6 +61,7 @@ const RegistrationForm = () => {
     location: {country: "", province: "", city: ""},
     mobile: "",
     confirmPassword: "",
+    avatar: ""
   });
   const router = useRouter();
 
@@ -120,7 +125,32 @@ const RegistrationForm = () => {
       //   }
 
       // send data to server
-      const response = await axios.post("/api/register", dataToSend);
+      let uploadedAvatarURL = "";
+      const defaultAvatar = "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/avatars//default-avatar.png";
+
+      if (avatarFile) {
+        const fileExt = avatarFile.name.split('.').pop();
+        const filePath = `avatars/${formData.email}-${Date.now()}.${fileExt}`;
+
+        const { data, error: uploadError } = await supabase.storage
+          .from('avatars')
+          .upload(filePath, avatarFile);
+
+        if (uploadError) {
+          setError(["Failed to upload avatar. Try again."]);
+          setLoading(false);
+          return;
+        }
+
+        const { data: publicUrlData } = supabase
+          .storage
+          .from('avatars')
+          .getPublicUrl(filePath);
+
+        uploadedAvatarURL = publicUrlData.publicUrl;
+      }
+
+      const response = await axios.post("/api/register", {...dataToSend, avatar: uploadedAvatarURL === "" ? defaultAvatar : uploadedAvatarURL});
 
       // redirect to success page if registration is successful
       if (response) {
@@ -146,6 +176,11 @@ const RegistrationForm = () => {
     //   const res = await fetch("https://api.db-ip.com/v2/free/self");
     //   const loc = await res.json();
 
+      if (name === "avatar" && e.target.files.length > 0) {
+        setAvatarFile(e.target.files[0]);
+        return;
+      }
+    
       setFormData((prevFormData) => {
         const updatedFormData = {
           ...prevFormData,
@@ -195,6 +230,18 @@ const RegistrationForm = () => {
               placeholder="Your name"
               type="text"
               name="name"
+              className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
+            />
+          </LabelInputContainer>
+
+          <LabelInputContainer>
+            <Label htmlFor="avatar">Avatar</Label>
+            <Input
+              onChange={handleInputChange}
+              id="avatar"
+              placeholder="Upload image"
+              type="file"
+              name="avatar"
               className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
             />
           </LabelInputContainer>

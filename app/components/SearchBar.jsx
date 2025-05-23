@@ -1,16 +1,13 @@
 "use client";
 import { useState } from "react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { useIsLoggedInStore } from "@/stores/store";
 import Button from '@mui/material/Button';
 
 const SearchBar = () => {
   const [searchValue, setSearchValue] = useState("");
-  const { isLoggedIn } = useIsLoggedInStore();
 
   return (
     <>
-      {isLoggedIn && (
         <div className="flex items-center gap-2 border-y-[1px] border-zinc-300 w-full px-4">
         <div className="relative flex bg-[#f0f1f1] w-full px-4 rounded-sm my-4">
           <MagnifyingGlassIcon className="w-6 bg-[var(--primary-light)] pl-2" />
@@ -30,7 +27,6 @@ const SearchBar = () => {
         </div>
         <Button variant="contained" sx={{ bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>Search</Button>
       </div>
-      )}
     </>
   );
 };

@@ -1,10 +1,17 @@
 import prisma from "@/db/prismaClient";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(request) {
   try {
-    const response = await prisma.user.findMany();
+    const { searchParams } = new URL(request.url);
+    const userId = searchParams.get("userId");
+    console.log(userId);
 
+    const response = await prisma.user.findUnique({
+        where: { id: userId }
+    });
+
+    console.log(response);
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Error fetching users:", error);

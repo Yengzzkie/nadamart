@@ -7,7 +7,6 @@ export async function GET(_request) {
       include: { author: true }
     });
 
-    console.log(response);
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Error fetching posts:", error);

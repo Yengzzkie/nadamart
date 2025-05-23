@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { red } from "@mui/material/colors";
 import Link from "next/link";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
@@ -9,13 +8,15 @@ import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
+import DOMPurify from "dompurify";
 import Tag from "./ui/Tag";
 
 export default function PostCard({ data }) {
+  const sanitizedContent = DOMPurify.sanitize(data?.content);
+
   if (!data) {
     return null;
   }
@@ -25,8 +26,8 @@ export default function PostCard({ data }) {
       sx={{
         backgroundColor: "var(--color-base-100)",
         height: "100%",
-        border: {  xs: ".5px solid var(--color-base-300)", sm: "1.5px solid var(--color-base-300)" },
-        borderRadius: { xs: 0, sm: 3 },
+        border: {  xs: ".5px solid var(--color-base-300)", sm: "1px solid var(--color-base-300)" },
+        borderRadius: { xs: 0, md: 3 },
         boxShadow: "0",
         ":hover": { boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" },
         padding: "1px",
@@ -35,15 +36,9 @@ export default function PostCard({ data }) {
       <CardHeader
         sx={{ padding: { xs: "10px", lg: "16px" } }}
         avatar={
-          <Avatar sx={{ bgcolor: red[500], width: {xs: "25px", sm: "50px"}, height: {xs: "25px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"} }} aria-label="avatar">
-            {data.author.name[0].toUpperCase()}
-          </Avatar>
+          <Avatar src={data.author.avatar} sx={{ width: {xs: "30px", sm: "50px"}, height: {xs: "30px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"}, mr: "0px !important" }} aria-label="avatar" />
         }
-        action={
-          <IconButton aria-label="settings">
-            <CardVerticalMenu />
-          </IconButton>
-        }
+        action={<CardVerticalMenu />}
         title={data.author.name}
         subheader="3 days ago"
         className="truncate"
@@ -71,7 +66,7 @@ export default function PostCard({ data }) {
         </div>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2">
-          {data.content}
+          <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </Typography>
 
         <div className="hidden lg:flex items-start mt-4 gap-2">
