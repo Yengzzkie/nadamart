@@ -21,11 +21,11 @@ import Loader from "./ui/Loader";
 
 const pages = [
   { text: "Home", link: "/" },
-  { text: "Fashion", link: "/fashion" },
-  { text: "Electronics", link: "/electronics" },
-  { text: "Hobbies", link: "/hobbies" },
-  { text: "Toys", link: "/toys" },
-  { text: "Appliances", link: "/appliances" },
+  { text: "Fashion", link: "/" },
+  { text: "Electronics", link: "/" },
+  { text: "Hobbies", link: "/" },
+  { text: "Toys", link: "/" },
+  { text: "Appliances", link: "/" },
 ];
 
 
