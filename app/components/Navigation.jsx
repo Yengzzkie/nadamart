@@ -37,8 +37,8 @@ function Navigation() {
   const isLoggedIn = !!session?.user;
 
   const settings = [
-    { text: "Profile", link: "/profile" },
-    { text: "Account", link: "/account" },
+    { text: "Profile", link: "/" },
+    { text: "Account", link: "/" },
     { text: "Post", link: `/post/${session?.user?.id}` },
     { text: "Logout" },
   ];
