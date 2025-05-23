@@ -11,16 +11,25 @@ export const metadata = {
   description: "nothing for sale, everything for free",
 };
 
-export default async function RootLayout({ children }) {
-  const session = await auth();
+export default function RootLayout({ children }) {
+  // const session = await auth();
   // console.log(session);
+
+  const session = {
+    user: {
+      name: "Manuel",
+      email: "gatchalian.manuel@ymail.com",
+      id: "61a5baf6-7376-4f78-a155-646a456a83e3",
+    },
+    expires: "2025-06-22T23:24:01.104Z",
+  };
 
   return (
     <html lang="en">
       <body className={`lg:px-40`}>
-        <Provider session={session}>
+        <Provider>
           <Navigation session={session} />
-          { session && <SearchBar /> }
+          {session && <SearchBar />}
           {children}
         </Provider>
       </body>

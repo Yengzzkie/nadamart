@@ -59,7 +59,6 @@ function Navigation({ session }) {
   };
 
   async function fetchUserData() {
-    console.log(session)
     const id = session?.user?.id;
 
     try {
@@ -211,40 +210,31 @@ function Navigation({ session }) {
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              {status === "loading" ? (
-                <Loader />) : isLoggedIn ? 
-                (<div>
+            {session === undefined ? null : isLoggedIn ? (
+                <div>
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src={userData?.avatar || null}
-                    />
+                    <Avatar alt="User Avatar" src={userData?.avatar || null} />
                   </IconButton>
                 </div>
               ) : (
                 <div className="flex gap-8 items-baseline">
                   <Link href={"/register"}>
                     <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        color: "var(--color-primary-content)",
-                      }}
+                      sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}
                     >
                       Register
                     </Typography>
                   </Link>
                   <Link href={"/login"}>
                     <Typography
-                      sx={{
-                        fontWeight: "bold",
-                        color: "var(--color-primary-content)",
-                      }}
+                      sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}
                     >
                       Login
                     </Typography>
                   </Link>
                 </div>
               )}
+
             </Tooltip>
             <Menu
               sx={{ mt: "45px" }}
