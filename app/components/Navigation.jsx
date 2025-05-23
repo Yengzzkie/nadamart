@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -26,14 +26,13 @@ const pages = [
   { text: "Hobbies", link: "/" },
   { text: "Toys", link: "/" },
   { text: "Appliances", link: "/" },
-];
+]
 
-
-function Navigation() {
+function Navigation({ session }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userData, setUserData] = useState(null);
-  const { data: session, status } = useSession();
+  console.log(session);
   const isLoggedIn = !!session?.user;
 
   const settings = [
