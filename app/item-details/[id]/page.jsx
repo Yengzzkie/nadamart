@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import Carousel from "@/app/components/Carousel";
 import DOMPurify from "dompurify";
+import StaggeredDropDown from "@/app/components/StaggeredDropDown";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
@@ -29,6 +30,7 @@ export default function ItemDetailsPage() {
 
   return (
     <div className="min-h-screen flex flex-col p-4 lg:px-40 pt-10">
+      <StaggeredDropDown />
       <h1 className="text-2xl lg:text-4xl font-bold mb-4">{itemData.title}</h1>
       <p className="text-gray-600 mb-4 italic">
         Posted by:{" "}
