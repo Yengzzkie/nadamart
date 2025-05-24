@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { signOut, useSession, getSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -35,7 +35,7 @@ const settings = [
 ];
 
 function Navigation() {
-  const { data: session, status } = getSession();
+  const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userData, setUserData] = useState(null);

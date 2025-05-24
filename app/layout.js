@@ -20,8 +20,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={`lg:px-40`}>
         <Provider>
-          <Navbar/>
-          {/* <Navigation session={session} /> */}
+          <Navigation />
           {/* {session && <SearchBar />} */}
           {children}
         </Provider>
