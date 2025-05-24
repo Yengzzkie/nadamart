@@ -27,19 +27,19 @@ const pages = [
   { text: "Appliances", link: "/" },
 ];
 
-const settings = [
-  { text: "Profile", link: "#" },
-  { text: "Account", link: "#" },
-  { text: "Post", link: "/post" },
-  { text: "Logout" },
-];
-
 function Navigation() {
   const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
+
+  const settings = [
+    { text: "Profile", link: "#" },
+    { text: "Account", link: "#" },
+    { text: "Post", link: `/post/${session?.user?.id}` },
+    { text: "Logout" },
+  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

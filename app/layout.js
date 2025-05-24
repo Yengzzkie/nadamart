@@ -4,8 +4,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Navigation from "@/app/components/Navigation";
 import SearchBar from "@/app/components/SearchBar";
 import { Provider } from "./components/SessionProvider";
-import { auth } from "./auth";
-import Navbar from "./components/Navbar";
 
 export const metadata = {
   title: "NadaMart",
@@ -13,15 +11,13 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // const session = await auth();
-  // console.log(session);
 
   return (
     <html lang="en">
       <body className={`lg:px-40`}>
         <Provider>
           <Navigation />
-          {/* {session && <SearchBar />} */}
+          <SearchBar />
           {children}
         </Provider>
       </body>

@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import ImageUploader from "@/app/components/ImageUploader";
 import QuillEditor from "@/app/components/QuillEditor";
+import { Label } from "@/app/components/ui/label";
 
 const toolbar = [
   [{ size: ["small", false, "large", "huge"] }],
@@ -63,10 +64,11 @@ const Page = () => {
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
+          name="title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Your title here..."
-          className="w-full px-4 py-2 border-[1px] text-zinc-600 bg-transparent rounded-lg"
+          className="w-full px-4 py-2 border-[1px] text-zinc-600 bg-transparent rounded-lg mt-4"
           required
         />
 
