@@ -12,18 +12,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  let session = null;
-
-  try {
-    session = await auth();
-  } catch (error) {
-    console.error("Error during auth:", error);
-    // Optional: fallback or continue without session
-  }
+  const session = await auth();
+  console.log(session);
 
   return (
     <html lang="en">
-      <body className="lg:px-40">
+      <body className={`lg:px-40`}>
         <Provider session={session}>
           <Navigation session={session} />
           {session && <SearchBar />}
