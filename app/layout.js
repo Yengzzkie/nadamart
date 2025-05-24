@@ -5,6 +5,7 @@ import Navigation from "@/app/components/Navigation";
 import SearchBar from "@/app/components/SearchBar";
 import { Provider } from "./components/SessionProvider";
 import { auth } from "./auth";
+import Navbar from "./components/Navbar";
 
 export const metadata = {
   title: "NadaMart",
@@ -19,7 +20,8 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={`lg:px-40`}>
         <Provider session={session}>
-          <Navigation session={session} />
+          <Navbar session={session} />
+          {/* <Navigation session={session} /> */}
           {session && <SearchBar />}
           {children}
         </Provider>
