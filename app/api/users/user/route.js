@@ -11,7 +11,6 @@ export async function GET(request) {
         where: { id: userId }
     });
 
-    console.log(response);
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Error fetching users:", error);

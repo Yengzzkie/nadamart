@@ -1,14 +1,9 @@
-// ImageUploader.jsx
 "use client";
-
 import { forwardRef, useImperativeHandle } from "react";
-import { Dropzone, DropzoneContent, DropzoneEmptyState } from "@/components/dropzone";
+import { Dropzone, DropzoneContent, DropzoneEmptyState } from "@/app/components/dropzone"
 import { useSupabaseUpload } from "@/hooks/use-supabase-upload";
-import { useParams } from "next/navigation";
 
-const ImageUploader = forwardRef((_props, ref) => {
-  const { userId } = useParams();
-
+const ImageUploader = forwardRef(({ userId }, ref) => {
   const uploadProps = useSupabaseUpload({
     bucketName: "images",
     path: userId,
@@ -30,6 +25,7 @@ const ImageUploader = forwardRef((_props, ref) => {
     </div>
   );
 });
+
 
 ImageUploader.displayName = "ImageUploader";
 export default ImageUploader;

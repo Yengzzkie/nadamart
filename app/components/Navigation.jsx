@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
@@ -12,11 +12,12 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
+import Loader from "./ui/Loader";
 
 const pages = [
   { text: "Home", link: "/" },
@@ -30,28 +31,15 @@ const pages = [
 function Navigation() {
   const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
-
-  const settings = [
-    { text: "Profile", link: "#" },
-    { text: "Account", link: "#" },
-    { text: "Post", link: `/post/${session?.user?.id}` },
-    { text: "Logout" },
-  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-  };
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   useEffect(() => {
@@ -77,7 +65,7 @@ function Navigation() {
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-              Loading...
+              <Loader />
             </Typography>
           </Toolbar>
         </Container>
@@ -202,39 +190,7 @@ function Navigation() {
             <Tooltip title="Open settings">
               {isLoggedIn ? (
                 <>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User Avatar" src={userData?.avatar || undefined} />
-                  </IconButton>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                    keepMounted
-                    transformOrigin={{ vertical: "top", horizontal: "right" }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {settings.map((setting) => (
-                      <MenuItem
-                        key={setting.text}
-                        onClick={() => {
-                          handleCloseUserMenu();
-                          if (setting.text === "Logout") signOut();
-                        }}
-                      >
-                        {setting.text === "Logout" ? (
-                          <Typography textAlign="center" sx={{ width: "100%", cursor: "pointer" }}>
-                            {setting.text}
-                          </Typography>
-                        ) : (
-                          <Link href={setting.link}>
-                            <Typography textAlign="center">{setting.text}</Typography>
-                          </Link>
-                        )}
-                      </MenuItem>
-                    ))}
-                  </Menu>
+                  <AvatarWithUserDropdown userData={userData} />
                 </>
               ) : (
                 <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>

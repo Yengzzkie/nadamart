@@ -1,6 +1,6 @@
 'use client';
 import { cn } from '@/lib/utils'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/app/components/ui/button'
 import { CheckCircle, File, Loader2, Upload, X } from 'lucide-react'
 import { createContext, useCallback, useContext } from 'react';
 
@@ -148,7 +148,7 @@ const DropzoneContent = ({
           {files.length - maxFiles > 1 ? 's' : ''}.
         </p>
       )}
-      {files.length > 0 && !exceedMaxFiles && (
+      {/* {files.length > 0 && !exceedMaxFiles && (
         <div className="mt-2">
           <Button
             variant="outline"
@@ -164,7 +164,7 @@ const DropzoneContent = ({
             )}
           </Button>
         </div>
-      )}
+      )} */}
     </div>)
   );
 }
