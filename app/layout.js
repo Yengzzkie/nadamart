@@ -13,16 +13,16 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await auth();
-  console.log(session);
+  // const session = await auth();
+  // console.log(session);
 
   return (
     <html lang="en">
       <body className={`lg:px-40`}>
-        <Provider session={session}>
-          <Navbar session={session} />
+        <Provider>
+          <Navbar/>
           {/* <Navigation session={session} /> */}
-          {session && <SearchBar />}
+          {/* {session && <SearchBar />} */}
           {children}
         </Provider>
       </body>
