@@ -25,3 +25,26 @@ export async function GET(request) {
     );
   }
 }
+
+export async function DELETE(request) {
+  const { searchParams } = new URL(request.url);
+  const postId = searchParams.get("postId");
+
+try {
+  const response = await prisma.post.delete({
+    where: { id: postId },
+  });
+
+  if (!response) {
+    return NextResponse.json({ error: "Post not found" }, { status: 404 });
+  }
+
+  return NextResponse.json(response, { status: 200 });
+} catch (error) {
+  console.error("Error deleting post:", error);
+  return NextResponse.json(
+    { error: "Failed to delete post" },
+    { status: 500 }
+  );
+}
+}

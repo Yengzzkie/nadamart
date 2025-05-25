@@ -33,7 +33,7 @@ function Navigation() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
-  console.log(session)
+
   const settings = [
     { text: "Profile", link: "#" },
     { text: "Account", link: "#" },

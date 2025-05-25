@@ -11,6 +11,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Divider from '@mui/material/Divider';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import axios from 'axios';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -55,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CardVerticalMenu() {
+export default function CardVerticalMenu({ data }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -64,6 +65,15 @@ export default function CardVerticalMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  async function deletePost() {
+    try {
+      const response = await axios.delete(`/api/posts/post?postId=${data?.id}`);
+      console.log(response);
+    } catch (error) {
+      console.error({ error })
+    }
+  }
 
   return (
     <div>
@@ -99,9 +109,9 @@ export default function CardVerticalMenu() {
           <FavoriteIcon className='!text-[var(--color-primary-content)]' />
           Save to Favorites
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={deletePost} disableRipple>
           <MoreHorizIcon className='!text-[var(--color-primary-content)]' />
-          More
+          Delete
         </MenuItem>
       </StyledMenu>
     </div>

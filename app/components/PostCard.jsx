@@ -1,12 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { getTimeAgo } from "../utils/getTimeAgo";
 import Link from "next/link";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -34,13 +34,13 @@ export default function PostCard({ data }) {
       }}
     >
       <CardHeader
-        sx={{ padding: { xs: "10px", lg: "16px" } }}
+        sx={{ padding: { xs: "10px", lg: "16px" }}}
         avatar={
           <Avatar src={data.author.avatar} sx={{ width: {xs: "30px", sm: "50px"}, height: {xs: "30px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"}, mr: "0px !important" }} aria-label="avatar" />
         }
-        action={<CardVerticalMenu />}
+        action={<CardVerticalMenu data={data} />}
         title={data.author.name}
-        subheader="3 days ago"
+        subheader={`${getTimeAgo(data.createdAt)} ago`}
         className="truncate"
       />
       <Link href={`/item-details/${data.id}`}>
@@ -72,14 +72,6 @@ export default function PostCard({ data }) {
           {/* <Tag data={data.tags} /> */}
         </div>
       </CardContent>
-
-      <CardActions sx={{ padding: "0 8px" }} disableSpacing>
-        {/* <Tooltip title="Share">
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-        </Tooltip> */}
-      </CardActions>
     </Card>
   );
 }
