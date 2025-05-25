@@ -6,6 +6,7 @@ import axios from "axios";
 import Carousel from "@/app/components/Carousel";
 import DOMPurify from "dompurify";
 import StaggeredDropDown from "@/app/components/StaggeredDropDown";
+import GoogleMap from "@/app/components/GoogleMap";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
@@ -45,6 +46,8 @@ export default function ItemDetailsPage() {
           <div className="text-gray-600" dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
         </div>
       </div>
+
+      <GoogleMap location={itemData.location} />
     </div>
   );
 }
