@@ -2,11 +2,10 @@
 import { forwardRef, useImperativeHandle } from "react";
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from "@/app/components/dropzone"
 import { useSupabaseUpload } from "@/hooks/use-supabase-upload";
-import { useSearchParams } from "next/navigation";
+import { useParams } from "next/navigation";
 
 const ImageUploader = forwardRef((_props, ref) => {
-  const searchParams = useSearchParams();
-  const userId = searchParams.get('userId');
+  const { userId } = useParams();
 
   const uploadProps = useSupabaseUpload({
     bucketName: "images",
