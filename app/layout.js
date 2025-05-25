@@ -5,6 +5,8 @@ import Navigation from "@/app/components/Navigation";
 import SearchBar from "@/app/components/SearchBar";
 import Footer from "./components/Footer";
 import { Provider } from "./components/SessionProvider";
+import { Suspense } from "react";
+import Loader from "./components/ui/Loader";
 
 export const metadata = {
   title: "NadaMart",
@@ -18,7 +20,7 @@ export default async function RootLayout({ children }) {
         <Provider>
           <Navigation />
           <SearchBar />
-          {children}
+          <Suspense fallback={<Loader />}>{children}</Suspense>
           <Footer />
         </Provider>
       </body>
