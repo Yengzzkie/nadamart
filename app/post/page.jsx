@@ -23,7 +23,6 @@ const page = () => {
   const userId = searchParams.get('userId');
   const uploaderRef = useRef(null);
   const session = useSession();
-  console.log(session)
 
   if (session.status === "unauthenticated") {
     redirect("/login")

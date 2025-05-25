@@ -126,7 +126,7 @@ function Navigation() {
                   </MenuItem>
                 ))
               ) : (
-                <>
+                <div>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Link href="/register">
                       <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>
@@ -141,7 +141,7 @@ function Navigation() {
                       </Typography>
                     </Link>
                   </MenuItem>
-                </>
+                </div>
               )}
             </Menu>
           </Box>
