@@ -7,6 +7,7 @@ import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import ImageUploader from "@/app/components/ImageUploader";
 import QuillEditor from "@/app/components/QuillEditor";
+import Loader from "@/app/components/ui/Loader";
 
 const toolbar = [
   [{ size: ["small", false, "large", "huge"] }],
@@ -22,6 +23,7 @@ const Page = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const uploaderRef = useRef(null);
   const session = useSession();
 
@@ -31,7 +33,7 @@ const Page = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const baseUrl = "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
       const fullUrls = imgFiles.map((file) => {
@@ -53,6 +55,7 @@ const Page = () => {
     } catch (error) {
       console.error("Error uploading post:", error);
     } finally {
+      setIsLoading(false);
       setTitle("");
       setContent("");
       setIsSuccess(true);
@@ -104,9 +107,9 @@ const Page = () => {
 
         <button
           type="submit"
-          className="mt-3 ml-auto block px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-content)] text-[var(--color-primary-content)] hover:text-white rounded-sm w-full cursor-pointer"
+          className="flex justify-center mt-3 ml-auto px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-content)] text-[var(--color-primary-content)] hover:text-white rounded-sm w-full cursor-pointer"
         >
-          Publish
+          {isLoading ? <Loader /> : "Publish"}
         </button>
       </form>
     </div>

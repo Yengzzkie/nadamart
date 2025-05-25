@@ -1,8 +1,10 @@
 "use client";
 
 import * as React from 'react';
+import { useRouter } from 'next/navigation';
 import { styled, alpha } from '@mui/material/styles';
 import { ChatBubble } from '@mui/icons-material';
+import { deleteImages } from '@/app/utils/deleteImages';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -59,6 +61,8 @@ const StyledMenu = styled((props) => (
 export default function CardVerticalMenu({ data }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const router = useRouter();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -68,10 +72,13 @@ export default function CardVerticalMenu({ data }) {
 
   async function deletePost() {
     try {
-      const response = await axios.delete(`/api/posts/post?postId=${data?.id}`);
-      console.log(response);
+      deleteImages(data.image, data.authorId) // delete the images from the database
+
+      await axios.delete(`/api/posts/post?postId=${data?.id}`); // then delete the post
     } catch (error) {
       console.error({ error })
+    } finally {
+      router.push("/");
     }
   }
 
