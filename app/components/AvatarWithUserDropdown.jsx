@@ -43,7 +43,7 @@ const profileMenuItems = [
   {
     label: "Post",
     icon: LifebuoyIcon,
-    link: `/post`
+    link: `/post?userId=${userData?.id}`
   },
   {
     label: "Sign Out",

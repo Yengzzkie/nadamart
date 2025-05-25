@@ -84,7 +84,7 @@ const page = () => {
         </div>
 
         <label htmlFor="title" className="text-xl text-[var(--color-base-content)] m-2">Images</label>
-        <ImageUploader ref={uploaderRef} userId={userId} />
+        <ImageUploader ref={uploaderRef} />
 
         <button
           type="submit"
