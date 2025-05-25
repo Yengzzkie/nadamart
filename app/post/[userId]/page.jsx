@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import ImageUploader from "@/app/components/ImageUploader";
 import QuillEditor from "@/app/components/QuillEditor";
-import { Label } from "@/app/components/ui/label";
 
 const toolbar = [
   [{ size: ["small", false, "large", "huge"] }],
@@ -46,7 +45,7 @@ const Page = () => {
         image: fullUrls,
       };
 
-      const response = await axios.post("/api/posts", formData);
+      await axios.post("/api/posts", formData);
       await uploaderRef.current?.onUpload();
 
     } catch (error) {

@@ -12,11 +12,11 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
 
 const pages = [
   { text: "Home", link: "/" },
@@ -33,7 +33,7 @@ function Navigation() {
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
-
+  console.log(session)
   const settings = [
     { text: "Profile", link: "#" },
     { text: "Account", link: "#" },
@@ -202,39 +202,7 @@ function Navigation() {
             <Tooltip title="Open settings">
               {isLoggedIn ? (
                 <>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="User Avatar" src={userData?.avatar || undefined} />
-                  </IconButton>
-                  <Menu
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                    keepMounted
-                    transformOrigin={{ vertical: "top", horizontal: "right" }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {settings.map((setting) => (
-                      <MenuItem
-                        key={setting.text}
-                        onClick={() => {
-                          handleCloseUserMenu();
-                          if (setting.text === "Logout") signOut();
-                        }}
-                      >
-                        {setting.text === "Logout" ? (
-                          <Typography textAlign="center" sx={{ width: "100%", cursor: "pointer" }}>
-                            {setting.text}
-                          </Typography>
-                        ) : (
-                          <Link href={setting.link}>
-                            <Typography textAlign="center">{setting.text}</Typography>
-                          </Link>
-                        )}
-                      </MenuItem>
-                    ))}
-                  </Menu>
+                  <AvatarWithUserDropdown userData={userData} />
                 </>
               ) : (
                 <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>

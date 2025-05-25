@@ -11,7 +11,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
   return (
     <html lang="en">
       <body className={`lg:px-40`}>
