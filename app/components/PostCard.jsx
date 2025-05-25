@@ -53,8 +53,6 @@ export default function PostCard({ data }) {
       </Link>
 
       {/* DESCRIPTION SECTION */}
-
-
       <CardContent className="lg:block">
         <Typography variant="h6" sx={{ fontWeight: "bold", color: "text.primary" }} className="line-clamp-1">
           {data.title}
@@ -65,9 +63,7 @@ export default function PostCard({ data }) {
           <Typography variant="body2" sx={{ fontSize: "12px", fontWeight: "bold", color: "var(--color-base-content) !important" }}>{data.location.city}, {data.location.country}</Typography>
         </div>
 
-        <Typography variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2">
-          <div dangerouslySetInnerHTML={{ __html: sanitizedContent }} />
-        </Typography>
+        <Typography dangerouslySetInnerHTML={{ __html: sanitizedContent }} variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2" />
 
         <div className="hidden lg:flex items-start mt-4 gap-2">
           <Typography sx={{ color: "text.secondary", fontSize: "14px" }}>

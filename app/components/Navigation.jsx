@@ -189,9 +189,9 @@ function Navigation() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               {isLoggedIn ? (
-                <>
+                <div>
                   <AvatarWithUserDropdown userData={userData} />
-                </>
+                </div>
               ) : (
                 <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
                   <Link href="/register">

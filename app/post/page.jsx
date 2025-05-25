@@ -15,7 +15,7 @@ const toolbar = [
   [{ list: "bullet" }],
 ];
 
-const Page = () => {
+const page = () => {
   const { imgFiles } = useFileUploadStore();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -23,6 +23,7 @@ const Page = () => {
   const userId = searchParams.get('userId');
   const uploaderRef = useRef(null);
   const session = useSession();
+  console.log(session)
 
   if (session.status === "unauthenticated") {
     redirect("/login")
@@ -97,4 +98,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default page;
