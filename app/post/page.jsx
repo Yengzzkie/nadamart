@@ -19,8 +19,8 @@ const page = () => {
   const { imgFiles } = useFileUploadStore();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const searchParams = useSearchParams();
-  const userId = searchParams.get('userId');
+  // const searchParams = useSearchParams();
+  // const userId = searchParams.get('userId');
   const uploaderRef = useRef(null);
   const session = useSession();
 
