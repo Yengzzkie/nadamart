@@ -148,23 +148,6 @@ const DropzoneContent = ({
           {files.length - maxFiles > 1 ? 's' : ''}.
         </p>
       )}
-      {/* {files.length > 0 && !exceedMaxFiles && (
-        <div className="mt-2">
-          <Button
-            variant="outline"
-            onClick={onUpload}
-            disabled={files.some((file) => file.errors.length !== 0) || loading}>
-            {loading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Uploading...
-              </>
-            ) : (
-              <>Upload files</>
-            )}
-          </Button>
-        </div>
-      )} */}
     </div>)
   );
 }
@@ -180,9 +163,9 @@ const DropzoneEmptyState = ({
 
   return (
     (<div className={cn('flex flex-col items-center gap-y-2', className)}>
-      <Upload size={20} className="text-muted-foreground" />
+      <Upload size={20} className="text-muted-foreground cursor-pointer" onClick={() => inputRef.current?.click()} />
       <p className="text-sm">
-        Upload{!!maxFiles && maxFiles > 1 ? ` ${maxFiles}` : ''} file
+        Upload max of{!!maxFiles && maxFiles > 1 ? ` ${maxFiles}` : ''} file
         {!maxFiles || maxFiles > 1 ? 's' : ''}
       </p>
       <div className="flex flex-col items-center gap-y-1">
