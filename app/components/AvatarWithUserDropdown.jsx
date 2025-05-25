@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import {
   Avatar,
@@ -12,48 +12,47 @@ import {
 import {
   Cog6ToothIcon,
   InboxArrowDownIcon,
-  LifebuoyIcon,
   PowerIcon,
   UserCircleIcon,
+  PencilSquareIcon
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
- 
- 
+
 export default function AvatarWithUserDropdown({ userData }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   // profile menu component
-const profileMenuItems = [
-  {
-    label: "My Profile",
-    icon: UserCircleIcon,
-    link: "/"
-  },
-  {
-    label: "Edit Profile",
-    icon: Cog6ToothIcon,
-    link: "/"
-  },
-  {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-    link: "/"
-  },
-  {
-    label: "Post",
-    icon: LifebuoyIcon,
-    link: `/post?userId=${userData?.id}`
-  },
-  {
-    label: "Sign Out",
-    icon: PowerIcon,
-    link: ""
-  },
-];
- 
+  const profileMenuItems = [
+    {
+      label: "My Profile",
+      icon: UserCircleIcon,
+      link: "/",
+    },
+    {
+      label: "Edit Profile",
+      icon: Cog6ToothIcon,
+      link: "/",
+    },
+    {
+      label: "Inbox",
+      icon: InboxArrowDownIcon,
+      link: "/",
+    },
+    {
+      label: "Post",
+      icon: PencilSquareIcon,
+      link: `/post/${userData?.id}`,
+    },
+    {
+      label: "Sign Out",
+      icon: PowerIcon,
+      link: "",
+    },
+  ];
+
   const closeMenu = () => setIsMenuOpen(false);
- 
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -74,41 +73,40 @@ const profileMenuItems = [
         </Button>
       </MenuHandler>
       <MenuList className="p-2 text-zinc-500">
-      {profileMenuItems.map(({ label, icon, link }, key) => {
-        const isLastItem = key === profileMenuItems.length - 1;
-        const content = (
-          <MenuItem
-            onClick={isLastItem ? () => signOut() : closeMenu}
-            className={`flex items-center gap-2 rounded hover:bg-[var(--color-base-300)] mr-8 ${
-              isLastItem
-                ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
-                : ""
-            }`}
-          >
-            {React.createElement(icon, {
-              className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
-              strokeWidth: 2,
-            })}
-            <Typography
-              as="span"
-              variant="small"
-              className="font-normal my-3"
-              color={isLastItem ? "red" : "inherit"}
+        {profileMenuItems.map(({ label, icon, link }, key) => {
+          const isLastItem = key === profileMenuItems.length - 1;
+          const content = (
+            <MenuItem
+              onClick={isLastItem ? () => signOut() : closeMenu}
+              className={`flex items-center gap-2 rounded hover:bg-[var(--color-base-300)] mr-8 ${
+                isLastItem
+                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                  : ""
+              }`}
             >
-              {label}
-            </Typography>
-          </MenuItem>
-        );
+              {React.createElement(icon, {
+                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                strokeWidth: 2,
+              })}
+              <Typography
+                as="span"
+                variant="small"
+                className="font-normal my-3"
+                color={isLastItem ? "red" : "inherit"}
+              >
+                {label}
+              </Typography>
+            </MenuItem>
+          );
 
-        return isLastItem ? (
-          <div key={label}>{content}</div>
-        ) : (
-          <Link href={link} key={label}>
-            {content}
-          </Link>
-        );
-      })}
-
+          return isLastItem ? (
+            <div key={label}>{content}</div>
+          ) : (
+            <Link href={link} key={label}>
+              {content}
+            </Link>
+          );
+        })}
       </MenuList>
     </Menu>
   );

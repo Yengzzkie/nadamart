@@ -33,6 +33,13 @@ function Navigation() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
+  console.log(session)
+  const settings = [
+    { text: "Profile", link: "#" },
+    { text: "Account", link: "#" },
+    { text: "Post", link: `/post/${session?.user?.id}` },
+    { text: "Logout" },
+  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -189,9 +196,9 @@ function Navigation() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               {isLoggedIn ? (
-                <div>
+                <>
                   <AvatarWithUserDropdown userData={userData} />
-                </div>
+                </>
               ) : (
                 <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
                   <Link href="/register">
