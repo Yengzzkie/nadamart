@@ -3,22 +3,34 @@
 import PostCard from "./PostCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 const PostsGrid = () => {
   const [items, setItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function fetchPosts() {
+    setIsLoading(true);
+    
     try {
       const response = await axios.get("/api/posts");
       setItems(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  if (isLoading) {
+    return (
+      <LoadingSpinner open={ isLoading } />
+    );
+  }
 
   return (
     <div className="my-10 lg:px-0 px-1 w-full">
