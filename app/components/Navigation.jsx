@@ -18,6 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
 import Loader from "./ui/Loader";
+import { useStoreUserData } from "@/stores/store";
 
 const pages = [
   { text: "Home", link: "/" },
@@ -31,15 +32,9 @@ const pages = [
 function Navigation() {
   const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [userData, setUserData] = useState(null);
+  const { userData, setUserData } = useStoreUserData();
+  // const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
-
-  const settings = [
-    { text: "Profile", link: "#" },
-    { text: "Account", link: "#" },
-    { text: "Post", link: `/post/${session?.user?.id}` },
-    { text: "Logout" },
-  ];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -56,6 +51,7 @@ function Navigation() {
       try {
         const response = await axios.get(`/api/users/user?userId=${session.user.id}`);
         setUserData(response.data);
+        // setStoreUserData(response.data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -196,9 +192,9 @@ function Navigation() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               {isLoggedIn ? (
-                <>
+                <div>
                   <AvatarWithUserDropdown userData={userData} />
-                </>
+                </div>
               ) : (
                 <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
                   <Link href="/register">
