@@ -7,6 +7,7 @@ import Carousel from "@/app/components/Carousel";
 import DOMPurify from "dompurify";
 import StaggeredDropDown from "@/app/components/StaggeredDropDown";
 import GoogleMap from "@/app/components/GoogleMap";
+import SkeletonLoader from "@/app/components/ui/SkeletonLoader";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
@@ -27,10 +28,11 @@ export default function ItemDetailsPage() {
     if (id) fetchPostDetails();
   }, [id]);
 
-  if (!itemData) return <div className="p-4">Loading...</div>;
+  if (!itemData) return <div className="p-4"><SkeletonLoader /></div>;
 
   return (
     <div className="min-h-screen flex flex-col p-4 lg:px-40 pt-10">
+      
       <StaggeredDropDown />
       <h1 className="text-2xl lg:text-4xl font-bold mb-4">{itemData.title}</h1>
       <p className="text-gray-600 mb-4 italic">
