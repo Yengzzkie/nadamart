@@ -31,6 +31,7 @@ const Page = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [location, setLocation] = useState({ city: "", country: userData?.location?.country, postal_code: "" });
+  const [isEditCountry, setIsEditCountry] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -74,6 +75,10 @@ const Page = () => {
       setContent("");
     }
   };
+
+  function handleChangeCountry() {
+
+  }
 
   if (isSuccess) {
     return (
@@ -123,20 +128,27 @@ const Page = () => {
 
         {/* Location */}
         <ShadowedCard index={3} step="Set pickup/meetup location">
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-4 mb-4">
             <p className="text-[var(--color-base-content)]">
-              {location.city}, {location.country}
+              <TextField
+                label="Country"
+                variant="outlined"
+                disabled={!isEditCountry}
+                value={location.country}
+                onChange={(e) => setLocation({ ...location, country: e.target.value })}
+              />
             </p>
+            
             <button
               type="button"
-              onClick={() => alert("Location change feature pending...")}
+              onClick={() => setIsEditCountry(!isEditCountry)}
               className="text-blue-500 hover:text-blue-700"
             >
-              Change
+              {isEditCountry ? "Save" : "Edit"}
             </button>
           </div>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
             <TextField
               label="City"
               variant="outlined"
@@ -144,13 +156,15 @@ const Page = () => {
               onChange={(e) => setLocation({ ...location, city: e.target.value })}
             />
 
-            <p className="text-xs"><ErrorOutlineIcon fontSize="inherit" /> Enhance location by entering a Postal Code</p>
-            <TextField
-              label="Postal code"
-              variant="outlined"
-              value={location.postal_code}
-              onChange={(e) => setLocation({ ...location, postal_code: e.target.value })}
-            />
+            <div>
+              <p className="text-xs mb-2"><ErrorOutlineIcon fontSize="inherit" /> Enhance location by entering a Postal Code</p>
+              <TextField
+                label="Postal code"
+                variant="outlined"
+                value={location.postal_code}
+                onChange={(e) => setLocation({ ...location, postal_code: e.target.value })}
+              />
+            </div>
           </div>
 
           <GoogleMap location={location} />
