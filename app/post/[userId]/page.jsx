@@ -8,7 +8,13 @@ import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { useStoreUserData } from "@/stores/store";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import Accordion from "@mui/material/Accordion";
+import AccordionActions from "@mui/material/AccordionActions";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import ImageUploader from "@/app/components/ImageUploader";
 import QuillEditor from "@/app/components/QuillEditor";
 import Loader from "@/app/components/ui/Loader";
@@ -30,7 +36,11 @@ const Page = () => {
   const session = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [location, setLocation] = useState({ city: "", country: userData?.location?.country, postal_code: "" });
+  const [location, setLocation] = useState({
+    city: "",
+    country: userData?.location?.country,
+    postal_code: "",
+  });
   const [isEditCountry, setIsEditCountry] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,7 +56,8 @@ const Page = () => {
     setIsLoading(true);
 
     try {
-      const baseUrl = "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
+      const baseUrl =
+        "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
 
       const fullUrls = imgFiles.map((file) => {
         const fileName = typeof file === "string" ? file : file.name;
@@ -66,7 +77,6 @@ const Page = () => {
 
       setIsSuccess(true);
       setTimeout(() => redirect("/"), 2000);
-
     } catch (error) {
       console.error("Error uploading post:", error);
     } finally {
@@ -76,15 +86,15 @@ const Page = () => {
     }
   };
 
-  function handleChangeCountry() {
-
-  }
+  function handleChangeCountry() {}
 
   if (isSuccess) {
     return (
       <div className="flex flex-col items-center justify-center gap-6 p-8 h-[75vh]">
         <CheckBadgeIcon className="text-green-500 w-12 h-12" />
-        <p className="text-[var(--color-base-content)]">Ad posted successfully!</p>
+        <p className="text-[var(--color-base-content)]">
+          Ad posted successfully!
+        </p>
       </div>
     );
   }
@@ -95,7 +105,12 @@ const Page = () => {
         {/* Ad Details */}
         <ShadowedCard index={1} step="Ad details">
           <div className="flex flex-col gap-2">
-            <label htmlFor="title" className="text-2xl font-semibold text-zinc-600">Title</label>
+            <label
+              htmlFor="title"
+              className="text-2xl font-semibold text-zinc-600"
+            >
+              Title
+            </label>
             <input
               type="text"
               name="title"
@@ -108,7 +123,12 @@ const Page = () => {
           </div>
 
           <div className="flex flex-col gap-2 mt-6">
-            <label htmlFor="description" className="text-2xl font-semibold text-zinc-600">Description</label>
+            <label
+              htmlFor="description"
+              className="text-2xl font-semibold text-zinc-600"
+            >
+              Description
+            </label>
             <QuillEditor
               value={content}
               onChange={setContent}
@@ -121,7 +141,9 @@ const Page = () => {
         {/* Upload Images */}
         <ShadowedCard index={2} step="Upload images">
           <div className="flex flex-col gap-2">
-            <label className="text-2xl font-semibold text-zinc-600">Images</label>
+            <label className="text-2xl font-semibold text-zinc-600">
+              Images
+            </label>
             <ImageUploader ref={uploaderRef} />
           </div>
         </ShadowedCard>
@@ -129,16 +151,18 @@ const Page = () => {
         {/* Location */}
         <ShadowedCard index={3} step="Set pickup/meetup location">
           <div className="flex items-center gap-4 mb-4">
-            <p className="text-[var(--color-base-content)]">
+            <div className="text-[var(--color-base-content)]">
               <TextField
                 label="Country"
                 variant="outlined"
                 disabled={!isEditCountry}
                 value={location.country}
-                onChange={(e) => setLocation({ ...location, country: e.target.value })}
+                onChange={(e) =>
+                  setLocation({ ...location, country: e.target.value })
+                }
               />
-            </p>
-            
+            </div>
+
             <button
               type="button"
               onClick={() => setIsEditCountry(!isEditCountry)}
@@ -153,22 +177,79 @@ const Page = () => {
               label="City"
               variant="outlined"
               value={location.city}
-              onChange={(e) => setLocation({ ...location, city: e.target.value })}
+              onChange={(e) =>
+                setLocation({ ...location, city: e.target.value })
+              }
             />
 
             <div>
-              <p className="text-xs mb-2"><ErrorOutlineIcon fontSize="inherit" /> Enhance location by entering a Postal Code</p>
+              <p className="text-xs mb-2">
+                <ErrorOutlineIcon fontSize="inherit" /> Enhance location by
+                entering a Postal Code
+              </p>
               <TextField
                 label="Postal code"
                 variant="outlined"
                 value={location.postal_code}
-                onChange={(e) => setLocation({ ...location, postal_code: e.target.value })}
+                onChange={(e) =>
+                  setLocation({ ...location, postal_code: e.target.value })
+                }
               />
             </div>
           </div>
 
           <GoogleMap location={location} />
         </ShadowedCard>
+
+        {/* Additional details */}
+        <div>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <Typography component="span">Additional Details</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <ShadowedCard index={3} step="Set pickup/meetup location">
+                <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
+                  <TextField
+                    label="City"
+                    variant="outlined"
+                    value={location.city}
+                    onChange={(e) =>
+                      setLocation({ ...location, city: e.target.value })
+                    }
+                  />
+                </div>
+              </ShadowedCard>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1-content"
+              id="panel1-header"
+            >
+              <Typography component="span">Additional Details</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <ShadowedCard index={3} step="Set pickup/meetup location">
+                <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
+                  <TextField
+                    label="City"
+                    variant="outlined"
+                    value={location.city}
+                    onChange={(e) =>
+                      setLocation({ ...location, city: e.target.value })
+                    }
+                  />
+                </div>
+              </ShadowedCard>
+            </AccordionDetails>
+          </Accordion>
+        </div>
 
         {/* Submit Button */}
         <button
