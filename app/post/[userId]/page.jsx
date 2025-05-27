@@ -5,7 +5,6 @@ import { useFileUploadStore } from "@/stores/store";
 import { redirect, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
-import { useStoreUserData } from "@/stores/store";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Accordion from "@mui/material/Accordion";
@@ -20,6 +19,7 @@ import Loader from "@/app/components/ui/Loader";
 import ShadowedCard from "@/app/components/ui/ShadowedCard";
 import GoogleMap from "@/app/components/GoogleMap";
 import ConditionSelect from "@/app/components/ui/ConditionSelect";
+import TagSelect from "@/app/components/ui/TagSelect";
 
 const toolbar = [
   [{ size: ["small", false, "large", "huge"] }],
@@ -32,18 +32,16 @@ const toolbar = [
 const Page = () => {
   const { userId } = useParams();
   const { imgFiles } = useFileUploadStore();
-  const { userData } = useStoreUserData();
   const session = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [location, setLocation] = useState({
     city: "",
-    country: userData?.location?.country,
+    country: "Canada",
     postal_code: "",
   });
   const [contactNumber, setContactNumber] = useState("");
   const [condition, setCondition] = useState("NEW");
-  const [isEditCountry, setIsEditCountry] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -157,21 +155,10 @@ const Page = () => {
               <TextField
                 label="Country"
                 variant="outlined"
-                disabled={!isEditCountry}
+                disabled
                 value={location.country}
-                onChange={(e) =>
-                  setLocation({ ...location, country: e.target.value })
-                }
               />
             </div>
-
-            <button
-              type="button"
-              onClick={() => setIsEditCountry(!isEditCountry)}
-              className="text-blue-500 hover:text-blue-700"
-            >
-              {isEditCountry ? "Save" : "Edit"}
-            </button>
           </div>
 
           <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
@@ -211,22 +198,25 @@ const Page = () => {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <Typography component="span">Contact information</Typography>
+              <Typography component="span">
+                <div className="flex items-center pb-3 gap-2">
+                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{4}</span>
+                  <span className="font-bold">Contact Information</span>
+                </div>
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ShadowedCard index={4} step="Add contact number">
-                <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
-                  <TextField
-                    sx={{ width: "100%" }}
-                    label="Mobile Number (Optional)"
-                    variant="outlined"
-                    value={contactNumber}
-                    onChange={(e) =>
-                      setContactNumber(e.target.value)
-                    }
-                  />
-                </div>
-              </ShadowedCard>
+              <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
+                <TextField
+                  sx={{ width: "100%" }}
+                  label="Mobile Number (Optional)"
+                  variant="outlined"
+                  value={contactNumber}
+                  onChange={(e) =>
+                    setContactNumber(e.target.value)
+                  }
+                />
+              </div>
             </AccordionDetails>
           </Accordion>
           <Accordion>
@@ -235,14 +225,18 @@ const Page = () => {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <Typography component="span">Additional Details</Typography>
+              <Typography component="span" sx={{ width: "100%" }}>
+                <div className="flex items-center pb-3 gap-2">
+                    <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{5}</span>
+                    <span className="font-bold">Additional Details</span>
+                </div>
+              </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ShadowedCard index={5} step="Tell more about your item">
-                <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
-                  <ConditionSelect condition={condition} setCondition={setCondition} />
-                </div>
-              </ShadowedCard>
+              <div className="flex flex-col lg:flex-row items-start gap-4">
+                <ConditionSelect condition={condition} setCondition={setCondition} />
+                <TagSelect />
+              </div>
             </AccordionDetails>
           </Accordion>
         </div>
