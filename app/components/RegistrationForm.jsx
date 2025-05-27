@@ -58,7 +58,7 @@ const RegistrationForm = () => {
     name: "",
     email: "",
     password: "",
-    location: {country: "", province: "", city: ""},
+    // location: {country: "Canada", province: "", city: ""},
     mobile: "",
     confirmPassword: "",
     avatar: ""
