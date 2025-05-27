@@ -13,9 +13,11 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
 import DOMPurify from "dompurify";
 import Tag from "./ui/Tag";
+import DeleteModal from "./DeleteModal";
 
 export default function PostCard({ data }) {
   const sanitizedContent = DOMPurify.sanitize(data?.content);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   if (!data) {
     return null;
@@ -38,7 +40,7 @@ export default function PostCard({ data }) {
         avatar={
           <Avatar src={data.author.avatar} sx={{ width: {xs: "30px", sm: "50px"}, height: {xs: "30px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"}, mr: "0px !important" }} aria-label="avatar" />
         }
-        action={<CardVerticalMenu data={data} />}
+        action={<CardVerticalMenu data={data} isOpen={isOpen} setIsOpen={setIsOpen} />}
         title={data.author.name}
         subheader={`${getTimeAgo(data.createdAt)} ago`}
         className="truncate"
@@ -72,6 +74,8 @@ export default function PostCard({ data }) {
           {/* <Tag data={data.tags} /> */}
         </div>
       </CardContent>
+
+      <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} />
     </Card>
   );
 }

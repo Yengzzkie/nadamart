@@ -6,13 +6,13 @@ import {
     FiPlusSquare,
   } from "react-icons/fi";
   import { motion } from "framer-motion";
-  import { Dispatch, SetStateAction, useState } from "react";
+  import { useState } from "react";
   
   const StaggeredDropDown = () => {
     const [open, setOpen] = useState(false);
   
     return (
-      <motion.div animate={open ? "open" : "closed"} className="relative ml-auto z-[999]">
+      <motion.div animate={open ? "open" : "closed"} className="relative ml-auto mb-2 z-[99]">
         <button
           onClick={() => setOpen((pv) => !pv)}
           className="flex items-center gap-2 px-3 py-2 rounded-md text-[var(--color-primary-content)] bg-[var(--color-primary)] hover:bg-indigo-500 transition-colors"

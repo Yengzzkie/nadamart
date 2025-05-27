@@ -209,10 +209,10 @@ const RegistrationForm = () => {
     <div className="min-h-fit max-w-xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-[var(--color-base-100)] border-[var(--color-primary)] border-2">
       <h2 className="text-center font-bold text-xl text-[var(--color-base-content)]">
         <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">
-          NadaMart
+          NadaMart.
         </span>
-        <span className="text-[var(--color-primary-content)] text-xs font-thin">
-          V2
+        <span className="text-[var(--color-primary-content)] text-md font-thin">
+          ca
         </span>
       </h2>
       <p className="text-sm mt-2 text-[var(--color-base-content)] text-center">
@@ -260,9 +260,9 @@ const RegistrationForm = () => {
                 className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
               />
             </LabelInputContainer>
-            <LabelInputContainer className="mb-4">
+            {/* <LabelInputContainer className="mb-4">
               <Label htmlFor="email">Mobile</Label>
-              {/* <Input
+              <Input
                 onChange={handleInputChange}
                 value={formData.mobile}
                 id="mobile"
@@ -270,9 +270,9 @@ const RegistrationForm = () => {
                 type="telephone"
                 name="mobile"
                 className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
-              /> */}
+              />
                 <CountrySelect formData={formData} setFormData={setFormData} />
-            </LabelInputContainer>
+            </LabelInputContainer> */}
             
         </div>
 

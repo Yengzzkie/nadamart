@@ -9,7 +9,6 @@ import { useStoreUserData } from "@/stores/store";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Accordion from "@mui/material/Accordion";
-import AccordionActions from "@mui/material/AccordionActions";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
@@ -20,6 +19,7 @@ import QuillEditor from "@/app/components/QuillEditor";
 import Loader from "@/app/components/ui/Loader";
 import ShadowedCard from "@/app/components/ui/ShadowedCard";
 import GoogleMap from "@/app/components/GoogleMap";
+import ConditionSelect from "@/app/components/ui/ConditionSelect";
 
 const toolbar = [
   [{ size: ["small", false, "large", "huge"] }],
@@ -41,6 +41,8 @@ const Page = () => {
     country: userData?.location?.country,
     postal_code: "",
   });
+  const [contactNumber, setContactNumber] = useState("");
+  const [condition, setCondition] = useState("NEW");
   const [isEditCountry, setIsEditCountry] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,6 +72,8 @@ const Page = () => {
         content,
         location,
         image: fullUrls,
+        contact_number: contactNumber,
+        condition
       };
 
       await axios.post("/api/posts", formData);
@@ -85,8 +89,6 @@ const Page = () => {
       setContent("");
     }
   };
-
-  function handleChangeCountry() {}
 
   if (isSuccess) {
     return (
@@ -201,7 +203,7 @@ const Page = () => {
           <GoogleMap location={location} />
         </ShadowedCard>
 
-        {/* Additional details */}
+        {/* Contact information */}
         <div>
           <Accordion>
             <AccordionSummary
@@ -209,17 +211,18 @@ const Page = () => {
               aria-controls="panel1-content"
               id="panel1-header"
             >
-              <Typography component="span">Additional Details</Typography>
+              <Typography component="span">Contact information</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ShadowedCard index={3} step="Set pickup/meetup location">
+              <ShadowedCard index={4} step="Add contact number">
                 <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
                   <TextField
-                    label="City"
+                    sx={{ width: "100%" }}
+                    label="Mobile Number (Optional)"
                     variant="outlined"
-                    value={location.city}
+                    value={contactNumber}
                     onChange={(e) =>
-                      setLocation({ ...location, city: e.target.value })
+                      setContactNumber(e.target.value)
                     }
                   />
                 </div>
@@ -235,16 +238,9 @@ const Page = () => {
               <Typography component="span">Additional Details</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <ShadowedCard index={3} step="Set pickup/meetup location">
+              <ShadowedCard index={5} step="Tell more about your item">
                 <div className="flex flex-col lg:flex-row items-start lg:items-end gap-4">
-                  <TextField
-                    label="City"
-                    variant="outlined"
-                    value={location.city}
-                    onChange={(e) =>
-                      setLocation({ ...location, city: e.target.value })
-                    }
-                  />
+                  <ConditionSelect condition={condition} setCondition={setCondition} />
                 </div>
               </ShadowedCard>
             </AccordionDetails>

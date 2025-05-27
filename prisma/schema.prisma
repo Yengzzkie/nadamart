@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x", "linux-musl"]
 }
 
@@ -31,17 +31,18 @@ model User {
 }
 
 model Post {
-  id        String    @id @default(uuid())
-  title     String
-  content   String
-  condition Condition @default(USED_GOOD)
-  image     String[]
-  location  Json
-  authorId  String
-  author    User      @relation(fields: [authorId], references: [id])
-  comments  Comment[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id             String    @id @default(uuid())
+  title          String
+  content        String
+  contact_number String?
+  condition      Condition @default(USED_GOOD)
+  image          String[]
+  location       Json
+  authorId       String
+  author         User      @relation(fields: [authorId], references: [id])
+  comments       Comment[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Comment {

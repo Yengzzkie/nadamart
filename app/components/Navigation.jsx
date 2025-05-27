@@ -15,7 +15,6 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
 import Loader from "./ui/Loader";
 import { useStoreUserData } from "@/stores/store";
@@ -49,7 +48,9 @@ function Navigation() {
       if (!session?.user?.id) return;
 
       try {
-        const response = await axios.get(`/api/users/user?userId=${session.user.id}`);
+        const response = await axios.get(
+          `/api/users/user?userId=${session.user.id}`
+        );
         setUserData(response.data);
         // setStoreUserData(response.data);
       } catch (error) {
@@ -64,7 +65,10 @@ function Navigation() {
 
   if (status === "loading") {
     return (
-      <AppBar position="static" className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none">
+      <AppBar
+        position="static"
+        className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none"
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
@@ -77,23 +81,34 @@ function Navigation() {
   }
 
   return (
-    <AppBar position="static" className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none">
+    <AppBar
+      position="static"
+      className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none"
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <ShoppingBagIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
+              fontFamily: "inherit",
               fontWeight: 700,
               letterSpacing: ".05rem",
               color: "var(--color-primary-content)",
             }}
           >
-            <Link href="/">NadaMart</Link>
+            <Link href="/">
+              <h2 className="text-center font-bold text-xl text-[var(--color-base-content)]">
+                <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">
+                  NadaMart.
+                </span>
+                <span className="text-[var(--color-primary-content)] text-md font-thin">
+                  ca
+                </span>
+              </h2>
+            </Link>
           </Typography>
 
           {/* Mobile Menu Button */}
@@ -122,7 +137,10 @@ function Navigation() {
                 pages.map((page) => (
                   <MenuItem key={page.text} onClick={handleCloseNavMenu}>
                     <Link href={page.link}>
-                      <Typography textAlign="center" className="hover:!underline !text-[var(--color-base-content)]">
+                      <Typography
+                        textAlign="center"
+                        className="hover:!underline !text-[var(--color-base-content)]"
+                      >
                         {page.text}
                       </Typography>
                     </Link>
@@ -132,14 +150,24 @@ function Navigation() {
                 <div>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Link href="/register">
-                      <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bold",
+                          color: "var(--color-primary-content)",
+                        }}
+                      >
                         Register
                       </Typography>
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleCloseNavMenu}>
                     <Link href="/login">
-                      <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)" }}>
+                      <Typography
+                        sx={{
+                          fontWeight: "bold",
+                          color: "var(--color-primary-content)",
+                        }}
+                      >
                         Login
                       </Typography>
                     </Link>
@@ -150,7 +178,6 @@ function Navigation() {
           </Box>
 
           {/* Mobile Logo */}
-          <ShoppingBagIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -158,13 +185,22 @@ function Navigation() {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
+              fontFamily: "inherit",
               fontWeight: 700,
               letterSpacing: ".05rem",
               color: "var(--color-primary-content)",
             }}
           >
-            <Link href="/">NadaMart</Link>
+            <Link href="/">
+              <h2 className="text-center font-bold text-xl text-[var(--color-base-content)]">
+                <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">
+                  NadaMart.
+                </span>
+                <span className="text-[var(--color-primary-content)] text-md font-thin">
+                  ca
+                </span>
+              </h2>
+            </Link>
           </Typography>
 
           {/* Desktop Pages */}
@@ -198,12 +234,24 @@ function Navigation() {
               ) : (
                 <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
                   <Link href="/register">
-                    <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)", cursor: "pointer" }}>
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        color: "var(--color-primary-content)",
+                        cursor: "pointer",
+                      }}
+                    >
                       Register
                     </Typography>
                   </Link>
                   <Link href="/login">
-                    <Typography sx={{ fontWeight: "bold", color: "var(--color-primary-content)", cursor: "pointer" }}>
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                        color: "var(--color-primary-content)",
+                        cursor: "pointer",
+                      }}
+                    >
                       Login
                     </Typography>
                   </Link>
