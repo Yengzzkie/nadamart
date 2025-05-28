@@ -12,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
 import DOMPurify from "dompurify";
-import Tag from "./ui/Tag";
 import DeleteModal from "./DeleteModal";
 
 export default function PostCard({ data, fetchPosts }) {

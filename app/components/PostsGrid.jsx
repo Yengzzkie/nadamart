@@ -28,7 +28,6 @@ const PostsGrid = () => {
 
   useEffect(() => {
     fetchPosts();
-    console.log(page);
   }, [page]);
 
   return (

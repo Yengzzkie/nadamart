@@ -5,10 +5,10 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get("userId");
-    console.log(userId);
 
     const response = await prisma.user.findUnique({
-        where: { id: userId }
+        where: { id: userId },
+        include: { posts: true }
     });
 
     return NextResponse.json(response, { status: 200 });
