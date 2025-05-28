@@ -26,7 +26,7 @@ const conditions = [
   { text: 'For Parts', value: 'FOR_PARTS' },
   { text: 'For Repair', value: 'FOR_REPAIR' },
   { text: 'For Scrap', value: 'FOR_SCRAP' },
-  { text: 'For Recycle', value: 'FOR_RECYCLE' },
+  { text: 'For Recycling', value: 'FOR_RECYCLING' },
 ];
 
 function getStyles(name, selectedValue, theme) {

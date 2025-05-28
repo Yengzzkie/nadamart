@@ -35,6 +35,7 @@ model Post {
   content        String
   contact_number String?
   condition      Condition @default(USED_GOOD)
+  tags           String[]
   image          String[]
   location       Json
   authorId       String

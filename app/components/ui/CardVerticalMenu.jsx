@@ -10,7 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import EditIcon from "@mui/icons-material/Edit";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Divider from "@mui/material/Divider";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const StyledMenu = styled((props) => (
@@ -100,15 +100,18 @@ export default function CardVerticalMenu({ data, isOpen, setIsOpen }) {
             Edit
           </MenuItem>
         )}
-        <MenuItem onClick={handleClose} disableRipple>
-          <ChatBubble className="!text-[var(--color-primary-content)]" />
-          Message Owner
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <FavoriteIcon className="!text-[var(--color-primary-content)]" />
-          Save to Favorites
-        </MenuItem>
+        {!isAuthor && (
+          <MenuItem onClick={handleClose} disableRipple>
+            <ChatBubble className="!text-[var(--color-primary-content)]" />
+            Message Owner
+          </MenuItem>
+        )}
+        {!isAuthor && (
+          <MenuItem onClick={handleClose} disableRipple>
+            <FavoriteIcon className="!text-[var(--color-primary-content)]" />
+            Save to Favorites
+          </MenuItem>
+        )}
         {isAuthor && (
           <div>
             <Divider sx={{ my: 0.5 }} />

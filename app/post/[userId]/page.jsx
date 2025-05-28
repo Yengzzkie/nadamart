@@ -42,6 +42,7 @@ const Page = () => {
   });
   const [contactNumber, setContactNumber] = useState("");
   const [condition, setCondition] = useState("NEW");
+  const [tags, setTags] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -71,7 +72,8 @@ const Page = () => {
         location,
         image: fullUrls,
         contact_number: contactNumber,
-        condition
+        condition,
+        tags
       };
 
       await axios.post("/api/posts", formData);
@@ -219,6 +221,8 @@ const Page = () => {
               </div>
             </AccordionDetails>
           </Accordion>
+
+          {/* Additional details */}
           <Accordion>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
@@ -226,16 +230,22 @@ const Page = () => {
               id="panel1-header"
             >
               <Typography component="span" sx={{ width: "100%" }}>
-                <div className="flex items-center pb-3 gap-2">
-                    <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{5}</span>
-                    <span className="font-bold">Additional Details</span>
+                <div className="flex items-center gap-2">
+                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{5}</span>
+                  <span className="font-bold">Additional Details</span>
                 </div>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <div className="flex flex-col lg:flex-row items-start gap-4">
+              <div className="flex flex-col lg:flex-row items-end gap-4">
                 <ConditionSelect condition={condition} setCondition={setCondition} />
-                <TagSelect />
+
+                <div>
+                  <p className="text-xs mb-1">
+                    <ErrorOutlineIcon fontSize="inherit" /> Add up to 6 relevant tags to boost your ad&apos;s visibility.
+                  </p>
+                  <TagSelect tags={tags} setTags={setTags} />
+                </div>
               </div>
             </AccordionDetails>
           </Accordion>

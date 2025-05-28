@@ -66,13 +66,6 @@ export default function PostCard({ data }) {
         </div>
 
         <Typography dangerouslySetInnerHTML={{ __html: sanitizedContent }} variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2" />
-
-        <div className="hidden lg:flex items-start mt-4 gap-2">
-          <Typography sx={{ color: "text.secondary", fontSize: "14px" }}>
-            Tags:
-          </Typography>
-          {/* <Tag data={data.tags} /> */}
-        </div>
       </CardContent>
 
       <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} />

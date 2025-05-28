@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getTimeAgo } from "@/app/utils/getTimeAgo";
+import { Typography } from "@mui/material";
 import axios from "axios";
 import Carousel from "@/app/components/Carousel";
 import DOMPurify from "dompurify";
@@ -10,6 +11,7 @@ import StaggeredDropDown from "@/app/components/StaggeredDropDown";
 import GoogleMap from "@/app/components/GoogleMap";
 import SkeletonLoader from "@/app/components/ui/SkeletonLoader";
 import CallIcon from '@mui/icons-material/Call'; 
+import Tag from "@/app/components/ui/Tag";
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
@@ -70,6 +72,15 @@ export default function ItemDetailsPage() {
             className="text-gray-600"
             dangerouslySetInnerHTML={{ __html: sanitizedContent }}
           />
+
+          {itemData?.tags?.length > 0 && (
+            <div className="hidden lg:flex items-start mt-4 gap-2">
+            <Typography sx={{ color: "text.secondary", fontSize: "14px" }}>
+              Tags:
+            </Typography>
+            <Tag data={itemData.tags} />
+          </div>
+        )}
         </div>
       </div>
 
