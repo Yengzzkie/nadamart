@@ -1,13 +1,22 @@
 import prisma from "@/db/prismaClient";
 import { NextResponse } from "next/server";
 
-export async function GET(_request) {
+export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  const page = searchParams.get('page') || 1;
+  const pageSize = 20;
+  const skip = (page - 1) * pageSize;
+  const totalPage = await prisma.post.count();
+  
   try {
     const response = await prisma.post.findMany({
+      skip,
+      take: pageSize,
+      orderBy: { createdAt: 'desc' },
       include: { author: true }
     });
 
-    return NextResponse.json(response, { status: 200 });
+    return NextResponse.json({ posts: response, total_page: Math.ceil(totalPage / pageSize)}, { status: 200 });
   } catch (error) {
     console.error("Error fetching posts:", error);
     return NextResponse.json(
