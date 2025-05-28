@@ -74,7 +74,7 @@ export default function ItemDetailsPage() {
           />
 
           {itemData?.tags?.length > 0 && (
-            <div className="hidden lg:flex items-start mt-4 gap-2">
+            <div className="flex items-start mt-4 gap-1">
             <Typography sx={{ color: "text.secondary", fontSize: "14px" }}>
               Tags:
             </Typography>
@@ -93,7 +93,7 @@ export default function ItemDetailsPage() {
       <hr className="my-6" />
       <div className="flex flex-col gap-3">
         <h4 className="text-xl font-semibold">Contact</h4>
-        <a href={`tel:${itemData.contact_number}`} className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] w-fit py-2 px-8 transition">
+        <a href={`tel:${itemData.contact_number}`} className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full md:w-fit py-2 px-8 transition">
           <CallIcon /> Call
         </a>
       </div>
