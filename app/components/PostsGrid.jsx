@@ -17,7 +17,6 @@ const PostsGrid = () => {
 
     try {
       const response = await axios.get(`/api/posts?page=${page}`);
-      console.log(response);
       setItems(response.data?.posts);
       setTotalPage(response?.data?.total_page);
     } catch (error) {
@@ -47,14 +46,10 @@ const PostsGrid = () => {
                 </div>
               ))
             : items
-                .sort(
-                  (a, b) =>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
-                )
+                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() )
                 .map((item) => (
                   <div key={item.id}>
-                    <PostCard data={item} />
+                    <PostCard fetchPosts={fetchPosts} data={item} />
                   </div>
                 ))}
         </div>

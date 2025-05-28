@@ -9,7 +9,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function DeleteModal({ data, isOpen, setIsOpen }) {
+export default function DeleteModal({ data, isOpen, setIsOpen, onDelete }) {
   const router = useRouter();
 
   const handleClose = () => {
@@ -23,7 +23,7 @@ export default function DeleteModal({ data, isOpen, setIsOpen }) {
     } catch (error) {
       console.error({ error });
     } finally {
-      router.refresh();
+      onDelete(); // refetch posts after successful deletion
     }
   }
 

@@ -56,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CardVerticalMenu({ data, isOpen, setIsOpen }) {
+export default function CardVerticalMenu({ data, setIsOpen, onDelete }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const session = useSession();
   const isAuthor = session?.data?.user?.id === data.authorId;

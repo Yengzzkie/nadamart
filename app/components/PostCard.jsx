@@ -15,7 +15,7 @@ import DOMPurify from "dompurify";
 import Tag from "./ui/Tag";
 import DeleteModal from "./DeleteModal";
 
-export default function PostCard({ data }) {
+export default function PostCard({ data, fetchPosts }) {
   const sanitizedContent = DOMPurify.sanitize(data?.content);
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -68,7 +68,7 @@ export default function PostCard({ data }) {
         <Typography dangerouslySetInnerHTML={{ __html: sanitizedContent }} variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2" />
       </CardContent>
 
-      <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} />
+      <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={fetchPosts} />
     </Card>
   );
 }
