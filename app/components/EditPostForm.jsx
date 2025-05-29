@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useFileUploadStore } from "@/stores/store";
 import { redirect, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -28,9 +28,8 @@ const toolbar = [
   [{ list: "bullet" }],
 ];
 
-const Page = () => {
+const EditPostForm = ({ postData }) => {
   const { userId } = useParams();
-  const { imgFiles } = useFileUploadStore();
   const session = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -42,10 +41,24 @@ const Page = () => {
   const [contactNumber, setContactNumber] = useState("");
   const [condition, setCondition] = useState("NEW");
   const [tags, setTags] = useState([]);
+
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const uploaderRef = useRef(null);
+
+  useEffect(() => {
+    if (postData) {
+      setTitle(postData.title || "");
+      setContent(postData.content || "");
+      setLocation(
+        postData.location || { city: "", country: "Canada", postal_code: "" }
+      );
+      setContactNumber(postData.contact_number || "");
+      setCondition(postData.condition || "NEW");
+      setTags(postData.tags || []);
+    }
+  }, [postData]);
 
   if (session.status === "unauthenticated") {
     redirect("/login");
@@ -56,27 +69,26 @@ const Page = () => {
     setIsLoading(true);
 
     try {
-      const baseUrl =
-        "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
+      //   const baseUrl =
+      //     "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
 
-      const fullUrls = imgFiles.map((file) => {
-        const fileName = typeof file === "string" ? file : file.name;
-        return `${baseUrl}/${userId}/${fileName}`;
-      });
+      //   const fullUrls = imgFiles.map((file) => {
+      //     const fileName = typeof file === "string" ? file : file.name;
+      //     return `${baseUrl}/${userId}/${fileName}`;
+      //   });
 
       const formData = {
         authorId: userId,
         title,
         content,
         location,
-        image: fullUrls,
         contact_number: contactNumber,
         condition,
-        tags
+        tags,
       };
 
-      await axios.post("/api/posts", formData);
-      await uploaderRef.current?.onUpload();
+    //   await axios.post("/api/posts", formData);
+      //   await uploaderRef.current?.onUpload();
 
       setIsSuccess(true);
       setTimeout(() => redirect("/"), 2000);
@@ -94,7 +106,7 @@ const Page = () => {
       <div className="flex flex-col items-center justify-center gap-6 p-8 h-[75vh]">
         <CheckBadgeIcon className="text-green-500 w-12 h-12" />
         <p className="text-[var(--color-base-content)]">
-          Ad posted successfully!
+          Ad updated successfully!
         </p>
       </div>
     );
@@ -108,7 +120,7 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <label
               htmlFor="title"
-              className="text-xl lg:text-2xl font-semibold text-zinc-600"
+              className="text-lg lg:text-2xl font-semibold text-zinc-600"
             >
               Title
             </label>
@@ -126,38 +138,38 @@ const Page = () => {
           <div className="flex flex-col gap-2 mt-6">
             <label
               htmlFor="description"
-              className="text-xl lg:text-2xl font-semibold text-zinc-600"
+              className="text-lg lg:text-2xl font-semibold text-zinc-600"
             >
               Description
             </label>
             <textarea
-  value={content}
-  onChange={(e) => setContent(e.target.value)}
-  rows={6}
-  className="w-full border p-2 rounded resize-y"
-  placeholder="Write your content here..."
-/>
-            {/* <QuillEditor
               value={content}
-              onChange={setContent}
-              toolbar={toolbar}
+              onChange={(e) => setContent(e.target.value)}
+              rows={6}
+              className="w-full border px-3 py-2 rounded"
               placeholder="Type your description here..."
-            /> */}
+            />
           </div>
         </ShadowedCard>
 
         {/* Upload Images */}
-        <ShadowedCard index={2} step="Upload images">
-          <div className="flex flex-col gap-2">
-            <label className="text-xl lg:text-2xl font-semibold text-zinc-600">
-              Images
-            </label>
-            <ImageUploader ref={uploaderRef} />
-          </div>
-        </ShadowedCard>
+        <p className="text-xs italic text-red-500">Image cannot be changed</p>
+        <div className="opacity-50 pointer-events-none">
+          <ShadowedCard index={2} step="Upload images">
+            <div className="flex flex-col gap-2">
+              <label className="text-lg lg:text-2xl font-semibold text-zinc-600">
+                Images
+              </label>
+              <ImageUploader ref={uploaderRef} />
+            </div>
+          </ShadowedCard>
+        </div>
 
         {/* Location */}
         <ShadowedCard index={3} step="Set pickup/meetup location">
+          <h1 className="font-bold text-[var(--color-base-content)] text-lg lg:text-xl mt-2 mb-4">
+            Location
+          </h1>
           <div className="flex items-center gap-4 mb-4">
             <div className="text-[var(--color-base-content)]">
               <TextField
@@ -208,7 +220,9 @@ const Page = () => {
             >
               <Typography component="span">
                 <div className="flex items-center pb-3 gap-2">
-                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{4}</span>
+                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">
+                    {4}
+                  </span>
                   <span className="font-bold">Contact Information</span>
                 </div>
               </Typography>
@@ -220,9 +234,7 @@ const Page = () => {
                   label="Mobile Number (Optional)"
                   variant="outlined"
                   value={contactNumber}
-                  onChange={(e) =>
-                    setContactNumber(e.target.value)
-                  }
+                  onChange={(e) => setContactNumber(e.target.value)}
                 />
               </div>
             </AccordionDetails>
@@ -237,18 +249,24 @@ const Page = () => {
             >
               <Typography component="span" sx={{ width: "100%" }}>
                 <div className="flex items-center gap-2">
-                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{5}</span>
+                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">
+                    {5}
+                  </span>
                   <span className="font-bold">Additional Details</span>
                 </div>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div className="flex flex-col lg:flex-row items-end gap-4">
-                <ConditionSelect condition={condition} setCondition={setCondition} />
+                <ConditionSelect
+                  condition={condition}
+                  setCondition={setCondition}
+                />
 
                 <div>
                   <p className="text-xs mb-1">
-                    <ErrorOutlineIcon fontSize="inherit" /> Add up to 6 relevant tags to boost your ad&apos;s visibility.
+                    <ErrorOutlineIcon fontSize="inherit" /> Add up to 6 relevant
+                    tags to boost your ad&apos;s visibility.
                   </p>
                   <TagSelect tags={tags} setTags={setTags} />
                 </div>
@@ -262,11 +280,11 @@ const Page = () => {
           type="submit"
           className="flex justify-center mt-3 ml-auto px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-content)] text-[var(--color-primary-content)] hover:text-white rounded-sm w-full cursor-pointer"
         >
-          {isLoading ? <Loader /> : "Publish"}
+          {isLoading ? <Loader /> : "Save"}
         </button>
       </form>
     </div>
   );
 };
 
-export default Page;
+export default EditPostForm;

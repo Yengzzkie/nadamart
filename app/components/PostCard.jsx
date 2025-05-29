@@ -11,11 +11,9 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
-import DOMPurify from "dompurify";
 import DeleteModal from "./DeleteModal";
 
 export default function PostCard({ data, fetchPosts }) {
-  const sanitizedContent = DOMPurify.sanitize(data?.content);
   const [isOpen, setIsOpen] = React.useState(false);
 
   if (!data) {
@@ -64,7 +62,7 @@ export default function PostCard({ data, fetchPosts }) {
           <Typography variant="body2" sx={{ fontSize: "12px", fontWeight: "bold", color: "var(--color-base-content) !important" }}>{data.location.city}, {data.location.country}</Typography>
         </div>
 
-        <Typography dangerouslySetInnerHTML={{ __html: sanitizedContent }} variant="body2" sx={{ color: "text.secondary" }} className="line-clamp-2" />
+        <Typography variant="body2" sx={{ color: "text.secondary" }} className="whitespace-pre-wrap line-clamp-2">{data.content}</Typography>
       </CardContent>
 
       <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={fetchPosts} />

@@ -1,6 +1,4 @@
 import "./globals.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import Navigation from "@/app/components/Navigation";
 import SearchBar from "@/app/components/SearchBar";
 import Footer from "./components/Footer";

@@ -5,7 +5,7 @@ import Link from 'next/link';
 export default function UserAvatarCard({ userData }) {
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+    <div className="max-w-3xl p-6 bg-white shadow-md rounded-lg">
       <div className="flex items-center space-x-6">
         <Link href={`/user/${userData?.id}`}>
           <img

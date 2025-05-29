@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { getTimeAgo } from "@/app/utils/getTimeAgo";
 import { Typography } from "@mui/material";
 import axios from "axios";
-import DOMPurify from "dompurify";
 import CallIcon from "@mui/icons-material/Call";
 import Carousel from "@/app/components/Carousel";
 import StaggeredDropDown from "@/app/components/StaggeredDropDown";
@@ -13,22 +13,26 @@ import GoogleMap from "@/app/components/GoogleMap";
 import SkeletonLoader from "@/app/components/ui/SkeletonLoader";
 import Tag from "@/app/components/ui/Tag";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
+import EditPostForm from "@/app/components/EditPostForm";
+
+const conditionMap = {
+  NEW: "New",
+  USED_LIKE_NEW: "Used - Like New",
+  USED_VERY_GOOD: "Used - Very Good",
+  USED_GOOD: "Used - Good",
+  USED_ACCEPTABLE: "Used - Acceptable",
+  FOR_PARTS: "For Parts",
+  FOR_REPAIR: "For Repair",
+  FOR_SCRAP: "For Scrap",
+  FOR_RECYCLE: "For Recycle",
+};
 
 export default function ItemDetailsPage() {
   const { id } = useParams();
   const [itemData, setItemData] = useState(null);
-
-  const conditionMap = {
-    NEW: "New",
-    USED_LIKE_NEW: "Used - Like New",
-    USED_VERY_GOOD: "Used - Very Good",
-    USED_GOOD: "Used - Good",
-    USED_ACCEPTABLE: "Used - Acceptable",
-    FOR_PARTS: "For Parts",
-    FOR_REPAIR: "For Repair",
-    FOR_SCRAP: "For Scrap",
-    FOR_RECYCLE: "For Recycle",
-  };
+  const [isEditMode, setIsEditMode] = useState(false);
+  const session = useSession();
+  const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
 
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
@@ -37,7 +41,6 @@ export default function ItemDetailsPage() {
       try {
         const response = await axios(`/api/posts/post?postId=${id}`);
         setItemData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching post details:", error);
       }
@@ -45,6 +48,19 @@ export default function ItemDetailsPage() {
 
     if (id) fetchPostDetails();
   }, [id]);
+
+  if (isEditMode) {
+    return (
+      <div className="min-h-screen flex flex-col p-6 lg:px-40">
+        <StaggeredDropDown setIsEditMode={setIsEditMode} />
+        <EditPostForm
+          postData={itemData}
+          setIsEditMode={setIsEditMode}
+          isEditMode={isEditMode}
+        />
+      </div>
+    );
+  }
 
   if (!itemData) {
     return (
@@ -54,11 +70,9 @@ export default function ItemDetailsPage() {
     );
   }
 
-  const sanitizedContent = DOMPurify.sanitize(itemData?.content);
-
   return (
     <div className="min-h-screen flex flex-col p-6 lg:px-40">
-      <StaggeredDropDown />
+      {isAuthor && (<StaggeredDropDown setIsEditMode={setIsEditMode} />)}
       <Carousel itemData={itemData.image} />
 
       {/* Title */}
@@ -78,11 +92,9 @@ export default function ItemDetailsPage() {
       <div className="flex flex-col gap-8 pt-2">
         <div className="flex flex-col gap-3">
           <h4 className="text-xl font-semibold">Description</h4>
-          <div
-            className="text-gray-600"
-            dangerouslySetInnerHTML={{ __html: sanitizedContent }}
-          />
-
+          <div className="text-gray-600 whitespace-pre-wrap">
+            {itemData?.content}
+          </div>
           {itemData?.tags?.length > 0 && (
             <div className="flex items-start mt-4 gap-1">
               <Typography sx={{ color: "text.secondary", fontSize: "14px" }}>

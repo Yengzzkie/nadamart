@@ -8,11 +8,11 @@ import {
   import { motion } from "framer-motion";
   import { useState } from "react";
   
-  const StaggeredDropDown = () => {
+  const StaggeredDropDown = ({ setIsEditMode }) => {
     const [open, setOpen] = useState(false);
   
     return (
-      <motion.div animate={open ? "open" : "closed"} className="relative ml-auto mb-2 z-[99]">
+      <motion.div animate={open ? "open" : "closed"} className="relative ml-auto mb-2 z-[9]">
         <button
           onClick={() => setOpen((pv) => !pv)}
           className="flex items-center gap-2 px-3 py-2 rounded-md text-[var(--color-primary-content)] bg-[var(--color-primary)] hover:bg-indigo-500 transition-colors"
@@ -29,7 +29,7 @@ import {
           style={{ originY: "top", translateX: "-50%" }}
           className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-48 overflow-hidden"
         >
-          <Option setOpen={setOpen} Icon={FiEdit} text="Edit" />
+          <Option setOpen={setOpen} setIsEdit={setIsEditMode} Icon={FiEdit} text="Edit" />
           <Option setOpen={setOpen} Icon={FiPlusSquare} text="Duplicate" />
           <Option setOpen={setOpen} Icon={FiShare} text="Share" />
           <Option setOpen={setOpen} Icon={FiTrash} text="Remove" />
@@ -38,11 +38,14 @@ import {
     );
   };
   
-  const Option = ({ text, Icon, setOpen }) => {
+  const Option = ({ text, Icon, setOpen, setIsEdit }) => {
     return (
       <motion.li
         variants={itemVariants}
-        onClick={() => setOpen(false)}
+        onClick={() => {
+          setOpen(false);
+          if (setIsEdit) setIsEdit(true);
+        }}
         className="flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-[var(--color-primary)] text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer"
       >
         <motion.span variants={actionIconVariants}>

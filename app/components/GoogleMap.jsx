@@ -11,7 +11,7 @@ const GoogleMap = ({ location }) => {
 
   return (
     <div>
-      <h1 className="font-bold text-[var(--color-base-content)] text-xl mt-2 mb-2">Location</h1>
+      <h1 className="font-bold text-[var(--color-base-content)] text-lg lg:text-xl mt-4 mb-2">Map preview</h1>
       <iframe
         key={mapSrc} // Force re-render on map URL change
         className="w-full h-[25vh] lg:h-[400px]"
