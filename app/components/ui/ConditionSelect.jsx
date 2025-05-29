@@ -42,7 +42,6 @@ export default function ConditionSelect({ condition, setCondition }) {
 
   const handleChange = (event) => {
     setCondition(event.target.value);
-    console.log('Selected condition:', event.target.value);
   };
 
   return (

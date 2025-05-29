@@ -1,6 +1,7 @@
 import prisma from "@/db/prismaClient";
 import { NextResponse } from "next/server";
 
+// get one post by ID
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const postId = searchParams.get("postId");
@@ -33,6 +34,30 @@ export async function GET(request) {
   }
 }
 
+// update post by ID
+export async function PUT(request) {
+  const { searchParams } = new URL(request.url);
+    const postId = searchParams.get("postId");
+
+  try {
+    const { title, content, location, contact_number, condition, tags } = await request.json();
+
+    const response = await prisma.post.update({
+      where: { id: postId},
+      data: { title, content, location, contact_number, condition, tags }
+    });
+
+    return NextResponse.json(response, { status: 200 });
+  } catch (error) {
+    console.error("Error updating post:", error);
+    return NextResponse.json(
+      { error: "Failed to update post" },
+      { status: 500 }
+    );
+  }
+}
+
+// delete post by ID
 export async function DELETE(request) {
   const { searchParams } = new URL(request.url);
   const postId = searchParams.get("postId");

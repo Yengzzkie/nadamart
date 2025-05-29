@@ -36,16 +36,16 @@ export default function ItemDetailsPage() {
 
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
-  useEffect(() => {
-    async function fetchPostDetails() {
-      try {
-        const response = await axios(`/api/posts/post?postId=${id}`);
-        setItemData(response.data);
-      } catch (error) {
-        console.error("Error fetching post details:", error);
-      }
+  async function fetchPostDetails() {
+    try {
+      const response = await axios(`/api/posts/post?postId=${id}`);
+      setItemData(response.data);
+    } catch (error) {
+      console.error("Error fetching post details:", error);
     }
+  }
 
+  useEffect(() => {
     if (id) fetchPostDetails();
   }, [id]);
 
@@ -56,7 +56,7 @@ export default function ItemDetailsPage() {
         <EditPostForm
           postData={itemData}
           setIsEditMode={setIsEditMode}
-          isEditMode={isEditMode}
+          fetchPostDetails={fetchPostDetails}
         />
       </div>
     );

@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { useFileUploadStore } from "@/stores/store";
-import { redirect, useParams } from "next/navigation";
+import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import TextField from "@mui/material/TextField";
@@ -20,16 +19,7 @@ import GoogleMap from "@/app/components/GoogleMap";
 import ConditionSelect from "@/app/components/ui/ConditionSelect";
 import TagSelect from "@/app/components/ui/TagSelect";
 
-const toolbar = [
-  [{ size: ["small", false, "large", "huge"] }],
-  ["bold", "italic", "underline", "strike"],
-  [{ color: [] }, { background: [] }],
-  ["link"],
-  [{ list: "bullet" }],
-];
-
-const EditPostForm = ({ postData }) => {
-  const { userId } = useParams();
+const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
   const session = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -41,10 +31,7 @@ const EditPostForm = ({ postData }) => {
   const [contactNumber, setContactNumber] = useState("");
   const [condition, setCondition] = useState("NEW");
   const [tags, setTags] = useState([]);
-
-  const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const uploaderRef = useRef(null);
 
   useEffect(() => {
@@ -60,6 +47,7 @@ const EditPostForm = ({ postData }) => {
     }
   }, [postData]);
 
+  // redirect user to login page if user is not logged in
   if (session.status === "unauthenticated") {
     redirect("/login");
   }
@@ -67,18 +55,9 @@ const EditPostForm = ({ postData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-
+  
     try {
-      //   const baseUrl =
-      //     "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/images";
-
-      //   const fullUrls = imgFiles.map((file) => {
-      //     const fileName = typeof file === "string" ? file : file.name;
-      //     return `${baseUrl}/${userId}/${fileName}`;
-      //   });
-
       const formData = {
-        authorId: userId,
         title,
         content,
         location,
@@ -86,31 +65,17 @@ const EditPostForm = ({ postData }) => {
         condition,
         tags,
       };
-
-    //   await axios.post("/api/posts", formData);
-      //   await uploaderRef.current?.onUpload();
-
-      setIsSuccess(true);
-      setTimeout(() => redirect("/"), 2000);
+  
+      await axios.put(`/api/posts/post?postId=${postData.id}`, formData);
+  
+      fetchPostDetails();
+      setIsEditMode(false);
     } catch (error) {
-      console.error("Error uploading post:", error);
+      console.error("Error updating post:", error);
     } finally {
       setIsLoading(false);
-      setTitle("");
-      setContent("");
     }
   };
-
-  if (isSuccess) {
-    return (
-      <div className="flex flex-col items-center justify-center gap-6 p-8 h-[75vh]">
-        <CheckBadgeIcon className="text-green-500 w-12 h-12" />
-        <p className="text-[var(--color-base-content)]">
-          Ad updated successfully!
-        </p>
-      </div>
-    );
-  }
 
   return (
     <div className="lg:p-8 p-4">
