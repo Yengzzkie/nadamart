@@ -17,6 +17,11 @@ const SearchBar = ({ fetchPostsByQuery }) => {
             placeholder="Search for items, keywords, category..."
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                fetchPostsByQuery();
+              }
+            }}
           />
           <XMarkIcon
             className={`${
