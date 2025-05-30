@@ -1,10 +1,10 @@
 "use client";
-import { useState } from "react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { useSearchQuery } from "@/stores/store";
 import Button from '@mui/material/Button';
 
-const SearchBar = ({ searchQuery, setSearchQuery, fetchPostsByQuery }) => {
-  // const [searchValue, setSearchValue] = useState("");
+const SearchBar = ({ fetchPostsByQuery }) => {
+  const { searchQuery, setSearchQuery } = useSearchQuery();
 
   return (
     <>

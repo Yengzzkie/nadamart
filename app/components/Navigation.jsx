@@ -17,7 +17,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
 import Loader from "./ui/Loader";
-import { useStoreUserData, usePostSearchResult } from "@/stores/store";
+import { useStoreUserData, usePostSearchResult, useSearchQuery } from "@/stores/store";
 import { useRouter } from "next/navigation";
 import SearchBar from "./SearchBar";
 
@@ -34,7 +34,8 @@ function Navigation() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
+  const { searchQuery } = useSearchQuery();
   const { setPostSearchResult } = usePostSearchResult();
   const { userData, setUserData } = useStoreUserData();
   const isLoggedIn = !!session?.user;
@@ -207,7 +208,7 @@ function Navigation() {
           >
             <Link href="/">
               <h2 className="text-center font-bold text-xl text-[var(--color-base-content)]">
-                <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">
+                <span className="text-[var(--color-primary-content)] text-shadow-lg text-3xl tracking-tighter">
                   NadaMart.
                 </span>
                 <span className="text-[var(--color-primary-content)] text-md font-thin">
@@ -275,7 +276,7 @@ function Navigation() {
           </Box>
         </Toolbar>
       </Container>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} fetchPostsByQuery={fetchPostsByQuery} />
+      <SearchBar fetchPostsByQuery={fetchPostsByQuery} />
     </AppBar>
   );
 }

@@ -14,3 +14,8 @@ export const usePostSearchResult = create((set) => ({
   postSearchResult: null,
   setPostSearchResult: (data) => set({ postSearchResult: data }),
 }));
+
+export const useSearchQuery = create((set ) => ({
+  searchQuery: "",
+  setSearchQuery: (query) => set({ searchQuery: query})
+}))

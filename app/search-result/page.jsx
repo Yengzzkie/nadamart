@@ -1,13 +1,24 @@
-"use client"
-import { usePostSearchResult } from "@/stores/store";
+"use client";
+import { usePostSearchResult, useSearchQuery } from "@/stores/store";
+import PostCard from "../components/PostCard";
 
 const page = () => {
   const { postSearchResult } = usePostSearchResult();
-  console.log(postSearchResult);
+  const { searchQuery } = useSearchQuery();
 
   return (
-    <div>page</div>
-  )
-}
+    <div className="flex flex-col">
+      <h1 className="text-xl lg:text-4xl font-bold my-3 mx-1 lg:mx-0">
+        Showing {postSearchResult?.posts?.length || 0} results for "{searchQuery}"
+      </h1>
 
-export default page
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 lg:gap-4">
+        {postSearchResult?.posts?.map((post) => (
+          <PostCard data={post} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default page;
