@@ -130,6 +130,7 @@ export default function ItemDetailsPage() {
       <hr className="my-6" />
 
       {/* Map */}
+      <h4 className="text-zinc-600 text-md">{itemData.location?.city}, {itemData.location?.province}</h4>
       <GoogleMap location={itemData.location} />
 
       <hr className="my-6" />

@@ -3,8 +3,8 @@ import { useMemo } from "react";
 
 const GoogleMap = ({ location }) => {
   const query = useMemo(() => {
-    const { city = "", country = "", postal_code = "" } = location || {};
-    return encodeURIComponent(`${city}, ${country}, ${postal_code}`);
+    const { city = "", province = "", country = "", postal_code = "" } = location || {};
+    return encodeURIComponent(`${city}, ${province}, ${postal_code}, ${country}`);
   }, [location]);
 
   const mapSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBZs6sZ3lFvNP5ogJPE8D3eOICTnBjaDZI&q=${query}`;

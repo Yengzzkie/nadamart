@@ -18,6 +18,7 @@ import ShadowedCard from "@/app/components/ui/ShadowedCard";
 import GoogleMap from "@/app/components/GoogleMap";
 import ConditionSelect from "@/app/components/ui/ConditionSelect";
 import TagSelect from "@/app/components/ui/TagSelect";
+import ProvinceSelect from "./ui/ProvinceSelect";
 
 const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
   const session = useSession();
@@ -25,6 +26,7 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
   const [content, setContent] = useState("");
   const [location, setLocation] = useState({
     city: "",
+    province: "",
     country: "Canada",
     postal_code: "",
   });
@@ -39,7 +41,7 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
       setTitle(postData.title || "");
       setContent(postData.content || "");
       setLocation(
-        postData.location || { city: "", country: "Canada", postal_code: "" }
+        postData.location || { city: "", province: "", country: "Canada", postal_code: "" }
       );
       setContactNumber(postData.contact_number || "");
       setCondition(postData.condition || "NEW");
@@ -137,12 +139,7 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
           </h1>
           <div className="flex items-center gap-4 mb-4">
             <div className="text-[var(--color-base-content)]">
-              <TextField
-                label="Country"
-                variant="outlined"
-                disabled
-                value={location.country}
-              />
+              <ProvinceSelect location={location} setLocation={setLocation} />
             </div>
           </div>
 
@@ -154,6 +151,7 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
               onChange={(e) =>
                 setLocation({ ...location, city: e.target.value })
               }
+              required
             />
 
             <div>
@@ -164,10 +162,11 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
               <TextField
                 label="Postal code"
                 variant="outlined"
-                value={location.postal_code}
+                value={location.postal_code?.toUpperCase().trim()}
                 onChange={(e) =>
                   setLocation({ ...location, postal_code: e.target.value })
                 }
+                required
               />
             </div>
           </div>

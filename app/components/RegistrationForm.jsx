@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useMemo } from "react";
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from "@/lib/supabase/client";
 import { cn } from "../utils/utils";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
@@ -10,9 +10,8 @@ import { Check, Eye, EyeOff, X } from "lucide-react";
 // import { registerInputSchema } from "../utils/registerInputSchema";
 import Loader from "./ui/Loader";
 import axios from "axios";
-import CountrySelect from "./ui/CountrySelect";
 
-const supabase = createClient()
+const supabase = createClient();
 
 const PASSWORD_REQUIREMENTS = [
   { regex: /.{8,}/, text: "At least 8 characters" },
@@ -61,7 +60,7 @@ const RegistrationForm = () => {
     // location: {country: "Canada", province: "", city: ""},
     mobile: "",
     confirmPassword: "",
-    avatar: ""
+    avatar: "",
   });
   const router = useRouter();
 
@@ -126,14 +125,15 @@ const RegistrationForm = () => {
 
       // send data to server
       let uploadedAvatarURL = "";
-      const defaultAvatar = "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/avatars//default-avatar.png";
+      const defaultAvatar =
+        "https://crtvgenbjflrgxtjpdwz.supabase.co/storage/v1/object/public/avatars//default-avatar.png";
 
       if (avatarFile) {
-        const fileExt = avatarFile.name.split('.').pop();
+        const fileExt = avatarFile.name.split(".").pop();
         const filePath = `avatars/${formData.email}-${Date.now()}.${fileExt}`;
 
         const { data, error: uploadError } = await supabase.storage
-          .from('avatars')
+          .from("avatars")
           .upload(filePath, avatarFile);
 
         if (uploadError) {
@@ -142,15 +142,17 @@ const RegistrationForm = () => {
           return;
         }
 
-        const { data: publicUrlData } = supabase
-          .storage
-          .from('avatars')
+        const { data: publicUrlData } = supabase.storage
+          .from("avatars")
           .getPublicUrl(filePath);
 
         uploadedAvatarURL = publicUrlData.publicUrl;
       }
 
-      const response = await axios.post("/api/register", {...dataToSend, avatar: uploadedAvatarURL === "" ? defaultAvatar : uploadedAvatarURL});
+      const response = await axios.post("/api/register", {
+        ...dataToSend,
+        avatar: uploadedAvatarURL === "" ? defaultAvatar : uploadedAvatarURL,
+      });
 
       // redirect to success page if registration is successful
       if (response) {
@@ -171,22 +173,17 @@ const RegistrationForm = () => {
   // INPUT HANDLER
   async function handleInputChange(e) {
     const { name, value } = e.target;
-    // get the user's location via IP address. ssssshhhh
     try {
-    //   const res = await fetch("https://api.db-ip.com/v2/free/self");
-    //   const loc = await res.json();
-
       if (name === "avatar" && e.target.files.length > 0) {
         setAvatarFile(e.target.files[0]);
         return;
       }
-    
+
       setFormData((prevFormData) => {
         const updatedFormData = {
           ...prevFormData,
           [name]: name === "email" ? value.toLowerCase().trim() : value.trim(),
         };
-        console.log(formData)
 
         if (updatedFormData.password !== updatedFormData.confirmPassword) {
           setError("Passwords do not match");
@@ -248,32 +245,18 @@ const RegistrationForm = () => {
         </div>
 
         <div className="flex flex-col md:flex-row gap-1 items-center">
-            <LabelInputContainer className="mb-4">
-              <Label htmlFor="email">Email Address</Label>
-              <Input
-                onChange={handleInputChange}
-                value={formData.email}
-                id="email"
-                placeholder="user@domain.com"
-                type="email"
-                name="email"
-                className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
-              />
-            </LabelInputContainer>
-            {/* <LabelInputContainer className="mb-4">
-              <Label htmlFor="email">Mobile</Label>
-              <Input
-                onChange={handleInputChange}
-                value={formData.mobile}
-                id="mobile"
-                placeholder="eg.: +1 234 567 8900"
-                type="telephone"
-                name="mobile"
-                className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
-              />
-                <CountrySelect formData={formData} setFormData={setFormData} />
-            </LabelInputContainer> */}
-            
+          <LabelInputContainer className="mb-4">
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              onChange={handleInputChange}
+              value={formData.email}
+              id="email"
+              placeholder="user@domain.com"
+              type="email"
+              name="email"
+              className="text-[var(--color-base-content)] bg-[var(--color-base-200)] focus-within:border-[var(--color-primary-content)] transition"
+            />
+          </LabelInputContainer>
         </div>
 
         <div className="w-full mx-auto mb-4">

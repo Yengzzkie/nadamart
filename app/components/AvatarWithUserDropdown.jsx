@@ -18,9 +18,11 @@ import {
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function AvatarWithUserDropdown({ userData }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const router = useRouter();
 
   // profile menu component
   const profileMenuItems = [
@@ -72,12 +74,12 @@ export default function AvatarWithUserDropdown({ userData }) {
           />
         </Button>
       </MenuHandler>
-      <MenuList className="p-2 text-zinc-500">
+      <MenuList className="p-2 text-zinc-500 z-[99]">
         {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           const content = (
             <MenuItem
-              onClick={isLastItem ? () => signOut() : closeMenu}
+              onClick={isLastItem ? () => signOut().then(() => router.push("/login")) : closeMenu}
               className={`flex items-center gap-2 rounded hover:bg-[var(--color-base-300)] mr-8 ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"

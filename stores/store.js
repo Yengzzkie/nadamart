@@ -9,3 +9,8 @@ export const useStoreUserData = create((set) => ({
   userData: null,
   setUserData: (data) => set({ userData: data }),
 }));
+
+export const usePostSearchResult = create((set) => ({
+  postSearchResult: null,
+  setPostSearchResult: (data) => set({ postSearchResult: data }),
+}));

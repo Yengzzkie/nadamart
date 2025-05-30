@@ -1,6 +1,5 @@
 import "./globals.css";
 import Navigation from "@/app/components/Navigation";
-import SearchBar from "@/app/components/SearchBar";
 import Footer from "./components/Footer";
 import { Provider } from "./components/SessionProvider";
 import { Suspense } from "react";
@@ -17,7 +16,6 @@ export default async function RootLayout({ children }) {
       <body className={`lg:px-40`}>
         <Provider>
           <Navigation />
-          <SearchBar />
           <Suspense fallback={<Loader />}>{children}</Suspense>
           <Footer />
         </Provider>

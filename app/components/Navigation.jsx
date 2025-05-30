@@ -17,7 +17,9 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
 import Loader from "./ui/Loader";
-import { useStoreUserData } from "@/stores/store";
+import { useStoreUserData, usePostSearchResult } from "@/stores/store";
+import { useRouter } from "next/navigation";
+import SearchBar from "./SearchBar";
 
 const pages = [
   { text: "Home", link: "/" },
@@ -29,10 +31,12 @@ const pages = [
 ];
 
 function Navigation() {
+  const router = useRouter();
   const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const { setPostSearchResult } = usePostSearchResult();
   const { userData, setUserData } = useStoreUserData();
-  // const [userData, setUserData] = useState(null);
   const isLoggedIn = !!session?.user;
 
   const handleOpenNavMenu = (event) => {
@@ -43,16 +47,14 @@ function Navigation() {
     setAnchorElNav(null);
   };
 
+  // Fetch user data when the component mounts or when the session changes
   useEffect(() => {
     async function fetchUserData() {
       if (!session?.user?.id) return;
 
       try {
-        const response = await axios.get(
-          `/api/users/user?userId=${session.user.id}`
-        );
+        const response = await axios.get(`/api/users/user?userId=${session.user.id}`);
         setUserData(response.data);
-        // setStoreUserData(response.data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -62,6 +64,18 @@ function Navigation() {
       fetchUserData();
     }
   }, [session, isLoggedIn]);
+
+  // Function to fetch posts based on search query
+  async function fetchPostsByQuery() {
+    try {
+      const response = await axios.get(`/api/posts/search?q=${encodeURIComponent(searchQuery)}`);
+      setPostSearchResult(response.data);
+    } catch (error) {
+      console.error("Error fetching posts by query:", error);
+    } finally {
+      router.push("/search-result");
+    }
+  }
 
   if (status === "loading") {
     return (
@@ -82,7 +96,7 @@ function Navigation() {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none"
     >
       <Container maxWidth="xl">
@@ -101,7 +115,7 @@ function Navigation() {
           >
             <Link href="/">
               <h2 className="text-center font-bold text-xl text-[var(--color-base-content)]">
-                <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">
+                <span className="text-[var(--color-primary-content)] text-shadow-lg text-3xl tracking-tighter">
                   NadaMart.
                 </span>
                 <span className="text-[var(--color-primary-content)] text-md font-thin">
@@ -261,6 +275,7 @@ function Navigation() {
           </Box>
         </Toolbar>
       </Container>
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} fetchPostsByQuery={fetchPostsByQuery} />
     </AppBar>
   );
 }

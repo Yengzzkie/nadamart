@@ -19,14 +19,7 @@ import ShadowedCard from "@/app/components/ui/ShadowedCard";
 import GoogleMap from "@/app/components/GoogleMap";
 import ConditionSelect from "@/app/components/ui/ConditionSelect";
 import TagSelect from "@/app/components/ui/TagSelect";
-
-const toolbar = [
-  [{ size: ["small", false, "large", "huge"] }],
-  ["bold", "italic", "underline", "strike"],
-  [{ color: [] }, { background: [] }],
-  ["link"],
-  [{ list: "bullet" }],
-];
+import ProvinceSelect from "@/app/components/ui/ProvinceSelect";
 
 const Page = () => {
   const { userId } = useParams();
@@ -36,8 +29,9 @@ const Page = () => {
   const [content, setContent] = useState("");
   const [location, setLocation] = useState({
     city: "",
-    country: "Canada",
+    province: "",
     postal_code: "",
+    country: "Canada",
   });
   const [contactNumber, setContactNumber] = useState("");
   const [condition, setCondition] = useState("NEW");
@@ -72,7 +66,7 @@ const Page = () => {
         image: fullUrls,
         contact_number: contactNumber,
         condition,
-        tags
+        tags,
       };
 
       await axios.post("/api/posts", formData);
@@ -131,18 +125,12 @@ const Page = () => {
               Description
             </label>
             <textarea
-  value={content}
-  onChange={(e) => setContent(e.target.value)}
-  rows={6}
-  className="w-full border p-2 rounded resize-y"
-  placeholder="Write your content here..."
-/>
-            {/* <QuillEditor
               value={content}
-              onChange={setContent}
-              toolbar={toolbar}
-              placeholder="Type your description here..."
-            /> */}
+              onChange={(e) => setContent(e.target.value)}
+              rows={6}
+              className="w-full border p-2 rounded resize-y"
+              placeholder="Write your content here..."
+            />
           </div>
         </ShadowedCard>
 
@@ -160,12 +148,7 @@ const Page = () => {
         <ShadowedCard index={3} step="Set pickup/meetup location">
           <div className="flex items-center gap-4 mb-4">
             <div className="text-[var(--color-base-content)]">
-              <TextField
-                label="Country"
-                variant="outlined"
-                disabled
-                value={location.country}
-              />
+              <ProvinceSelect location={location} setLocation={setLocation} />
             </div>
           </div>
 
@@ -181,13 +164,12 @@ const Page = () => {
 
             <div>
               <p className="text-xs mb-2">
-                <ErrorOutlineIcon fontSize="inherit" /> Enhance location by
-                entering a Postal Code
+                <ErrorOutlineIcon fontSize="inherit" /> Enhance location by entering a Postal Code
               </p>
               <TextField
                 label="Postal code"
                 variant="outlined"
-                value={location.postal_code}
+                value={location.postal_code?.toUpperCase().trim()}
                 onChange={(e) =>
                   setLocation({ ...location, postal_code: e.target.value })
                 }
@@ -208,7 +190,9 @@ const Page = () => {
             >
               <Typography component="span">
                 <div className="flex items-center pb-3 gap-2">
-                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{4}</span>
+                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">
+                    {4}
+                  </span>
                   <span className="font-bold">Contact Information</span>
                 </div>
               </Typography>
@@ -220,9 +204,7 @@ const Page = () => {
                   label="Mobile Number (Optional)"
                   variant="outlined"
                   value={contactNumber}
-                  onChange={(e) =>
-                    setContactNumber(e.target.value)
-                  }
+                  onChange={(e) => setContactNumber(e.target.value)}
                 />
               </div>
             </AccordionDetails>
@@ -237,18 +219,24 @@ const Page = () => {
             >
               <Typography component="span" sx={{ width: "100%" }}>
                 <div className="flex items-center gap-2">
-                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">{5}</span>
+                  <span className="bg-[var(--color-base-300)] text-xs rounded-sm px-2 py-1">
+                    {5}
+                  </span>
                   <span className="font-bold">Additional Details</span>
                 </div>
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
               <div className="flex flex-col lg:flex-row items-end gap-4">
-                <ConditionSelect condition={condition} setCondition={setCondition} />
+                <ConditionSelect
+                  condition={condition}
+                  setCondition={setCondition}
+                />
 
                 <div>
                   <p className="text-xs mb-1">
-                    <ErrorOutlineIcon fontSize="inherit" /> Add up to 6 relevant tags to boost your ad&apos;s visibility.
+                    <ErrorOutlineIcon fontSize="inherit" /> Add up to 6 relevant
+                    tags to boost your ad&apos;s visibility.
                   </p>
                   <TagSelect tags={tags} setTags={setTags} />
                 </div>

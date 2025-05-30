@@ -3,8 +3,8 @@ import { useState } from "react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Button from '@mui/material/Button';
 
-const SearchBar = () => {
-  const [searchValue, setSearchValue] = useState("");
+const SearchBar = ({ searchQuery, setSearchQuery, fetchPostsByQuery }) => {
+  // const [searchValue, setSearchValue] = useState("");
 
   return (
     <>
@@ -15,17 +15,17 @@ const SearchBar = () => {
             type="text"
             className="w-full py-2 px-2 bg-[var(--primary-light)] outline-none"
             placeholder="Search for items, keywords, category..."
-            onChange={(e) => setSearchValue(e.target.value)}
-            value={searchValue}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            value={searchQuery}
           />
           <XMarkIcon
             className={`${
-              searchValue === "" ? "invisible" : "block"
+              searchQuery === "" ? "invisible" : "block"
             } absolute w-5 right-1 top-1/2 -translate-y-1/2 cursor-pointer`}
-            onClick={() => setSearchValue("")}
+            onClick={() => setSearchQuery("")}
           />
         </div>
-        <Button variant="contained" sx={{ bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>Search</Button>
+        <Button onClick={() => fetchPostsByQuery()} variant="contained" sx={{ bgcolor: "var(--color-primary)", color: "var(--color-primary-content)" }}>Search</Button>
       </div>
     </>
   );
