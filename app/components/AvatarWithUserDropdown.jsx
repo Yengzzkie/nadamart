@@ -74,7 +74,7 @@ export default function AvatarWithUserDropdown({ userData }) {
           />
         </Button>
       </MenuHandler>
-      <MenuList className="p-2 text-zinc-500 z-[99]">
+      <MenuList className="p-2 text-zinc-500 z-[999999]">
         {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           const content = (
