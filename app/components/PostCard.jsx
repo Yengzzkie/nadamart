@@ -12,9 +12,11 @@ import Typography from "@mui/material/Typography";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
 import DeleteModal from "./DeleteModal";
+import FormDialog from "./FormDialog";
 
 export default function PostCard({ data, fetchPosts }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [openSendMessage, setOpenSendMessage] = React.useState(false);
 
   if (!data) {
     return null;
@@ -37,7 +39,7 @@ export default function PostCard({ data, fetchPosts }) {
         avatar={
           <Avatar src={data.author.avatar} sx={{ width: {xs: "30px", sm: "50px"}, height: {xs: "30px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"}, mr: "0px !important" }} aria-label="avatar" />
         }
-        action={<CardVerticalMenu data={data} isOpen={isOpen} setIsOpen={setIsOpen} />}
+        action={<CardVerticalMenu data={data} isOpen={isOpen} setIsOpen={setIsOpen} setOpenSendMessage={setOpenSendMessage} />}
         title={data.author.name}
         subheader={`${getTimeAgo(data.createdAt)} ago`}
         className="truncate"
@@ -66,6 +68,9 @@ export default function PostCard({ data, fetchPosts }) {
       </CardContent>
 
       <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={fetchPosts} />
+
+      {/* MODAL WITH FORM */}
+      <FormDialog data={data} openSendMessage={openSendMessage} setOpenSendMessage={setOpenSendMessage} />
     </Card>
   );
 }

@@ -56,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CardVerticalMenu({ data, setIsOpen, onDelete }) {
+export default function CardVerticalMenu({ data, setIsOpen, setOpenSendMessage }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const session = useSession();
   const isAuthor = session?.data?.user?.id === data.authorId;
@@ -101,9 +101,9 @@ export default function CardVerticalMenu({ data, setIsOpen, onDelete }) {
           </MenuItem>
         )}
         {!isAuthor && (
-          <MenuItem onClick={handleClose} disableRipple>
+          <MenuItem onClick={() => setOpenSendMessage(true)} disableRipple>
             <ChatBubble className="!text-[var(--color-primary-content)]" />
-            Message Owner
+            Message {data?.author?.name || "User"}
           </MenuItem>
         )}
         {!isAuthor && (

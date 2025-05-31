@@ -20,6 +20,7 @@ import GoogleMap from "@/app/components/GoogleMap";
 import ConditionSelect from "@/app/components/ui/ConditionSelect";
 import TagSelect from "@/app/components/ui/TagSelect";
 import ProvinceSelect from "@/app/components/ui/ProvinceSelect";
+import TextareaAutosize from '@mui/material/TextareaAutosize';
 
 const Page = () => {
   const { userId } = useParams();
@@ -112,7 +113,7 @@ const Page = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Your title here..."
-              className="w-full px-4 py-2 border border-zinc-300 text-zinc-600 bg-transparent"
+              className="w-full px-4 py-2 border border-zinc-400 text-zinc-600 bg-transparent"
               required
             />
           </div>
@@ -124,12 +125,12 @@ const Page = () => {
             >
               Description
             </label>
-            <textarea
+            <TextareaAutosize
+              aria-label="empty textarea"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              rows={6}
-              className="w-full border p-2 rounded resize-y"
-              placeholder="Write your content here..."
+              placeholder="Type your description here..."
+              style={{ width: "100%", height: 100, border: ".5px solid #52525c", borderRadius: "4px", padding: "10px" }}
             />
           </div>
         </ShadowedCard>
