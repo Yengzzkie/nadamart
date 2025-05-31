@@ -81,7 +81,7 @@ function Navigation() {
   if (status === "loading") {
     return (
       <AppBar
-        position="static"
+        position="sticky"
         className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none"
       >
         <Container maxWidth="xl">
@@ -98,7 +98,7 @@ function Navigation() {
   return (
     <AppBar
       position="sticky"
-      className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none"
+      className="!bg-[#fff] top-0 !text-[var(--color-base-content)] !shadow-none"
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
