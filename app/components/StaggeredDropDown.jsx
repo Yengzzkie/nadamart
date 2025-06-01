@@ -8,7 +8,7 @@ import {
   import { motion } from "framer-motion";
   import { useState } from "react";
   
-  const StaggeredDropDown = ({ setIsEditMode }) => {
+  const StaggeredDropDown = ({ setIsOpen, setIsEditMode }) => {
     const [open, setOpen] = useState(false);
   
     return (
@@ -32,19 +32,20 @@ import {
           <Option setOpen={setOpen} setIsEdit={setIsEditMode} Icon={FiEdit} text="Edit" />
           <Option setOpen={setOpen} Icon={FiPlusSquare} text="Duplicate" />
           <Option setOpen={setOpen} Icon={FiShare} text="Share" />
-          <Option setOpen={setOpen} Icon={FiTrash} text="Remove" />
+          <Option setOpen={setOpen} setOpenModal={setIsOpen} Icon={FiTrash} text="Remove" />
         </motion.ul>
       </motion.div>
     );
   };
   
-  const Option = ({ text, Icon, setOpen, setIsEdit }) => {
+  const Option = ({ text, Icon, setOpen, setIsEdit, setOpenModal }) => {
     return (
       <motion.li
         variants={itemVariants}
         onClick={() => {
           setOpen(false);
           if (setIsEdit) setIsEdit(true);
+          if (setOpenModal) setOpenModal(true);
         }}
         className="flex items-center gap-2 w-full p-2 text-xs font-medium whitespace-nowrap rounded-md hover:bg-[var(--color-primary)] text-slate-700 hover:text-indigo-500 transition-colors cursor-pointer"
       >

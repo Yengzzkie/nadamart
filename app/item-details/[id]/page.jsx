@@ -14,6 +14,8 @@ import SkeletonLoader from "@/app/components/ui/SkeletonLoader";
 import Tag from "@/app/components/ui/Tag";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
 import EditPostForm from "@/app/components/EditPostForm";
+import DeleteModal from "@/app/components/DeleteModal";
+import { useRouter } from "next/navigation";
 
 const conditionMap = {
   NEW: "New",
@@ -28,11 +30,14 @@ const conditionMap = {
 };
 
 export default function ItemDetailsPage() {
+  const router = useRouter();
   const { id } = useParams();
   const [itemData, setItemData] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
-  const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
+  const isAuthor =
+    session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
 
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
@@ -48,6 +53,11 @@ export default function ItemDetailsPage() {
   useEffect(() => {
     if (id) fetchPostDetails();
   }, [id]);
+
+  function handleDelete() {
+    setIsOpen(false);
+    router.push("/"); // Redirect to home page after deletion
+  }
 
   if (isEditMode) {
     return (
@@ -72,7 +82,12 @@ export default function ItemDetailsPage() {
 
   return (
     <div className="min-h-screen flex flex-col p-6 lg:px-40">
-      {isAuthor && (<StaggeredDropDown setIsEditMode={setIsEditMode} />)}
+      {isAuthor && (
+        <StaggeredDropDown
+          setIsOpen={setIsOpen}
+          setIsEditMode={setIsEditMode}
+        />
+      )}
       <Carousel itemData={itemData.image} />
 
       {/* Title */}
@@ -130,7 +145,9 @@ export default function ItemDetailsPage() {
       <hr className="my-6" />
 
       {/* Map */}
-      <h4 className="text-zinc-600 text-md">{itemData.location?.city}, {itemData.location?.province}</h4>
+      <h4 className="text-zinc-600 text-md">
+        {itemData.location?.city}, {itemData.location?.province}
+      </h4>
       <GoogleMap location={itemData.location} />
 
       <hr className="my-6" />
@@ -140,6 +157,8 @@ export default function ItemDetailsPage() {
         <h4 className="text-xl font-semibold mb-2">Listed by:</h4>
         <UserAvatarCard userData={itemData?.author} />
       </div>
+
+      <DeleteModal data={itemData} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={handleDelete} />
     </div>
   );
 }
