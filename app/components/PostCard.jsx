@@ -54,7 +54,7 @@ export default function PostCard({ data, fetchPosts }) {
       </Link>
 
       {/* DESCRIPTION SECTION */}
-      <CardContent className="lg:block">
+      <CardContent className="lg:block !p-2 lg:p-6">
         <Typography variant="h6" sx={{ fontWeight: "bold", color: "text.primary" }} className="line-clamp-1">
           {data.title}
         </Typography>
