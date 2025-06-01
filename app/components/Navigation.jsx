@@ -51,10 +51,9 @@ function Navigation() {
   // Fetch user data when the component mounts or when the session changes
   useEffect(() => {
     async function fetchUserData() {
-      if (!session?.user?.id) return;
-
       try {
-        const response = await axios.get(`/api/users/user?userId=${session.user.id}`);
+        if (!session?.user?.id) return;
+        const response = await axios.get(`/api/users/user?userId=${session?.user?.id}`);
         setUserData(response.data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);

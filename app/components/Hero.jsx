@@ -26,7 +26,7 @@ export default function Hero() {
               </motion.span>
             ))}
         </h1>
-        <motion.p
+        <motion.div
           initial={{
             opacity: 0,
           }}
@@ -54,7 +54,7 @@ export default function Hero() {
               let your unused things find new meaning.
             </span>
           </PointerHighlight>
-        </motion.p>
+        </motion.div>
         {/* <motion.div
           initial={{
             opacity: 0,
