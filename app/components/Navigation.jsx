@@ -34,7 +34,6 @@ function Navigation() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const [anchorElNav, setAnchorElNav] = useState(null);
-  // const [searchQuery, setSearchQuery] = useState("");
   const { searchQuery } = useSearchQuery();
   const { setPostSearchResult } = usePostSearchResult();
   const { userData, setUserData } = useStoreUserData();
