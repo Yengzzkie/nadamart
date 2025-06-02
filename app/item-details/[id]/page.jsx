@@ -40,9 +40,7 @@ export default function ItemDetailsPage() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
-  const isAuthor =
-    session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
-
+  const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
   async function fetchPostDetails() {
@@ -145,23 +143,35 @@ export default function ItemDetailsPage() {
         </div>
       ) : (
         <div className="flex flex-col gap-3">
-          <h4 className="text-xl font-semibold">Contact the Seller</h4>
-          <p className="text-gray-600">
-            If you have any questions, feel free to reach out to the seller.
-          </p>
-          <a
-            href={`tel:${itemData.contact_number}`}
-            className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full py-2 px-8 transition"
-          >
-            <CallIcon /> Call
-          </a>
-          <button
-            onClick={() => setOpenSendMessage(true)}
-            className="bg-[var(--color-primary)] text-[var(--color-primary-content)] hover:text-white px-4 py-2 rounded hover:bg-[var(--color-primary-content)] transition cursor-pointer"
-          >
-            <ChatBubble className="inline mr-1" />
-            Send Message
-          </button>
+          { session?.status === "authenticated" ? (
+            <div className="flex flex-col gap-3">
+              <h4 className="text-xl font-semibold">Contact</h4>
+              <p className="text-gray-600">
+                If you have any questions, feel free to reach out to the owner.
+              </p>
+              <a
+                href={`tel:${itemData.contact_number}`}
+                className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full py-2 px-8 transition"
+              >
+                <CallIcon /> Call
+              </a>
+              <button
+                onClick={() => setOpenSendMessage(true)}
+                className="bg-[var(--color-primary)] text-[var(--color-primary-content)] hover:text-white px-4 py-2 rounded hover:bg-[var(--color-primary-content)] transition cursor-pointer"
+              >
+                <ChatBubble className="inline mr-1" />
+                Send Message
+              </button>
+            </div>
+          ) : (
+            <p className="text-gray-600">
+              Please{" "}
+              <a href="/login" className="text-blue-600 hover:underline">
+                log in
+              </a>{" "}
+              to contact the owner.
+            </p>
+          )}
         </div>
       )}
 
