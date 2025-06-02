@@ -1,0 +1,227 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import {
+  Box,
+  Typography,
+  List,
+  ListItemButton,
+  Avatar,
+  Divider,
+  CircularProgress,
+  TextField,
+  IconButton,
+} from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import Loader from "../components/ui/Loader";
+
+export default function InboxPage() {
+  const { data: session } = useSession();
+  const currentUserId = session?.user?.id;
+  const [conversations, setConversations] = useState([]);
+  const [selectedConversation, setSelectedConversation] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [messageText, setMessageText] = useState("");
+  const [loadingMessages, setLoadingMessages] = useState(false);
+
+  useEffect(() => {
+    // Fetch conversations only when session is loaded
+    if (!currentUserId) return;
+
+    const fetchConversations = async () => {
+      try {
+        const response = await axios.get(
+          `/api/conversations/user?userId=${currentUserId}`
+        );
+
+        setConversations(response.data);
+      } catch (err) {
+        console.error("Failed to fetch conversations", err);
+      }
+    };
+
+    fetchConversations();
+  }, [currentUserId]);
+
+  // Load messages for the selected conversation
+  const loadMessages = async (conversation) => {
+    setSelectedConversation(conversation);
+    setLoadingMessages(true);
+
+    try {
+      // Fetch updated messages and mark them as read
+      await axios.put(`/api/conversations/${conversation.id}/messages`);
+      const response = await axios.get(`/api/conversations/${conversation.id}/messages`);
+      setMessages(response.data);
+
+      // Refresh the conversations to update read status (remove red dot)
+      const updatedConversations = await axios.get(`/api/conversations/user?userId=${currentUserId}`);
+      setConversations(updatedConversations.data);
+    } catch (err) {
+      console.error("Failed to fetch or update messages", err);
+    } finally {
+      setLoadingMessages(false);
+    }
+  };
+
+  // Handle sending a new message
+  const handleSendMessage = async () => {
+    if (!messageText.trim()) return;
+
+    try {
+      const response = await axios.post("/api/messages", {
+        conversationId: selectedConversation.id,
+        senderId: currentUserId,
+        content: messageText,
+      });
+
+      setMessages((prev) => [...prev, response.data]);
+      setMessageText("");
+    } catch (err) {
+      console.error("Failed to send message", err);
+    }
+  };
+
+  return (
+    <Box display="flex" height="80vh" border="1px solid #ccc" overflow="hidden">
+      {/* Sidebar */}
+      <Box width="30%" bgcolor="#f5f5f5" overflow="auto">
+        <Typography variant="h6" px={2} py={2}>
+          Inbox
+        </Typography>
+        <Divider />
+        <List>
+          {conversations.map((conv) => {
+            const otherUser = conv.conversation?.participants?.find(
+              (p) => p.user?.id !== currentUserId
+            );
+
+            return (
+              <ListItemButton
+                key={conv.id}
+                onClick={() => loadMessages(conv.conversation)}
+                selected={selectedConversation?.id === conv.id}
+              >
+                {/* other user's avatar and name */}
+                <Avatar src={otherUser?.user?.avatar} sx={{ width: { xs: 30, sm: 40 }, height: { xs: 30, sm: 40 }, mr: 1.5 }} />
+                <Box>
+                    {/* unread message indicator */}
+                  <div className="absolute top-2 right-2">
+                    {conv.conversation?.messages?.[conv.conversation?.messages?.length - 1].read ? null : ( // Indicating read messages
+                      <div className="bg-red-500 rounded-full w-1.5 h-1.5">{" "}</div> // Indicating unread messages
+                    )}
+                  </div>
+
+                    {/* other user's name */}
+                  <Typography variant="subtitle1" sx={{ fontSize: { xs: ".8rem", sm: "1rem" } }} noWrap>
+                    {otherUser?.user?.name}
+                  </Typography>
+
+                  {/* last message preview */}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontSize: ".8rem" }}
+                    noWrap
+                  >
+                    {conv.conversation?.messages?.[conv.conversation.messages.length - 1]?.content || "No messages yet"}
+                  </Typography>
+                </Box>
+              </ListItemButton>
+            );
+          })}
+        </List>
+      </Box>
+
+      {/* Conversation View */}
+      <Box flex={1} display="flex" flexDirection="column" bgcolor="#fff">
+        {selectedConversation ? (
+          <>
+            {/* Header with other user's name */}
+            <h1 className="font-bold m-4">
+              Chatting with{" "}
+              {
+                selectedConversation.participants.find(
+                  (p) => p.user?.id !== currentUserId
+                ).user?.name
+              }
+            </h1>
+            <Box px={1} borderBottom="1px solid #ddd">
+              <Typography variant="h6">
+                {
+                  selectedConversation.participants.find(
+                    (p) => p.id !== currentUserId
+                  )?.name
+                }
+              </Typography>
+            </Box>
+            <Box flex={1} p={2} overflow="auto">
+              {loadingMessages ? (
+                <Loader />
+              ) : (
+                messages.map((msg) => (
+                  <Box
+                    key={msg.id}
+                    display="flex"
+                    justifyContent={
+                      msg.senderId === currentUserId ? "flex-end" : "flex-start"
+                    }
+                    mb={1}
+                  >
+                    <Box
+                      px={2}
+                      py={1}
+                      bgcolor={
+                        msg.senderId === currentUserId ? "#1976d2" : "#eee"
+                      }
+                      color={msg.senderId === currentUserId ? "#fff" : "#000"}
+                      borderRadius="12px"
+                      maxWidth="60%"
+                    >
+                      <Typography variant="body2">{msg.content}</Typography>
+                    </Box>
+                  </Box>
+                ))
+              )}
+            </Box>
+            <Box
+              p={2}
+              borderTop="1px solid #ddd"
+              display="flex"
+              alignItems="center"
+            >
+              <TextField
+                value={messageText}
+                onChange={(e) => setMessageText(e.target.value)}
+                fullWidth
+                placeholder="Type a message..."
+                size="small"
+                onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.preventDefault(); // Prevent form submission
+                  handleSendMessage();
+                }
+              }}/>
+              <IconButton color="primary" onClick={handleSendMessage} disabled={!messageText.trim()}>
+                <SendIcon />
+              </IconButton>
+            </Box>
+          </>
+        ) : (
+          <Box
+            flex={1}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Typography variant="body1" color="text.secondary">
+              Select a conversation
+            </Typography>
+          </Box>
+        )}
+      </Box>
+    </Box>
+  );
+}

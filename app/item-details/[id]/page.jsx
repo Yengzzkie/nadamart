@@ -5,8 +5,11 @@ import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { getTimeAgo } from "@/app/utils/getTimeAgo";
 import { Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useOpenSendMessage } from "@/stores/store";
 import axios from "axios";
 import CallIcon from "@mui/icons-material/Call";
+import ChatBubble from "@mui/icons-material/ChatBubble";
 import Carousel from "@/app/components/Carousel";
 import StaggeredDropDown from "@/app/components/StaggeredDropDown";
 import GoogleMap from "@/app/components/GoogleMap";
@@ -15,7 +18,7 @@ import Tag from "@/app/components/ui/Tag";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
 import EditPostForm from "@/app/components/EditPostForm";
 import DeleteModal from "@/app/components/DeleteModal";
-import { useRouter } from "next/navigation";
+import FormDialog from "@/app/components/FormDialog";
 
 const conditionMap = {
   NEW: "New",
@@ -31,6 +34,7 @@ const conditionMap = {
 
 export default function ItemDetailsPage() {
   const router = useRouter();
+  const { setOpenSendMessage } = useOpenSendMessage();
   const { id } = useParams();
   const [itemData, setItemData] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -132,15 +136,36 @@ export default function ItemDetailsPage() {
       <hr className="my-6" />
 
       {/* Contact */}
-      <div className="flex flex-col gap-3">
-        <h4 className="text-xl font-semibold">Contact</h4>
-        <a
-          href={`tel:${itemData.contact_number}`}
-          className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full md:w-fit py-2 px-8 transition"
-        >
-          <CallIcon /> Call
-        </a>
-      </div>
+      {isAuthor ? (
+        <div className="flex flex-col gap-3">
+          <h4 className="text-xl font-semibold">Contact Information</h4>
+          <p className="text-gray-600">
+            You can edit your contact information in your profile settings.
+          </p>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-3">
+          <h4 className="text-xl font-semibold">Contact the Seller</h4>
+          <p className="text-gray-600">
+            If you have any questions, feel free to reach out to the seller.
+          </p>
+          <a
+            href={`tel:${itemData.contact_number}`}
+            className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full py-2 px-8 transition"
+          >
+            <CallIcon /> Call
+          </a>
+          <button
+            onClick={() => setOpenSendMessage(true)}
+            className="bg-[var(--color-primary)] text-[var(--color-primary-content)] hover:text-white px-4 py-2 rounded hover:bg-[var(--color-primary-content)] transition cursor-pointer"
+          >
+            <ChatBubble className="inline mr-1" />
+            Send Message
+          </button>
+        </div>
+      )}
+
+      {/* Phone */}
 
       <hr className="my-6" />
 
@@ -158,7 +183,13 @@ export default function ItemDetailsPage() {
         <UserAvatarCard userData={itemData?.author} />
       </div>
 
-      <DeleteModal data={itemData} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={handleDelete} />
+      <DeleteModal
+        data={itemData}
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onDelete={handleDelete}
+      />
+      <FormDialog data={itemData} />
     </div>
   );
 }

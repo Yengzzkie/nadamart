@@ -19,3 +19,8 @@ export const useSearchQuery = create((set ) => ({
   searchQuery: "",
   setSearchQuery: (query) => set({ searchQuery: query})
 }))
+
+export const useOpenSendMessage = create((set) => ({
+  openSendMessage: false,
+  setOpenSendMessage: (open) => set({ openSendMessage: open }),
+}));

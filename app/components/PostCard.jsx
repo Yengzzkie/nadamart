@@ -13,10 +13,11 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
 import DeleteModal from "./DeleteModal";
 import FormDialog from "./FormDialog";
+// import { useOpenSendMessage } from "@/stores/store";
 
 export default function PostCard({ data, fetchPosts }) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [openSendMessage, setOpenSendMessage] = React.useState(false);
+  // const { openSendMessage, setOpenSendMessage } = useOpenSendMessage();
 
   if (!data) {
     return null;
@@ -28,7 +29,7 @@ export default function PostCard({ data, fetchPosts }) {
         backgroundColor: "var(--color-base-100)",
         height: "100%",
         border: {  xs: ".5px solid var(--color-base-300)", sm: "1px solid var(--color-base-300)" },
-        borderRadius: { xs: 0, md: 3 },
+        borderRadius: { xs: 0, lg: 3 },
         boxShadow: "0",
         ":hover": { boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" },
         padding: "1px",
@@ -39,7 +40,7 @@ export default function PostCard({ data, fetchPosts }) {
         avatar={
           <Avatar src={data.author.avatar} sx={{ width: {xs: "30px", sm: "50px"}, height: {xs: "30px", sm: "50px"}, fontSize: {xs: "12px", sm: "16px"}, mr: "0px !important" }} aria-label="avatar" />
         }
-        action={<CardVerticalMenu data={data} isOpen={isOpen} setIsOpen={setIsOpen} setOpenSendMessage={setOpenSendMessage} />}
+        action={<CardVerticalMenu data={data} isOpen={isOpen} setIsOpen={setIsOpen} />}
         title={data.author.name}
         subheader={`${getTimeAgo(data.createdAt)} ago`}
         className="truncate"
@@ -70,7 +71,7 @@ export default function PostCard({ data, fetchPosts }) {
       <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={fetchPosts} />
 
       {/* MODAL WITH FORM */}
-      <FormDialog data={data} openSendMessage={openSendMessage} setOpenSendMessage={setOpenSendMessage} />
+      <FormDialog data={data} />
     </Card>
   );
 }

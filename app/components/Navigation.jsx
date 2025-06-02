@@ -78,10 +78,7 @@ function Navigation() {
 
   if (status === "loading") {
     return (
-      <AppBar
-        position="sticky"
-        className="!bg-[#fff] !text-[var(--color-base-content)] !shadow-none"
-      >
+      <div className="sticky top-0 z-50 !bg-[#fff] !text-[var(--color-base-content)]">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
@@ -89,15 +86,13 @@ function Navigation() {
             </Typography>
           </Toolbar>
         </Container>
-      </AppBar>
+      </div>
     );
   }
 
   return (
-    <AppBar
-      position="sticky"
-      className="!bg-[#fff] top-0 !text-[var(--color-base-content)] !shadow-none"
-    >
+    <div className="sticky top-0 z-50 !bg-[#fff] !text-[var(--color-base-content)]">
+
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -275,7 +270,7 @@ function Navigation() {
         </Toolbar>
       </Container>
       <SearchBar fetchPostsByQuery={fetchPostsByQuery} />
-    </AppBar>
+    </div>
   );
 }
 

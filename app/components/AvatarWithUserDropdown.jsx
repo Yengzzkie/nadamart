@@ -39,7 +39,7 @@ export default function AvatarWithUserDropdown({ userData }) {
     {
       label: "Inbox",
       icon: InboxArrowDownIcon,
-      link: "/",
+      link: "/inbox",
     },
     {
       label: "Post",

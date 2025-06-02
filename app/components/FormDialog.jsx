@@ -8,12 +8,14 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useOpenSendMessage } from "@/stores/store";
 
-export default function FormDialog({ data, openSendMessage, setOpenSendMessage }) {
+export default function FormDialog({ data }) {
   const session = useSession();
   const [message, setMessage] = React.useState("");
   const currentUserId = session?.data?.user?.id;
   const authorId = data?.author?.id;
+  const { openSendMessage, setOpenSendMessage } = useOpenSendMessage();
 
   const handleClose = () => {
     setOpenSendMessage(false);
