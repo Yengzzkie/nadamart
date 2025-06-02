@@ -6,23 +6,36 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function FormDialog({ data, openSendMessage, setOpenSendMessage }) {
+  const session = useSession();
   const [message, setMessage] = React.useState("");
+  const currentUserId = session?.data?.user?.id;
+  const authorId = data?.author?.id;
 
   const handleClose = () => {
     setOpenSendMessage(false);
     setMessage("");
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (!message.trim()) {
       return;
     }
+    const participantIds = [currentUserId, authorId];
+    const conversationId = await axios.post("/api/conversations", { participantIds });
+    console.log(conversationId);
 
-    console.log("Message sent to:", data?.author?.name);
-    console.log("Message:", message);
+    const response = await axios.post("/api/messages", {
+      conversationId: conversationId.data.id,
+      senderId: currentUserId,
+      content: message,
+    });
+
+    console.log(response.data);
 
     handleClose();
   };
