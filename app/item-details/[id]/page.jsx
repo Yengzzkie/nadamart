@@ -18,7 +18,8 @@ import Tag from "@/app/components/ui/Tag";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
 import EditPostForm from "@/app/components/EditPostForm";
 import DeleteModal from "@/app/components/DeleteModal";
-import FormDialog from "@/app/components/FormDialog";
+import SendMessageModal from "@/app/components/SendMessageModal";
+import Toast from "@/app/components/Toast";
 
 const conditionMap = {
   NEW: "New",
@@ -39,13 +40,14 @@ export default function ItemDetailsPage() {
   const [itemData, setItemData] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [openToast, setOpenToast] = useState(false);
   const session = useSession();
   const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
   async function fetchPostDetails() {
     try {
-      const response = await axios(`/api/posts/post?postId=${id}`);
+      const response = await axios.get(`/api/posts/post?postId=${id}`);
       setItemData(response.data);
     } catch (error) {
       console.error("Error fetching post details:", error);
@@ -90,6 +92,7 @@ export default function ItemDetailsPage() {
           setIsEditMode={setIsEditMode}
         />
       )}
+      <Toast />
       <Carousel itemData={itemData.image} />
 
       {/* Title */}
@@ -199,7 +202,8 @@ export default function ItemDetailsPage() {
         setIsOpen={setIsOpen}
         onDelete={handleDelete}
       />
-      <FormDialog data={itemData} />
+      <SendMessageModal data={itemData} setOpenToast={setOpenToast} />
+      <Toast openToast={openToast} setOpenToast={setOpenToast} />
     </div>
   );
 }

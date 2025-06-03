@@ -12,8 +12,7 @@ import Typography from "@mui/material/Typography";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CardVerticalMenu from "./ui/CardVerticalMenu";
 import DeleteModal from "./DeleteModal";
-import FormDialog from "./FormDialog";
-// import { useOpenSendMessage } from "@/stores/store";
+import SendMessageModal from "./SendMessageModal";
 
 export default function PostCard({ data, fetchPosts }) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -71,7 +70,7 @@ export default function PostCard({ data, fetchPosts }) {
       <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={fetchPosts} />
 
       {/* MODAL WITH FORM */}
-      <FormDialog data={data} />
+      <SendMessageModal data={data} />
     </Card>
   );
 }

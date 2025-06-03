@@ -10,7 +10,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useOpenSendMessage } from "@/stores/store";
 
-export default function FormDialog({ data }) {
+export default function SendMessageModal({ data, setOpenToast }) {
   const session = useSession();
   const [message, setMessage] = React.useState("");
   const currentUserId = session?.data?.user?.id;
@@ -27,17 +27,21 @@ export default function FormDialog({ data }) {
     if (!message.trim()) {
       return;
     }
-    const participantIds = [currentUserId, authorId];
-    const conversationId = await axios.post("/api/conversations", { participantIds });
-    console.log(conversationId);
+    try {
+      const participantIds = [currentUserId, authorId];
+      const conversationId = await axios.post("/api/conversations", { postId: data.id, participantIds });
 
-    const response = await axios.post("/api/messages", {
-      conversationId: conversationId.data.id,
-      senderId: currentUserId,
-      content: message,
-    });
-
-    console.log(response.data);
+      await axios.post("/api/messages", {
+        conversationId: conversationId.data.id,
+        senderId: currentUserId,
+        content: message,
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      return;
+    } finally {
+      setOpenToast(true);
+    }
 
     handleClose();
   };

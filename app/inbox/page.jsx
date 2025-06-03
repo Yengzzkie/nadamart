@@ -8,7 +8,6 @@ import {
   ListItemButton,
   Avatar,
   Divider,
-  CircularProgress,
   TextField,
   IconButton,
 } from "@mui/material";
@@ -35,6 +34,7 @@ export default function InboxPage() {
         const response = await axios.get(
           `/api/conversations/user?userId=${currentUserId}`
         );
+        console.log(response.data);
 
         setConversations(response.data);
       } catch (err) {
@@ -105,7 +105,7 @@ export default function InboxPage() {
                 selected={selectedConversation?.id === conv.id}
               >
                 {/* other user's avatar and name */}
-                <Avatar src={otherUser?.user?.avatar} sx={{ width: { xs: 30, sm: 40 }, height: { xs: 30, sm: 40 }, mr: 1.5 }} />
+                <Avatar src={conv.conversation?.post?.image[0]} sx={{ width: { xs: 30, sm: 40 }, height: { xs: 30, sm: 40 }, mr: 1.5 }} />
                 <Box>
                     {/* unread message indicator */}
                   <div className="absolute top-2 right-2">
@@ -162,26 +162,38 @@ export default function InboxPage() {
                 <Loader />
               ) : (
                 messages.map((msg) => (
+                  console.log(msg.sender.avatar),
                   <Box
                     key={msg.id}
                     display="flex"
                     justifyContent={
                       msg.senderId === currentUserId ? "flex-end" : "flex-start"
                     }
-                    mb={1}
+                    mb={{ xs: 2, sm: 1 }}
                   >
-                    <Box
-                      px={2}
-                      py={1}
-                      bgcolor={
-                        msg.senderId === currentUserId ? "#1976d2" : "#eee"
-                      }
-                      color={msg.senderId === currentUserId ? "#fff" : "#000"}
-                      borderRadius="12px"
-                      maxWidth="60%"
-                    >
-                      <Typography variant="body2">{msg.content}</Typography>
-                    </Box>
+                    <div className="flex gap-1 lg:max-w-[70%]">
+                      {msg.senderId !== currentUserId && (
+                        <Avatar
+                          src={msg.sender.avatar}
+                          sx={{ width: 40, height: 40 }}
+                        />
+                      )}
+                      <div>
+                        <Box
+                          px={2}
+                          py={1}
+                          bgcolor={
+                            msg.senderId === currentUserId ? "#1976d2" : "#eee"
+                          }
+                          color={msg.senderId === currentUserId ? "#fff" : "#000"}
+                          borderRadius="12px"
+                          width="100%"
+                        >
+                          <Typography variant="body2">{msg.content}</Typography>
+                        </Box>
+                        <p className="text-xs text-gray-500 px-1">Sent {new Date(msg.createdAt).toLocaleString()}</p>
+                      </div>
+                    </div>
                   </Box>
                 ))
               )}

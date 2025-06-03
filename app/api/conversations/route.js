@@ -1,10 +1,9 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/db/prismaClient';
+import { NextResponse } from "next/server";
+import prisma from "@/db/prismaClient";
 
 // route for creating and/or retrieiving a conversation between two users
 export async function POST(request) {
-  const { participantIds } = await request.json(); // Array of 2 user IDs
-  const [userA, userB] = participantIds;
+  const { postId, participantIds } = await request.json();
 
   // Sort to ensure consistent order
   const sortedIds = [...participantIds].sort();
@@ -12,14 +11,18 @@ export async function POST(request) {
   // Check if conversation already exists
   const existing = await prisma.conversation.findFirst({
     where: {
+      postId: postId,
       participants: {
         every: {
-          userId: { in: sortedIds },
+          userId: {
+            in: sortedIds,
+          },
         },
       },
     },
     include: {
       participants: { include: { user: true } },
+      post: true,
     },
   });
 
@@ -27,9 +30,10 @@ export async function POST(request) {
     return NextResponse.json(existing);
   }
 
-  // Create new conversation
+  // if conversation doesn't exist, create new conversation
   const conversation = await prisma.conversation.create({
     data: {
+      postId: postId,
       participants: {
         create: sortedIds.map((id) => ({ userId: id })),
       },

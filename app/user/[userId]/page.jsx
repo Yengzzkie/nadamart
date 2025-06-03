@@ -35,7 +35,7 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col lg:flex-row gap-4">
       {/* USER AVATAR */}
-      <div className="sticky top-4 w-3xl max-w-3xl max-h-fit mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+      <div className="lg:sticky top-40 w-full lg:w-3xl lg:max-w-3xl max-h-fit mx-auto p-6 bg-white shadow-md lg:rounded-lg mt-8">
         <div className="flex items-center space-x-6">
           <img
             src={user.avatar}

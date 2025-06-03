@@ -4,7 +4,6 @@ import { useMemo } from "react";
 
 const GoogleMap = ({ location }) => {
   const session = useSession();
-  console.log(session)
 
   const query = useMemo(() => {
     const { city = "", province = "", country = "", postal_code = "" } = location || {};

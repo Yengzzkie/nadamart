@@ -18,6 +18,7 @@ export async function GET(request) {
           participants: {
             include: { user: true },
           },
+          post: true,
         },
       },
     },
