@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nadamart
 
-## Getting Started
+Nadamart is a full-stack marketplace application built with **Next.js**, **PostgreSQL**, **Prisma**, **Supabase**, and **TailwindCSS**. This guide will help technical reviewers set up and run the project locally for development or inspection purposes.
 
-First, run the development server:
+---
+
+## 🧰 Tech Stack
+
+- **Frontend**: Next.js, React, TailwindCSS, MUI, Framer Motion
+- **Backend**: Next.js API routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Auth**: NextAuth.js
+- **Storage/Realtime**: Supabase
+
+---
+
+## 🚀 Getting Started
+
+### 1. **Clone the Repository**
+
+```bash
+git clone git@github.com:Yengzzkie/nadamart.git
+cd nadamart
+```
+
+### 2. **Install Dependencies**
+
+```bash
+npm install
+```
+
+### 3. **Configure Environment Variables**
+
+Create a `.env` file at the root of the project based on the following example:
+
+```env
+# Database
+DATABASE_URL="postgresql://postgres:password@host:port/postgres"
+DIRECT_URL="postgresql://postgres:password@host:port/postgres"
+
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL="https://your-project.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
+
+# NextAuth / Auth
+AUTH_SECRET="your-auth-secret"
+JWT_SECRET="your-jwt-secret"
+
+# Google Maps API
+NEXT_PUBLIC_GOOGLE_MAP_API_KEY="your-google-map-api-key"
+
+# App mode
+NODE_ENV="development"
+```
+
+> **Note**: Ensure your PostgreSQL instance is running and the database `nadamart` exists.
+
+
+> **Note**: You can also run this command in CLI to generate your own AUTH_SECRET and JWT_SECRET then copy and paste the generated random string from CLI to the .env file.
+```bash
+openssl rand -base64 32
+```
+
+---
+
+### 4. **Generate Prisma Client**
+
+```bash
+npx prisma generate
+```
+
+
+
+---
+
+## 🧪 Development
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure Overview
 
-## Learn More
+```
+/prisma          # Prisma schema and migration files
+/app/api         # Backend API routes
+/app/components  # Shared UI components
+/lib             # Utility and helper functions
+/styles          # Global styles and Tailwind setup
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📮 Feedback
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you run into any issues while setting up Nadamart locally, please feel free to reach out via issues or contact the developer directly.

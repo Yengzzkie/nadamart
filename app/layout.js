@@ -13,6 +13,7 @@ export const metadata = {
 export default async function RootLayout({ children }) {
   return (
     <html lang="en">
+      <link rel="icon" href="/favicon.png" />
       <body className={`lg:px-40`}>
         <Provider>
           <Navigation />
