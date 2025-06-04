@@ -58,11 +58,11 @@ export default function LoginForm() {
       <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label className="text-gray-400" htmlFor="email">Email Address</Label>
-          <Input className="bg-[var(--primary-light)] text-[var(--primary)]" onChange={handleInputChange} value={formData.email} id="email" placeholder="user@domain.com" type="email" name="email" required />
+          <Input className="bg-[var(--primary-light)] text-[var(--primary)] placeholder:text-zinc-500" onChange={handleInputChange} value={formData.email} id="email" placeholder="user@domain.com" type="email" name="email" required />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label className="text-gray-400" htmlFor="password">Password</Label>
-          <Input className="bg-[var(--primary-light)] text-[var(--primary)]" onChange={handleInputChange} value={formData.password} id="password" placeholder="••••••••" type="password" name="password" required />
+          <Input className="bg-[var(--primary-light)] text-[var(--primary)] placeholder:text-zinc-500" onChange={handleInputChange} value={formData.password} id="password" placeholder="••••••••" type="password" name="password" required />
         </LabelInputContainer>
 
         <button

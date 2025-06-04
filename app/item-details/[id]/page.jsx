@@ -67,7 +67,7 @@ export default function ItemDetailsPage() {
 
   if (isEditMode) {
     return (
-      <div className="min-h-screen flex flex-col p-6 lg:px-40">
+      <div className="min-h-screen flex flex-col p-1 lg:px-40">
         <StaggeredDropDown setIsEditMode={setIsEditMode} />
         <EditPostForm
           postData={itemData}
@@ -87,7 +87,7 @@ export default function ItemDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col p-6 lg:px-40">
+    <div className="min-h-screen flex flex-col p-3 lg:px-40">
       <BackButton />
       {isAuthor && (
         <StaggeredDropDown

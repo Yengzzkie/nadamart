@@ -9,7 +9,7 @@ const ListingCard = ({ postData }) => {
       : postData.content;
 
   return (
-    <div className="flex gap-4 w-full h-auto mx-auto p-6 bg-white shadow-md rounded-lg mt-8">
+    <div className="flex gap-4 w-full h-auto mx-auto p-6 bg-white shadow-md lg:rounded-lg mb-4 border-t-1 border-zinc-200">
       <div className="w-36 h-36 flex-shrink-0">
         <img
           src={postData?.image[0]}
