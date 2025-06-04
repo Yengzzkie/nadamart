@@ -11,10 +11,11 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
+import { useSession } from "next-auth/react";
 import SendIcon from "@mui/icons-material/Send";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 import Loader from "../components/ui/Loader";
+import Link from "next/link";
 
 export default function InboxPage() {
   const { data: session } = useSession();
@@ -49,15 +50,20 @@ export default function InboxPage() {
   const loadMessages = async (conversation) => {
     setSelectedConversation(conversation);
     setLoadingMessages(true);
+    console.log(selectedConversation);
 
     try {
       // Fetch updated messages and mark them as read
       await axios.put(`/api/conversations/${conversation.id}/messages`);
-      const response = await axios.get(`/api/conversations/${conversation.id}/messages`);
+      const response = await axios.get(
+        `/api/conversations/${conversation.id}/messages`
+      );
       setMessages(response.data);
 
       // Refresh the conversations to update read status (remove red dot)
-      const updatedConversations = await axios.get(`/api/conversations/user?userId=${currentUserId}`);
+      const updatedConversations = await axios.get(
+        `/api/conversations/user?userId=${currentUserId}`
+      );
       setConversations(updatedConversations.data);
     } catch (err) {
       console.error("Failed to fetch or update messages", err);
@@ -105,17 +111,32 @@ export default function InboxPage() {
                 selected={selectedConversation?.id === conv.id}
               >
                 {/* other user's avatar and name */}
-                <Avatar src={conv.conversation?.post?.image[0]} sx={{ width: { xs: 30, sm: 40 }, height: { xs: 30, sm: 40 }, mr: 1.5 }} />
+                <Avatar
+                  src={conv.conversation?.post?.image[0]}
+                  sx={{
+                    width: { xs: 30, sm: 40 },
+                    height: { xs: 30, sm: 40 },
+                    mr: 1.5,
+                  }}
+                />
                 <Box>
-                    {/* unread message indicator */}
+                  {/* unread message indicator */}
                   <div className="absolute top-2 right-2">
-                    {conv.conversation?.messages?.[conv.conversation?.messages?.length - 1].read ? null : ( // Indicating read messages
-                      <div className="bg-red-500 rounded-full w-1.5 h-1.5">{" "}</div> // Indicating unread messages
+                    {conv.conversation?.messages?.[
+                      conv.conversation?.messages?.length - 1
+                    ].read ? null : ( // Indicating read messages
+                      <div className="bg-red-500 rounded-full w-1.5 h-1.5">
+                        {" "}
+                      </div> // Indicating unread messages
                     )}
                   </div>
 
-                    {/* other user's name */}
-                  <Typography variant="subtitle1" sx={{ fontSize: { xs: ".8rem", sm: "1rem" } }} noWrap>
+                  {/* other user's name */}
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ fontSize: { xs: ".8rem", sm: "1rem" } }}
+                    noWrap
+                  >
                     {otherUser?.user?.name}
                   </Typography>
 
@@ -126,7 +147,9 @@ export default function InboxPage() {
                     sx={{ fontSize: ".8rem" }}
                     noWrap
                   >
-                    {conv.conversation?.messages?.[conv.conversation.messages.length - 1]?.content || "No messages yet"}
+                    {conv.conversation?.messages?.[
+                      conv.conversation.messages.length - 1
+                    ]?.content || "No messages yet"}
                   </Typography>
                 </Box>
               </ListItemButton>
@@ -139,15 +162,33 @@ export default function InboxPage() {
       <Box flex={1} display="flex" flexDirection="column" bgcolor="#fff">
         {selectedConversation ? (
           <>
-            {/* Header with other user's name */}
-            <h1 className="font-bold m-4">
-              Chatting with{" "}
-              {
-                selectedConversation.participants.find(
-                  (p) => p.user?.id !== currentUserId
-                ).user?.name
-              }
-            </h1>
+            {/* Header with other user's name which also links to item-details page */}
+            <Link href={`/item-details/${selectedConversation.post?.id}`}>
+              <div className="flex items-center gap-2 p-4 border-b">
+                <img
+                  src={selectedConversation.post?.image[0]}
+                  alt="post-image"
+                  className="w-20 h-20"
+                />
+                <div className="flex flex-col ml-2">
+                  {/* post title */}
+                  <h2 className="text-lg font-semibold">
+                    {selectedConversation.post?.title}
+                  </h2>
+
+                  {/* other user's name */}
+                  <h1 className="text-sm text-zinc-600">
+                    Chatting with{" "}
+                    {
+                      selectedConversation.participants.find(
+                        (p) => p.user?.id !== currentUserId
+                      ).user?.name
+                    }
+                  </h1>
+                </div>
+              </div>
+            </Link>
+
             <Box px={1} borderBottom="1px solid #ddd">
               <Typography variant="h6">
                 {
@@ -162,7 +203,6 @@ export default function InboxPage() {
                 <Loader />
               ) : (
                 messages.map((msg) => (
-                  console.log(msg.sender.avatar),
                   <Box
                     key={msg.id}
                     display="flex"
@@ -173,10 +213,12 @@ export default function InboxPage() {
                   >
                     <div className="flex gap-1 lg:max-w-[70%]">
                       {msg.senderId !== currentUserId && (
-                        <Avatar
-                          src={msg.sender.avatar}
-                          sx={{ width: 40, height: 40 }}
-                        />
+                        <Link href={`/user/${msg.senderId}`}>
+                          <Avatar
+                            src={msg.sender.avatar}
+                            sx={{ width: 40, height: 40 }}
+                          />
+                        </Link>
                       )}
                       <div>
                         <Box
@@ -185,13 +227,17 @@ export default function InboxPage() {
                           bgcolor={
                             msg.senderId === currentUserId ? "#1976d2" : "#eee"
                           }
-                          color={msg.senderId === currentUserId ? "#fff" : "#000"}
+                          color={
+                            msg.senderId === currentUserId ? "#fff" : "#000"
+                          }
                           borderRadius="12px"
                           width="100%"
                         >
                           <Typography variant="body2">{msg.content}</Typography>
                         </Box>
-                        <p className="text-xs text-gray-500 px-1">Sent {new Date(msg.createdAt).toLocaleString()}</p>
+                        <p className="text-xs text-gray-500 px-1">
+                          Sent {new Date(msg.createdAt).toLocaleString()}
+                        </p>
                       </div>
                     </div>
                   </Box>
@@ -211,12 +257,17 @@ export default function InboxPage() {
                 placeholder="Type a message..."
                 size="small"
                 onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault(); // Prevent form submission
-                  handleSendMessage();
-                }
-              }}/>
-              <IconButton color="primary" onClick={handleSendMessage} disabled={!messageText.trim()}>
+                  if (e.key === "Enter") {
+                    e.preventDefault(); // Prevent form submission
+                    handleSendMessage();
+                  }
+                }}
+              />
+              <IconButton
+                color="primary"
+                onClick={handleSendMessage}
+                disabled={!messageText.trim()}
+              >
                 <SendIcon />
               </IconButton>
             </Box>

@@ -14,7 +14,7 @@ const SearchBar = ({ fetchPostsByQuery }) => {
           <input
             type="text"
             className="w-full py-2 px-2 bg-[var(--primary-light)] outline-none"
-            placeholder="Search for items, keywords, category..."
+            placeholder="What are you looking for?"
             onChange={(e) => setSearchQuery(e.target.value)}
             value={searchQuery}
             onKeyDown={(e) => {

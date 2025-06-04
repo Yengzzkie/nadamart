@@ -105,7 +105,7 @@ export default function ItemDetailsPage() {
 
       {/* Posted Info */}
       <p className="text-gray-600 mb-2 italic">
-        Posted by <span className="font-bold">{itemData.author?.name}</span>{" "}
+        Posted {" "}
         {getTimeAgo(itemData.createdAt)} ago
       </p>
 
