@@ -20,6 +20,7 @@ import EditPostForm from "@/app/components/EditPostForm";
 import DeleteModal from "@/app/components/DeleteModal";
 import SendMessageModal from "@/app/components/SendMessageModal";
 import Toast from "@/app/components/Toast";
+import BackButton from "@/app/components/ui/BackButton";
 
 const conditionMap = {
   NEW: "New",
@@ -42,7 +43,8 @@ export default function ItemDetailsPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const session = useSession();
-  const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
+  const isAuthor =
+    session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
   async function fetchPostDetails() {
@@ -86,6 +88,7 @@ export default function ItemDetailsPage() {
 
   return (
     <div className="min-h-screen flex flex-col p-6 lg:px-40">
+      <BackButton />
       {isAuthor && (
         <StaggeredDropDown
           setIsOpen={setIsOpen}
@@ -146,7 +149,7 @@ export default function ItemDetailsPage() {
         </div>
       ) : (
         <div className="flex flex-col gap-3">
-          { session?.status === "authenticated" ? (
+          {session?.status === "authenticated" ? (
             <div className="flex flex-col gap-3">
               <h4 className="text-xl font-semibold">Contact</h4>
               <p className="text-gray-600">
