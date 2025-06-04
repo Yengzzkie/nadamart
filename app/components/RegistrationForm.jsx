@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
-import { cn } from "../utils/utils";
+import { cn } from "../../lib/utils";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons-react";

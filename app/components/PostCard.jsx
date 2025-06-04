@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { getTimeAgo } from "../utils/getTimeAgo";
+import { getTimeAgo } from "../../lib/getTimeAgo";
 import Link from "next/link";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";

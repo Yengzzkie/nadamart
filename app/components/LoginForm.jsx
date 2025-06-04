@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { signIn } from "next-auth/react"
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { cn } from "../utils/utils";
+import { cn } from "../../lib/utils";
 import { IconBrandFacebook, IconBrandGoogle } from "@tabler/icons-react";
 import { useRouter } from "next/navigation";
 import Loader from "./ui/Loader";

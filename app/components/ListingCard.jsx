@@ -1,4 +1,4 @@
-import { getTimeAgo } from "../utils/getTimeAgo";
+import { getTimeAgo } from "../../lib/getTimeAgo";
 
 const ListingCard = ({ postData }) => {
   const maxLength = 120;

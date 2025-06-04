@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { getTimeAgo } from "@/app/utils/getTimeAgo";
+import { getTimeAgo } from "@/lib/getTimeAgo";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useOpenSendMessage } from "@/stores/store";

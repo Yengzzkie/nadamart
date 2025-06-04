@@ -1,5 +1,5 @@
 import * as React from "react";
-import { deleteImages } from "@/app/utils/deleteImages";
+import { deleteImages } from "@/lib/deleteImages";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import Button from "@mui/material/Button";

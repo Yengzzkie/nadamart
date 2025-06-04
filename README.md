@@ -92,9 +92,8 @@ Visit `http://localhost:3000` in your browser.
 /app/api         # Backend API routes
 /app/components  # Shared UI components
 /lib             # Utility and helper functions
-/styles          # Global styles and Tailwind setup
 ```
 
 ## 📮 Feedback
 
-If you run into any issues while setting up Nadamart locally, please feel free to reach out via issues or contact the developer directly.
+If you run into any issues while setting up Nadamart locally, please feel free to reach out via issues or contact me directly.
