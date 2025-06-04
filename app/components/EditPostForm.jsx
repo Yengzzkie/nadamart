@@ -239,13 +239,23 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
           </Accordion>
         </div>
 
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="flex justify-center mt-3 ml-auto px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-content)] text-[var(--color-primary-content)] hover:text-white rounded-sm w-full cursor-pointer"
-        >
-          {isLoading ? <Loader /> : "Save"}
-        </button>
+        {/* Save/cancel button */}
+        <div className="flex flex-col lg:flex-row lg:gap-2 gap-.5">
+          <button
+            type="submit"
+            className="flex justify-center mt-3 ml-auto px-4 py-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-content)] text-[var(--color-primary-content)] hover:text-white rounded-sm w-full cursor-pointer"
+          >
+            {isLoading ? <Loader /> : "Save"}
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsEditMode(false)}
+            className="flex justify-center mt-3 ml-auto px-4 py-2 bg-[var(--color-error)] hover:bg-[var(--color-error-content)] text-[var(--color-error-content)] hover:text-white rounded-sm w-full cursor-pointer"
+          >
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   );

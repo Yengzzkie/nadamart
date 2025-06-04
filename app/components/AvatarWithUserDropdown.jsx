@@ -27,9 +27,9 @@ export default function AvatarWithUserDropdown({ userData }) {
   // profile menu component
   const profileMenuItems = [
     {
-      label: "My Profile",
+      label: "My Postings",
       icon: UserCircleIcon,
-      link: "/",
+      link: `/user/${userData?.id}`,
     },
     {
       label: "Edit Profile",

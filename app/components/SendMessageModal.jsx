@@ -71,7 +71,7 @@ export default function SendMessageModal({ data, setOpenToast }) {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary">
+            <Button onClick={handleClose} sx={{ color: "var(--color-error-content)", "&:hover": { background: "var(--color-error)" } }}>
               Cancel
             </Button>
             <Button type="submit" variant="contained" sx={{ background: "var(--color-primary-content)", "&:hover": { background: "var(--color-primary)", color: "var(--color-primary-content)" } }}>
