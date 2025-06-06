@@ -3,7 +3,6 @@ import React, { useState } from "react"
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
 import "@/app/globals.css"
-import SpringModal from "./ImageModal"
 
 function ThumbnailPlugin(mainRef) {
   return (slider) => {
@@ -60,7 +59,7 @@ export default function Carousel({ itemData }) {
   return (
     <>
       <div ref={sliderRef} className="keen-slider">
-        {itemData.map((image, index) => ( // replace the index with item.id later on
+        {itemData.map((image, index) => (
           <div key={index} className="keen-slider__slide ">
             <img loading="lazy" onClick={() => {
               setIsOpen(true);
@@ -71,12 +70,10 @@ export default function Carousel({ itemData }) {
       </div>
 
       <div ref={thumbnailRef} className="keen-slider thumbnail">
-        {itemData.map((image, index) => ( // replace the index with item.id later on
+        {itemData.map((image, index) => (
           <div key={index} className="keen-slider__slide "><div className="overlay"></div><img src={image} alt="" /></div>
         ))}
       </div>
-
-      <SpringModal isOpen={isOpen} setIsOpen={setIsOpen} image={selectedImage} />
     </>
   )
 }
