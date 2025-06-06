@@ -8,6 +8,11 @@ import { fireConfetti } from "../components/ui/Confetti";
 const RegistrationSuccess = () => {
   const router = useRouter();
 
+  if (session) {
+    router.push("/");
+    return null;
+  }
+
   useEffect(() => {
     fireConfetti();
     const timer = setTimeout(() => {

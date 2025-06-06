@@ -107,7 +107,7 @@ export default function ItemDetails({ itemData }) {
       ) : (
         <div className="flex flex-col gap-3">
           {session?.status === "authenticated" ? (
-            <div className="flex gap-3 fixed bottom-0 left-0 right-0 bg-white lg:px-20 px-2 py-3 lg:py-6 border-t-[1px] border-gray-200 z-[9999] shadow-md">
+            <div className="flex gap-3 fixed bottom-0 left-0 right-0 bg-white lg:px-20 px-2 py-3 lg:py-6 border-[1px] border-gray-200 z-[9999] shadow-md">
               {/* <h4 className="text-xl font-semibold">Contact</h4>
               <p className="text-gray-600">
                 If you have any questions, feel free to reach out to the owner.
