@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import TextField from "@mui/material/TextField";
 import axios from "axios";
 import Accordion from "@mui/material/Accordion";

@@ -24,7 +24,6 @@ export const DragCloseDrawerExample = ({ selectedPost, open, setOpen }) => {
 };
 
 export const DragCloseDrawer = ({ selectedPost, open, setOpen, children }) => {
-  console.log("selectedPost", selectedPost);
   const router = useRouter();
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();

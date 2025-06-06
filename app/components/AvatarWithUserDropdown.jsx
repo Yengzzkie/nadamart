@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState } from "react";
+import React from "react";
 import {
   Avatar,
   Button,
@@ -11,16 +10,21 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import {
+  Cog6ToothIcon,
   InboxArrowDownIcon,
   PowerIcon,
   UserCircleIcon,
+  PencilSquareIcon
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function AvatarWithUserDropdown({ userData }) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const router = useRouter();
 
+  // profile menu component
   const profileMenuItems = [
     {
       label: "My Postings",
@@ -28,9 +32,19 @@ export default function AvatarWithUserDropdown({ userData }) {
       link: `/user/${userData?.id}`,
     },
     {
+      label: "Edit Profile",
+      icon: Cog6ToothIcon,
+      link: `/user/${userData?.id}/profile`,
+    },
+    {
       label: "Inbox",
       icon: InboxArrowDownIcon,
       link: "/inbox",
+    },
+    {
+      label: "Post",
+      icon: PencilSquareIcon,
+      link: `/post/${userData?.id}`,
     },
     {
       label: "Sign Out",
@@ -53,18 +67,16 @@ export default function AvatarWithUserDropdown({ userData }) {
             variant="circular"
             size="md"
             alt={userData?.name}
-            withBorder
+            withBorder={true}
             color="blue-gray"
             className="p-0.5 h-full w-full object-cover"
             src={userData?.avatar}
           />
         </Button>
       </MenuHandler>
-
       <MenuList className="p-2 text-zinc-500 z-[999999]">
         {profileMenuItems.map(({ label, icon, link }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
-
           const content = (
             <MenuItem
               onClick={isLastItem ? () => signOut({ callbackUrl: "/login" }) : closeMenu}
