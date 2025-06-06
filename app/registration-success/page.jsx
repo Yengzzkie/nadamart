@@ -4,9 +4,11 @@ import { useEffect } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import { fireConfetti } from "../components/ui/Confetti";
+import { useSession } from "next-auth/react";
 
 const RegistrationSuccess = () => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   if (session) {
     router.push("/");
