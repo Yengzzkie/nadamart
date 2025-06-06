@@ -1,10 +1,12 @@
 "use client";
 import { usePostSearchResult, useSearchQuery } from "@/stores/store";
 import PostCard from "../components/PostCard";
+import Link from "next/link";
 
 const page = () => {
   const { postSearchResult } = usePostSearchResult();
   const { searchQuery } = useSearchQuery();
+  console.log("postSearchResult", postSearchResult);
 
   return (
     <div className="flex flex-col">
@@ -14,7 +16,9 @@ const page = () => {
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 lg:gap-4">
         {postSearchResult?.posts?.map((post) => (
-          <PostCard data={post} />
+          <Link href={`/item-details/${post.id}`} key={post._id}>
+            <PostCard data={post} />
+          </Link>
         ))}
       </div>
     </div>
