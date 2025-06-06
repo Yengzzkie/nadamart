@@ -79,17 +79,17 @@ export const DragCloseDrawer = ({ open, setOpen, children }) => {
               bottom: 0.5,
             }}
           >
-            <div className="absolute left-0 right-0 top-0 z-999 flex bg-white p-2 border-b-[1px] border-gray-200">
+            <div className="sticky top-0 z-50 flex items-center bg-white p-2 border-b border-gray-200">
               <button
                 title="Drag to close"
-                onClick={() => handleClose()}
-                onPointerDown={(e) => {
-                  controls.start(e);
-                }}
-                className="p-1 lg:p-2 ml-auto mr-2 lg:mr-10 hover:shadow-lg shadow-md rounded-full bg-[var(--color-primary)] cursor-pointer"
-              ><CloseIcon /></button>
+                onClick={handleClose}
+                onPointerDown={(e) => controls.start(e)}
+                className="p-1 ml-auto mr-4 lg:mr-10 rounded-full bg-[var(--color-primary)] shadow-md hover:shadow-lg"
+              >
+                <CloseIcon />
+              </button>
             </div>
-            <div className="relative z-0 h-full overflow-y-scroll p-4 pt-12">
+            <div className="relative z-0 h-full overflow-y-scroll p-4 mt-2">
               {children}
             </div>
           </motion.div>
