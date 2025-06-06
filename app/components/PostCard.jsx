@@ -44,14 +44,14 @@ export default function PostCard({ data, fetchPosts }) {
         subheader={`${getTimeAgo(data.createdAt)} ago`}
         className="truncate"
       />
-      <Link href={`/item-details/${data.id}`}>
+      {/* <Link href={`/item-details/${data.id}`}> */}
         <CardMedia
           sx={{ height: { xs: '250px', md: '300px' }, padding: "5px", borderRadius: "15px", objectFit: "cover" }}
           component="img"
           image={data.image[0] || ""}
           alt={data.title}
         />
-      </Link>
+      {/* </Link> */}
 
       {/* DESCRIPTION SECTION */}
       <CardContent className="lg:block !p-2 lg:p-6">
@@ -70,7 +70,7 @@ export default function PostCard({ data, fetchPosts }) {
       <DeleteModal data={data} isOpen={isOpen} setIsOpen={setIsOpen} onDelete={fetchPosts} />
 
       {/* MODAL WITH FORM */}
-      <SendMessageModal data={data} />
+      {/* <SendMessageModal data={data} /> */}
     </Card>
   );
 }

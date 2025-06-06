@@ -5,12 +5,15 @@ import Pagination from "@mui/material/Pagination";
 import CardLoader from "./ui/CardLoader";
 import PostCard from "./PostCard";
 import axios from "axios";
+import { DragCloseDrawerExample } from "./Drawer";
 
 const PostsGrid = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   async function fetchPosts() {
     setIsLoading(true);
@@ -30,6 +33,11 @@ const PostsGrid = () => {
     fetchPosts();
   }, [page]);
 
+  function handleOpenDrawer(item) {
+    setSelectedPost(item);
+    setOpenDrawer(true);
+  }
+
   return (
     <div className="my-10 lg:px-0 px-1 w-full">
       <h1 className="text-xl lg:text-4xl font-bold my-3 mx-1 lg:mx-0">
@@ -45,13 +53,24 @@ const PostsGrid = () => {
                 </div>
               ))
             : items
-                .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime() )
+                .sort(
+                  (a, b) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+                )
                 .map((item) => (
-                  <div key={item.id}>
+                  <div key={item.id} onClick={() => handleOpenDrawer(item)} className="cursor-pointer">
                     <PostCard fetchPosts={fetchPosts} data={item} />
                   </div>
                 ))}
         </div>
+
+        {/* Move the drawer here */}
+        <DragCloseDrawerExample
+          selectedPost={selectedPost}
+          open={openDrawer}
+          setOpen={setOpenDrawer}
+        />
 
         <Pagination
           count={totalPage}

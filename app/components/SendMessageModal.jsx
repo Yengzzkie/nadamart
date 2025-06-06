@@ -10,7 +10,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useOpenSendMessage } from "@/stores/store";
 
-export default function SendMessageModal({ data, setOpenToast }) {
+export default function SendMessageModal({ data, setOpenToast, openMessageDialog, setOpenMessageDialog }) {
   const session = useSession();
   const [message, setMessage] = React.useState("");
   const currentUserId = session?.data?.user?.id;
@@ -18,7 +18,10 @@ export default function SendMessageModal({ data, setOpenToast }) {
   const { openSendMessage, setOpenSendMessage } = useOpenSendMessage();
 
   const handleClose = () => {
-    setOpenSendMessage(false);
+    setOpenSendMessage(false); // global state handler for sendMessageModal, used in DragCloseDrawer
+    if (openMessageDialog) {
+      setOpenMessageDialog(false); // open state handler for sendMessageModal, used in item-details page
+    };
     setMessage("");
   };
 
@@ -48,7 +51,7 @@ export default function SendMessageModal({ data, setOpenToast }) {
 
   return (
     <React.Fragment>
-      <Dialog open={openSendMessage} onClose={handleClose}>
+      <Dialog open={openSendMessage || openMessageDialog} onClose={handleClose}>
         <form onSubmit={handleSubmit}>
           <DialogTitle>Send Message</DialogTitle>
           <DialogContent>

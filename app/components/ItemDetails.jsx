@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { getTimeAgo } from "@/lib/getTimeAgo";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { useOpenSendMessage } from "@/stores/store";
 import CallIcon from "@mui/icons-material/Call";
 import ChatBubble from "@mui/icons-material/ChatBubble";
 import Carousel from "@/app/components/Carousel";
@@ -19,7 +18,6 @@ import EditPostForm from "@/app/components/EditPostForm";
 import DeleteModal from "@/app/components/DeleteModal";
 import SendMessageModal from "@/app/components/SendMessageModal";
 import Toast from "@/app/components/Toast";
-import BackButton from "@/app/components/ui/BackButton";
 
 const conditionMap = {
   NEW: "New",
@@ -33,11 +31,9 @@ const conditionMap = {
   FOR_RECYCLE: "For Recycle",
 };
 
-export default function ItemDetailsPage() {
+export default function ItemDetails({ itemData }) {
   const router = useRouter();
-  const { id } = useParams();
-  const [openSendMessage, setOpenSendMessage] = useState(false);
-  const [itemData, setItemData] = useState(null);
+  const { setOpenSendMessage } = useOpenSendMessage();
   const [isEditMode, setIsEditMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
@@ -45,19 +41,6 @@ export default function ItemDetailsPage() {
   const isAuthor =
     session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
-
-  async function fetchPostDetails() {
-    try {
-      const response = await axios.get(`/api/posts/post?postId=${id}`);
-      setItemData(response.data);
-    } catch (error) {
-      console.error("Error fetching post details:", error);
-    }
-  }
-
-  useEffect(() => {
-    if (id) fetchPostDetails();
-  }, [id]);
 
   function handleDelete() {
     setIsOpen(false);
@@ -87,7 +70,6 @@ export default function ItemDetailsPage() {
 
   return (
     <div className="min-h-screen flex flex-col p-3 lg:px-40">
-      <BackButton />
       {isAuthor && (
         <StaggeredDropDown
           setIsOpen={setIsOpen}
@@ -203,12 +185,7 @@ export default function ItemDetailsPage() {
         setIsOpen={setIsOpen}
         onDelete={handleDelete}
       />
-      <SendMessageModal
-        data={itemData}
-        setOpenToast={setOpenToast}
-        openMessageDialog={openSendMessage}
-        setOpenMessageDialog={setOpenSendMessage}
-      />
+      <SendMessageModal data={itemData} setOpenToast={setOpenToast} />
       <Toast openToast={openToast} setOpenToast={setOpenToast} />
     </div>
   );

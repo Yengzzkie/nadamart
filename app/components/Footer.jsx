@@ -10,7 +10,6 @@ const Footer = () => {
         rel="noopener noreferrer"
       >
         <Image
-          aria-hidden
           src="/globe.svg"
           alt="Globe icon"
           width={16}
