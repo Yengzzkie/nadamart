@@ -7,6 +7,7 @@ import {
   motion,
 } from "framer-motion";
 import ItemDetails from "./ItemDetails";
+import CloseIcon from '@mui/icons-material/Close';
 
 export const DragCloseDrawerExample = ({ selectedPost, open, setOpen }) => {
 
@@ -59,7 +60,7 @@ export const DragCloseDrawer = ({ open, setOpen, children }) => {
             transition={{
               ease: "easeInOut",
             }}
-            className="absolute bottom-0 h-[90vh] w-full overflow-hidden bg-white"
+            className="absolute bottom-0 h-[100vh] w-full overflow-hidden bg-white"
             style={{ y }}
             drag="y"
             dragControls={controls}
@@ -78,17 +79,17 @@ export const DragCloseDrawer = ({ open, setOpen, children }) => {
               bottom: 0.5,
             }}
           >
-            <div className="absolute left-0 right-0 top-0 z-10 flex justify-center bg-white p-4">
+            <div className="absolute left-0 right-0 top-0 z-10 flex bg-white p-2 border-b-[1px] border-gray-200">
               <button
                 title="Drag to close"
                 onClick={() => handleClose()}
                 onPointerDown={(e) => {
                   controls.start(e);
                 }}
-                className="h-2 w-14 cursor-grab touch-none rounded-full bg-neutral-700 active:cursor-grabbing"
-              ></button>
+                className="h-auto w-auto p-1 lg:p-2 ml-auto mr-2 lg:mr-10 touch-none hover:shadow-lg shadow-md rounded-full bg-[var(--color-primary)] cursor-pointer"
+              ><CloseIcon /></button>
             </div>
-            <div className="relative z-0 h-full overflow-y-scroll p-1 pt-12">
+            <div className="relative z-0 h-full overflow-y-scroll p- pt-12">
               {children}
             </div>
           </motion.div>

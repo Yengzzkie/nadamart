@@ -9,12 +9,10 @@ import { useOpenSendMessage } from "@/stores/store";
 import CallIcon from "@mui/icons-material/Call";
 import ChatBubble from "@mui/icons-material/ChatBubble";
 import Carousel from "@/app/components/Carousel";
-import StaggeredDropDown from "@/app/components/StaggeredDropDown";
 import GoogleMap from "@/app/components/GoogleMap";
 import SkeletonLoader from "@/app/components/ui/SkeletonLoader";
 import Tag from "@/app/components/ui/Tag";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
-import EditPostForm from "@/app/components/EditPostForm";
 import DeleteModal from "@/app/components/DeleteModal";
 import SendMessageModal from "@/app/components/SendMessageModal";
 import Toast from "@/app/components/Toast";
@@ -34,30 +32,15 @@ const conditionMap = {
 export default function ItemDetails({ itemData }) {
   const router = useRouter();
   const { setOpenSendMessage } = useOpenSendMessage();
-  const [isEditMode, setIsEditMode] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const session = useSession();
-  const isAuthor =
-    session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
+  const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
   function handleDelete() {
     setIsOpen(false);
     router.push("/"); // Redirect to home page after deletion
-  }
-
-  if (isEditMode) {
-    return (
-      <div className="min-h-screen flex flex-col p-1 lg:px-40">
-        <StaggeredDropDown setIsEditMode={setIsEditMode} />
-        <EditPostForm
-          postData={itemData}
-          setIsEditMode={setIsEditMode}
-          fetchPostDetails={fetchPostDetails}
-        />
-      </div>
-    );
   }
 
   if (!itemData) {
@@ -69,13 +52,7 @@ export default function ItemDetails({ itemData }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col p-3 lg:px-40">
-      {isAuthor && (
-        <StaggeredDropDown
-          setIsOpen={setIsOpen}
-          setIsEditMode={setIsEditMode}
-        />
-      )}
+    <div className="min-h-screen flex flex-col p-3 pt-10 lg:px-40">
       <Toast />
       <Carousel itemData={itemData.image} />
 
@@ -130,20 +107,20 @@ export default function ItemDetails({ itemData }) {
       ) : (
         <div className="flex flex-col gap-3">
           {session?.status === "authenticated" ? (
-            <div className="flex flex-col gap-3">
-              <h4 className="text-xl font-semibold">Contact</h4>
+            <div className="flex gap-3 fixed bottom-0 left-0 right-0 bg-white lg:px-20 px-2 py-3 lg:py-6 border-t-[1px] border-gray-200 z-[9999] shadow-md">
+              {/* <h4 className="text-xl font-semibold">Contact</h4>
               <p className="text-gray-600">
                 If you have any questions, feel free to reach out to the owner.
-              </p>
+              </p> */}
               <a
                 href={`tel:${itemData.contact_number}`}
-                className="hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full py-2 px-8 transition"
+                className="flex-1 hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full py-2 px-8 transition"
               >
                 <CallIcon /> Call
               </a>
               <button
                 onClick={() => setOpenSendMessage(true)}
-                className="bg-[var(--color-primary)] text-[var(--color-primary-content)] hover:text-white px-4 py-2 rounded hover:bg-[var(--color-primary-content)] transition cursor-pointer"
+                className="flex-1 bg-[var(--color-primary)] text-[var(--color-primary-content)] hover:text-white px-4 py-2 rounded hover:bg-[var(--color-primary-content)] transition cursor-pointer text-nowrap"
               >
                 <ChatBubble className="inline mr-1" />
                 Send Message
@@ -160,10 +137,6 @@ export default function ItemDetails({ itemData }) {
           )}
         </div>
       )}
-
-      {/* Phone */}
-
-      <hr className="my-6" />
 
       {/* Map */}
       <h4 className="text-zinc-600 text-md">

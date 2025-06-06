@@ -50,6 +50,7 @@ export default function PostCard({ data, fetchPosts }) {
           component="img"
           image={data.image[0] || ""}
           alt={data.title}
+          loading="lazy"
         />
       {/* </Link> */}
 

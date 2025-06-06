@@ -13,7 +13,7 @@ const GoogleMap = ({ location }) => {
   const mapSrc = `https://www.google.com/maps/embed/v1/place?key=AIzaSyBZs6sZ3lFvNP5ogJPE8D3eOICTnBjaDZI&q=${query}`;
 
   return (
-    <div className="relative">
+    <div className="relative z-0">
       <h1 className="font-bold text-[var(--color-base-content)] text-lg lg:text-xl mt-4 mb-2">
         Map preview
       </h1>

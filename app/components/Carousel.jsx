@@ -62,7 +62,7 @@ export default function Carousel({ itemData }) {
       <div ref={sliderRef} className="keen-slider">
         {itemData.map((image, index) => ( // replace the index with item.id later on
           <div key={index} className="keen-slider__slide ">
-            <img onClick={() => {
+            <img loading="lazy" onClick={() => {
               setIsOpen(true);
               setSelectedImage(image);
             }} src={image} alt="" />
