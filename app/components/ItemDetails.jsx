@@ -52,7 +52,7 @@ export default function ItemDetails({ itemData }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col p-3 pt-10 lg:px-40">
+    <div className="min-h-screen flex flex-col p-3 pt-10 lg:px-40 pb-38">
       <Toast />
       <Carousel itemData={itemData.image} />
 
@@ -108,13 +108,9 @@ export default function ItemDetails({ itemData }) {
         <div className="flex flex-col gap-3">
           {session?.status === "authenticated" ? (
             <div className="flex gap-3 fixed bottom-0 left-0 right-0 bg-white lg:px-20 px-2 py-3 lg:py-6 border-[1px] border-gray-200 z-[9999] shadow-md">
-              {/* <h4 className="text-xl font-semibold">Contact</h4>
-              <p className="text-gray-600">
-                If you have any questions, feel free to reach out to the owner.
-              </p> */}
               <a
                 href={`tel:${itemData.contact_number}`}
-                className="flex-1 hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] bg-[var(--color-primary)] text-center w-full py-2 px-8 transition"
+                className="flex-1 hover:bg-[var(--color-primary-content)] hover:text-white rounded text-[var(--color-primary-content)] border-[1.8px] border-[var(--color-primary)] text-center w-full py-2 px-8 transition"
               >
                 <CallIcon /> Call
               </a>

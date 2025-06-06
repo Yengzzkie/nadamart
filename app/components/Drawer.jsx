@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 import {
@@ -8,19 +9,23 @@ import {
 } from "framer-motion";
 import ItemDetails from "./ItemDetails";
 import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from "next/navigation";
+import { Avatar } from "@mui/material";
 
 export const DragCloseDrawerExample = ({ selectedPost, open, setOpen }) => {
 
   return (
     <div>
-      <DragCloseDrawer open={open} setOpen={setOpen}>
+      <DragCloseDrawer selectedPost={selectedPost} open={open} setOpen={setOpen}>
         <ItemDetails itemData={selectedPost} />
       </DragCloseDrawer>
     </div>
   );
 };
 
-export const DragCloseDrawer = ({ open, setOpen, children }) => {
+export const DragCloseDrawer = ({ selectedPost, open, setOpen, children }) => {
+  console.log("selectedPost", selectedPost);
+  const router = useRouter();
   const [scope, animate] = useAnimate();
   const [drawerRef, { height }] = useMeasure();
 
@@ -80,6 +85,13 @@ export const DragCloseDrawer = ({ open, setOpen, children }) => {
             }}
           >
             <div className="sticky top-0 z-50 flex items-center bg-white p-2 border-b border-gray-200">
+              <div onClick={() => router.push(`/user/${selectedPost.author?.id}`)} className="flex items-center gap-2 ml-4 cursor-pointer">
+                <Avatar src={selectedPost.author?.avatar} alt={selectedPost.author?.name} />
+                <div className="flex flex-col">
+                  <h1 className="text-xl font-bold">{selectedPost.author?.name}</h1>
+                  <p className="text-xs lg:text-sm text-gray-500">Member since {new Date(selectedPost.author?.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" })}</p>
+                </div>
+              </div>
               <button
                 title="Drag to close"
                 onClick={handleClose}
