@@ -25,6 +25,10 @@ export default function InboxPage() {
   const [messages, setMessages] = useState([]);
   const [messageText, setMessageText] = useState("");
   const [loadingMessages, setLoadingMessages] = useState(false);
+  const otherParticipant = selectedConversation?.participants?.find(
+    (p) => p.user?.id !== currentUserId
+  );
+  const otherUserName = otherParticipant?.user?.name || "Deleted User";
 
   useEffect(() => {
     // Fetch conversations only when session is loaded
@@ -32,9 +36,7 @@ export default function InboxPage() {
 
     const fetchConversations = async () => {
       try {
-        const response = await axios.get(
-          `/api/conversations/user?userId=${currentUserId}`
-        );
+        const response = await axios.get(`/api/conversations/user?userId=${currentUserId}`);
         setConversations(response.data);
       } catch (err) {
         console.error("Failed to fetch conversations", err);
@@ -52,11 +54,15 @@ export default function InboxPage() {
     try {
       // Fetch updated messages and mark them as read
       await axios.put(`/api/conversations/${conversation.id}/messages`);
-      const response = await axios.get(`/api/conversations/${conversation.id}/messages`);
+      const response = await axios.get(
+        `/api/conversations/${conversation.id}/messages`
+      );
       setMessages(response.data);
 
       // Refresh the conversations to update read status (remove red dot)
-      const updatedConversations = await axios.get(`/api/conversations/user?userId=${currentUserId}`);
+      const updatedConversations = await axios.get(
+        `/api/conversations/user?userId=${currentUserId}`
+      );
       setConversations(updatedConversations.data);
     } catch (err) {
       console.error("Failed to fetch or update messages", err);
@@ -114,15 +120,12 @@ export default function InboxPage() {
                 />
                 <Box>
                   {/* unread message indicator */}
-                  <div className="absolute top-2 right-2">
-                    {conv.conversation?.messages?.[
-                      conv.conversation?.messages?.length - 1
-                    ].read ? null : ( // Indicating read messages
-                      <div className="bg-red-500 rounded-full w-1.5 h-1.5">
-                        {" "}
-                      </div> // Indicating unread messages
-                    )}
-                  </div>
+                  {conv.conversation?.messages?.length > 0 &&
+                  !conv.conversation?.messages?.[
+                    conv.conversation?.messages?.length - 1
+                  ]?.read ? (
+                    <div className="bg-red-500 rounded-full w-1.5 h-1.5"> </div>
+                  ) : null}
 
                   {/* other user's name */}
                   <Typography
@@ -130,7 +133,7 @@ export default function InboxPage() {
                     sx={{ fontSize: { xs: ".8rem", sm: "1rem" } }}
                     noWrap
                   >
-                    {otherUser?.user?.name}
+                    {otherUser?.user?.name || "Deleted User"}
                   </Typography>
 
                   {/* last message preview */}
@@ -172,11 +175,7 @@ export default function InboxPage() {
                   {/* other user's name */}
                   <h1 className="text-sm text-zinc-600">
                     Chatting with{" "}
-                    {
-                      selectedConversation.participants.find(
-                        (p) => p.user?.id !== currentUserId
-                      ).user?.name
-                    }
+                    {otherUserName}
                   </h1>
                 </div>
               </div>
