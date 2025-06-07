@@ -41,7 +41,7 @@ model Post {
   image          String[]
   location       Json
   authorId       String
-  author         User           @relation(fields: [authorId], references: [id])
+  author         User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
   comments       Comment[]
   conversations  Conversation[]
   createdAt      DateTime       @default(now())
@@ -54,7 +54,7 @@ model Comment {
   postId    String
   post      Post     @relation(fields: [postId], references: [id])
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -73,7 +73,7 @@ model ConversationParticipant {
   id             String       @id @default(uuid())
   userId         String
   conversationId String
-  user           User         @relation(fields: [userId], references: [id])
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   conversation   Conversation @relation(fields: [conversationId], references: [id])
 
   @@unique([userId, conversationId]) // Prevent duplicate entries
@@ -84,7 +84,7 @@ model Message {
   content        String
   senderId       String
   conversationId String
-  sender         User         @relation(fields: [senderId], references: [id])
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
   conversation   Conversation @relation(fields: [conversationId], references: [id])
   read           Boolean      @default(false)
   createdAt      DateTime     @default(now())
