@@ -17,7 +17,9 @@ export default async function RootLayout({ children }) {
       <body className={`lg:px-40`}>
         <Provider>
           <Navigation />
-          <Suspense fallback={<Loader />}>{children}</Suspense>
+          <Suspense fallback={<Loader />}>
+            <div className="flex-1">{children}</div>
+          </Suspense>
           <Footer />
         </Provider>
       </body>

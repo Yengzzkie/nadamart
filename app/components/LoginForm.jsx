@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react"
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -49,8 +49,8 @@ export default function LoginForm() {
   return (
     <div className="max-w-xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input lg:bg-white">
       <h2 className="text-center font-bold text-xl text-neutral-800">
-        <span className="text-[var(--secondary-dark)] text-3xl tracking-tighter">NadaMart</span>
-        <span className="text-yellow-500 text-xs font-thin">V3</span>
+        <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">NadaMart.</span>
+        <span className="text-[var(--color-primary-content)] text-sm font-thin">ca</span>
       </h2>
       <p className="text-sm max-w-sm mt-2 text-[var(--color-base-content)]">
         Login to your account to access full features

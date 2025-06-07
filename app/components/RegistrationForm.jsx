@@ -203,7 +203,7 @@ const RegistrationForm = () => {
   }
 
   return (
-    <div className="min-h-fit max-w-xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-[var(--color-base-100)] border-[var(--color-primary)] border-2">
+    <div className="min-h-fit max-w-xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-[var(--color-base-100)] shadow-lg mt-2">
       <h2 className="text-center font-bold text-xl text-[var(--color-base-content)]">
         <span className="text-[var(--color-primary-content)] text-3xl tracking-tighter">
           NadaMart.
