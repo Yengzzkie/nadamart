@@ -374,6 +374,7 @@ const RegistrationForm = () => {
           {loading ? <Loader /> : "Sign up"}
           <BottomGradient />
         </button>
+        <p className="text-red-500 italic">{error}</p>
 
         <div className="bg-gradient-to-r from-transparent via-neutral-700 to-transparent my-8 h-[1px] w-full" />
 
