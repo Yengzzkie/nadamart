@@ -25,6 +25,11 @@ export default function AvatarWithUserDropdown({ userData }) {
   // profile menu component
   const profileMenuItems = [
     {
+      label: "Create a Post",
+      icon: PencilSquareIcon,
+      link: `/post/${userData?.id}`,
+    },
+    {
       label: "My Postings",
       icon: UserCircleIcon,
       link: `/user/${userData?.id}`,
@@ -38,11 +43,6 @@ export default function AvatarWithUserDropdown({ userData }) {
       label: "Inbox",
       icon: InboxArrowDownIcon,
       link: "/inbox",
-    },
-    {
-      label: "Post",
-      icon: PencilSquareIcon,
-      link: `/post/${userData?.id}`,
     },
     {
       label: "Sign Out",

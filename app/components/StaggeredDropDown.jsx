@@ -32,7 +32,7 @@ import {
           <Option setOpen={setOpen} setIsEdit={setIsEditMode} Icon={FiEdit} text="Edit" />
           <Option setOpen={setOpen} Icon={FiPlusSquare} text="Duplicate" />
           <Option setOpen={setOpen} Icon={FiShare} text="Share" />
-          <Option setOpen={setOpen} setOpenModal={setIsOpen} Icon={FiTrash} text="Remove" />
+          <Option setOpen={setOpen} setOpenModal={setIsOpen} Icon={FiTrash} text="Delete" />
         </motion.ul>
       </motion.div>
     );

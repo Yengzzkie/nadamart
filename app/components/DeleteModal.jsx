@@ -16,8 +16,8 @@ export default function DeleteModal({ data, isOpen, setIsOpen, onDelete }) {
 
   async function deletePost() {
     try {
-      await deleteImages(data.image, data.authorId);
-      await axios.delete(`/api/posts/post?postId=${data?.id}`);
+      await deleteImages(data.image, data.authorId); // delete the images from the database first
+      await axios.delete(`/api/posts/post?postId=${data?.id}`); // then delete the post
     } catch (error) {
       console.error({ error });
     } finally {

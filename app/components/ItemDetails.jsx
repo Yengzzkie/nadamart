@@ -13,7 +13,6 @@ import GoogleMap from "@/app/components/GoogleMap";
 import SkeletonLoader from "@/app/components/ui/SkeletonLoader";
 import Tag from "@/app/components/ui/Tag";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
-import DeleteModal from "@/app/components/DeleteModal";
 import SendMessageModal from "@/app/components/SendMessageModal";
 import Toast from "@/app/components/Toast";
 
@@ -53,7 +52,6 @@ export default function ItemDetails({ itemData }) {
 
   return (
     <div className="min-h-screen flex flex-col p-3 pt-10 lg:px-40 pb-38">
-      <Toast />
       <Carousel itemData={itemData.image} />
 
       {/* Title */}
@@ -145,15 +143,9 @@ export default function ItemDetails({ itemData }) {
       {/* Author avatar card */}
       <div>
         <h4 className="text-xl font-semibold mb-2">Listed by:</h4>
-        <UserAvatarCard userData={itemData?.author} />
+        <UserAvatarCard userData={itemData.author} />
       </div>
 
-      <DeleteModal
-        data={itemData}
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        onDelete={handleDelete}
-      />
       <SendMessageModal data={itemData} setOpenToast={setOpenToast} />
       <Toast openToast={openToast} setOpenToast={setOpenToast} />
     </div>

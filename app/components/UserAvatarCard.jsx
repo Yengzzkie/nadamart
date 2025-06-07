@@ -31,7 +31,7 @@ export default function UserAvatarCard({ userData }) {
       <div className="mt-6 border-t pt-4">
         <h2 className="text-lg font-semibold mb-2">Listings</h2>
         <p className="text-sm text-gray-700">
-          {userData?._count?.posts} active listing{userData?._count?.posts > 1 ? "s" : ""}
+          {userData?._count?.posts || userData?.posts?.length} active listing{userData?._count?.posts || userData?.posts?.length > 1 ? "s" : ""}
         </p>
       </div>
     </div>

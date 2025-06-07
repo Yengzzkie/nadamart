@@ -8,6 +8,7 @@ import Link from "next/link";
 import axios from "axios";
 import BackButton from "@/app/components/ui/BackButton";
 import UserAvatarCard from "@/app/components/UserAvatarCard";
+import Broom from "@/public/images/broom.png";
 
 export default function ProfilePage() {
   const { userId } = useParams();
@@ -29,9 +30,7 @@ export default function ProfilePage() {
   }, [userId]);
 
   if (!user) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   return (
@@ -39,20 +38,29 @@ export default function ProfilePage() {
       <BackButton />
       <div className="flex flex-col lg:flex-row gap-4">
         {/* USER AVATAR */}
-        <div className="lg:sticky top-40 w-full lg:w-3xl lg:max-w-3xl max-h-fit mx-auto bg-white shadow-md lg:rounded-lg">
+        <div className="flex-1 lg:sticky top-40 w-full lg:w-3xl lg:max-w-3xl max-h-fit mx-auto bg-white shadow-md lg:rounded-lg">
           <UserAvatarCard userData={user} />
         </div>
         {/* LISTING CARDS */}
-        <div>
-          {user?.posts?.map((post) => (
-            <Link
-              href={`/item-details/${post.id}`}
-              key={post.id}
-              className="block"
-            >
-              <ListingCard postData={post} />
-            </Link>
-          ))}
+        <div className="flex-1">
+          {user?.posts.length > 0 ? (
+            user?.posts?.map((post) => (
+              <Link
+                href={`/item-details/${post.id}`}
+                key={post.id}
+                className="block"
+              >
+                <ListingCard postData={post} />
+              </Link>
+            ))
+          ) : (
+            <div className="flex items-center justify-center">
+              <img className="w-[30%]" src={Broom.src} alt="broom" />
+              <h1 className="text-zinc-400 text-lg italic m-4">
+                Nothing to see here
+              </h1>
+            </div>
+          )}
         </div>
       </div>
     </div>

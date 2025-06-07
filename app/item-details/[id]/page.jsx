@@ -60,7 +60,7 @@ export default function ItemDetailsPage() {
 
   function handleDelete() {
     setIsOpen(false);
-    router.push("/"); // Redirect to home page after deletion
+    router.back(); // Redirect to home page after deletion
   }
 
   if (isEditMode) {
