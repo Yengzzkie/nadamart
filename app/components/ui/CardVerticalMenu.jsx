@@ -5,7 +5,6 @@ import { useSession } from "next-auth/react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
 export default function CardVerticalMenu({ data, setIsOpen }) {
   const session = useSession();

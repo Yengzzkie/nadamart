@@ -35,8 +35,6 @@ export default function InboxPage() {
         const response = await axios.get(
           `/api/conversations/user?userId=${currentUserId}`
         );
-        console.log(response.data);
-
         setConversations(response.data);
       } catch (err) {
         console.error("Failed to fetch conversations", err);
@@ -50,20 +48,15 @@ export default function InboxPage() {
   const loadMessages = async (conversation) => {
     setSelectedConversation(conversation);
     setLoadingMessages(true);
-    console.log(selectedConversation);
 
     try {
       // Fetch updated messages and mark them as read
       await axios.put(`/api/conversations/${conversation.id}/messages`);
-      const response = await axios.get(
-        `/api/conversations/${conversation.id}/messages`
-      );
+      const response = await axios.get(`/api/conversations/${conversation.id}/messages`);
       setMessages(response.data);
 
       // Refresh the conversations to update read status (remove red dot)
-      const updatedConversations = await axios.get(
-        `/api/conversations/user?userId=${currentUserId}`
-      );
+      const updatedConversations = await axios.get(`/api/conversations/user?userId=${currentUserId}`);
       setConversations(updatedConversations.data);
     } catch (err) {
       console.error("Failed to fetch or update messages", err);

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { DragCloseDrawerExample } from "./Drawer";
 import Pagination from "@mui/material/Pagination";
 import CardLoader from "./ui/CardLoader";
 import PostCard from "./PostCard";
 import axios from "axios";
-import { DragCloseDrawerExample } from "./Drawer";
 
 const PostsGrid = () => {
   const [items, setItems] = useState([]);
@@ -59,13 +59,16 @@ const PostsGrid = () => {
                     new Date(a.createdAt).getTime()
                 )
                 .map((item) => (
-                  <div key={item.id} onClick={() => handleOpenDrawer(item)} className="cursor-pointer">
+                  <div
+                    key={item.id}
+                    onClick={() => handleOpenDrawer(item)}
+                    className="cursor-pointer"
+                  >
                     <PostCard fetchPosts={fetchPosts} data={item} />
                   </div>
                 ))}
         </div>
 
-        {/* Move the drawer here */}
         <DragCloseDrawerExample
           selectedPost={selectedPost}
           open={openDrawer}

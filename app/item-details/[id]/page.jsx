@@ -42,8 +42,7 @@ export default function ItemDetailsPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [openToast, setOpenToast] = useState(false);
   const session = useSession();
-  const isAuthor =
-    session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
+  const isAuthor = session?.data?.user?.id && itemData?.author?.id === session?.data?.user?.id;
   const itemCondition = conditionMap[itemData?.condition] || "Unknown";
 
   async function fetchPostDetails() {

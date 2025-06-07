@@ -12,9 +12,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           id: user.id,
           name: user.name,
           email: user.email,
-        //   location: user.location,
-        //   isVerified: user.isVerified,
-        //   role: user.role,
         };
       }
 
@@ -29,9 +26,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Assign updated user data from the token to the session
       session.user.name = token.name;
       session.user.id = token.id;
-    //   session.user.location = token.location;
-    //   session.user.isVerified = token.isVerified;
-    //   session.user.role = token.role;
 
       return session;
     },
@@ -60,7 +54,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
-        const isMatch = await compare(credentials.password, user.password);
+        const isMatch = compare(credentials.password, user.password);
 
         if (!isMatch) {
           console.log("Incorrect password");
@@ -71,9 +65,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: user.name,
           email: user.email,
           id: user.id,
-        //   location: user.location,
-        //   isVerified: user.isVerified,
-        //   role: user.role,
         };
       },
     }),

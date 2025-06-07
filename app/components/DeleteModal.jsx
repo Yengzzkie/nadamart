@@ -1,6 +1,5 @@
 import * as React from "react";
 import { deleteImages } from "@/lib/deleteImages";
-import { useRouter } from "next/navigation";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -10,7 +9,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function DeleteModal({ data, isOpen, setIsOpen, onDelete }) {
-  const router = useRouter();
 
   const handleClose = () => {
     setIsOpen(false);

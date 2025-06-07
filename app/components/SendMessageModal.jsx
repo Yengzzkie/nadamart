@@ -12,10 +12,10 @@ import { useOpenSendMessage } from "@/stores/store";
 
 export default function SendMessageModal({ data, setOpenToast, openMessageDialog, setOpenMessageDialog }) {
   const session = useSession();
+  const { openSendMessage, setOpenSendMessage } = useOpenSendMessage();
   const [message, setMessage] = React.useState("");
   const currentUserId = session?.data?.user?.id;
   const authorId = data?.author?.id;
-  const { openSendMessage, setOpenSendMessage } = useOpenSendMessage();
 
   const handleClose = () => {
     setOpenSendMessage(false); // global state handler for sendMessageModal, used in DragCloseDrawer

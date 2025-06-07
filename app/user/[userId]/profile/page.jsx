@@ -10,12 +10,10 @@ import TextField from "@mui/material/TextField";
 const page = () => {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
-  const [isEdit, setIsEdit] = useState(false);
 
   async function fetchUserData() {
     try {
       const response = await axios.get(`/api/users/user?userId=${userId}`);
-      console.log("User data:", response.data);
       setUser(response.data);
     } catch (error) {
       console.error("Error fetching user data:", error);

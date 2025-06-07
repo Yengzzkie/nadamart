@@ -1,10 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useStoreUserData, usePostSearchResult, useSearchQuery } from "@/stores/store";
 import axios from "axios";
 import Link from "next/link";
-import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
@@ -17,8 +18,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AvatarWithUserDropdown from "./AvatarWithUserDropdown";
 import Loader from "./ui/Loader";
-import { useStoreUserData, usePostSearchResult, useSearchQuery } from "@/stores/store";
-import { useRouter } from "next/navigation";
 import SearchBar from "./SearchBar";
 
 const pages = [

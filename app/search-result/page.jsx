@@ -6,7 +6,6 @@ import Link from "next/link";
 const page = () => {
   const { postSearchResult } = usePostSearchResult();
   const { searchQuery } = useSearchQuery();
-  console.log("postSearchResult", postSearchResult);
 
   return (
     <div className="flex flex-col">

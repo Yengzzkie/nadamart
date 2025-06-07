@@ -25,7 +25,6 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 const Page = () => {
   const { userId } = useParams();
   const { imgFiles } = useFileUploadStore();
-  const session = useSession();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [location, setLocation] = useState({
@@ -39,6 +38,7 @@ const Page = () => {
   const [tags, setTags] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const session = useSession();
 
   const uploaderRef = useRef(null);
 
