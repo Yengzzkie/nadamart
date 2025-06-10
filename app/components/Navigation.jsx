@@ -211,7 +211,7 @@ function Navigation() {
           </Typography>
 
           {/* Desktop Pages */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex", justifyContent: "center" } }}>
             {isLoggedIn &&
               pages.map((page) => (
                 <Link key={page.text} href={page.link} passHref>
@@ -221,7 +221,7 @@ function Navigation() {
                       my: 2,
                       color: "var(--color-base-content)",
                       display: "block",
-                      fontWeight: "bold",
+                      fontWeight: "400",
                       "&:hover": { textDecoration: "underline" },
                     }}
                   >

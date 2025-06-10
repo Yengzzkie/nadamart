@@ -165,7 +165,6 @@ const EditPostForm = ({ postData, setIsEditMode, fetchPostDetails }) => {
                 onChange={(e) =>
                   setLocation({ ...location, postal_code: e.target.value })
                 }
-                required
               />
             </div>
           </div>

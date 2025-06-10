@@ -24,10 +24,7 @@ export default function PostCard({ data, fetchPosts }) {
       sx={{
         backgroundColor: "var(--color-base-100)",
         height: "100%",
-        border: {
-          xs: ".5px solid var(--color-base-300)",
-          sm: "1px solid var(--color-base-300)",
-        },
+        border: { xs: ".15px solid var(--color-base-300)", md: "1px solid var(--color-base-300)" },
         borderRadius: { xs: 0, lg: 3 },
         boxShadow: "0",
         ":hover": { boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)" },
@@ -69,7 +66,7 @@ export default function PostCard({ data, fetchPosts }) {
       />
 
       {/* DESCRIPTION SECTION */}
-      <CardContent className="lg:block !p-2 lg:p-6">
+      <CardContent className="lg:block !p-2 lg:!p-4">
         <Typography
           variant="h6"
           sx={{ fontWeight: "bold", color: "text.primary" }}
@@ -78,9 +75,9 @@ export default function PostCard({ data, fetchPosts }) {
           {data.title}
         </Typography>
 
-        <div className="flex items-start gap-.5 my-1 lg:my-2 ml-[-5px]">
+        <div className="flex items-start gap-.5 mb-1.5 lg:mb-2 ml-[-3px]">
           <LocationOnIcon
-            sx={{ fontSize: "18px", color: "var(--color-primary-content)" }}
+            sx={{ fontSize: "16px", color: "gray" }}
           />
           <Typography
             variant="body2"
